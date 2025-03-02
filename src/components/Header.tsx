@@ -18,10 +18,10 @@ const Header = () => {
   return (
     <button className="flex mt-4 ml-4 items-center" onClick={handleGoHome}>
       <img
-        src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2kxY2N4eW55aG43aW11czd1bjdncDJ4dWhxYXBtcXl0cHFkanJ4ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1v2lXOfPBqKygjlkCM/giphy.gif"
+        src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm1yc3kwNDk5cDNlcDlpNWExZTF5YXY0bDRnem1kd2Ztb3YzZjFtYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/n4793Frdg4tFVC7jWI/giphy.gif"
         className="w-32 h-32 object-contain"
       />
-      <div className="mb-4">
+      <div className="mb-4 ml-4">
         <div className={`${quantico.className} text-3xl`}>jojo.wow</div>
       </div>
     </button>

@@ -22,7 +22,7 @@ const PhotoEssaySection = () => {
 
   return (
     <div>
-      <div className={`${quantico.className} text-lg`}>Photo Essays</div>{" "}
+      <div className={`${quantico.className} text-lg`}>photo essays</div>{" "}
       <div className="ml-6">
         {photoEssays?.map((a) => (
           <Link

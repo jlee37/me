@@ -31,12 +31,19 @@ export default async function PhotoEssayPage({
 
   const fields = essay.fields as IPhotoEssayFields;
 
-  const { title, coverImage, content, photos } = fields;
+  const { title, coverImage, content, photos, date } = fields;
+
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
-    <div className="pt-32 pb-32 pr-12">
+    <div className="pt-14 pb-32 pr-12">
       <div className="border-solid border-[1px] border-white rounded-lg p-12">
-        <h1 className="text-2xl mb-8">{title}</h1>
+        <h1 className="text-2xl mb-2">{title}</h1>
+        <h2 className="text-sm mb-8">{formattedDate}</h2>
         {coverImage && (
           <img
             src={coverImage.fields.file.url}
