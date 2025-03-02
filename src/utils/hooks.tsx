@@ -1,14 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { EntryCollection } from "contentful";
+import { EntryCollection, Entry } from "contentful";
 import client from "../../lib/contentful";
-
-// import client from "../../../../lib/contentful"; // Adjust import if needed
+import { IPhotoEssay } from "../../types/contentful";
 
 // Custom hook to fetch data from Contentful
-export function useContentful<T>(contentType: string) {
-  const [data, setData] = useState<any>(null);
+export function usePhotoEssays<T>() {
+  const [data, setData] = useState(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -16,8 +15,8 @@ export function useContentful<T>(contentType: string) {
     const fetchContent = async () => {
       try {
         setLoading(true);
-        const response = await client.getEntries<T>({
-          content_type: contentType,
+        const response = await client.getEntries({
+          content_type: "photoEssay",
         });
         setData(response.items);
       } catch (err) {
@@ -28,7 +27,7 @@ export function useContentful<T>(contentType: string) {
     };
 
     fetchContent();
-  }, [contentType]);
+  }, []);
 
   return { data, error, loading };
 }

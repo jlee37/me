@@ -1,6 +1,6 @@
 "use client";
 
-import { useContentful } from "@/utils/hooks";
+import { usePhotoEssays } from "@/utils/hooks";
 import { Quantico } from "next/font/google";
 import Link from "next/link";
 
@@ -18,7 +18,7 @@ const Sidebar = () => {
 };
 
 const PhotoEssaySection = () => {
-  const { data: photoEssays } = useContentful("photoEssay");
+  const { data: photoEssays } = usePhotoEssays();
 
   return (
     <div>
