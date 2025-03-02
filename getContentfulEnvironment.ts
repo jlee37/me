@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 import contentfulManagement from "contentful-management"
+import { strict as assert } from "assert"
 
-
-dotenv.config({ path: '.env.local' });import { strict as assert } from "assert"
+dotenv.config({ path: '.env.local' })
 const { CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN, CONTENTFUL_SPACE_ID, CONTENTFUL_ENVIRONMENT } = process.env
 
 

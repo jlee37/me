@@ -7,16 +7,16 @@ const quantico = Quantico({
 
 const Sidebar = () => {
   return (
-    <div className="ml-8 mt-12">
-      <SidebarSection />
+    <div className="ml-8 mt-8">
+      <PhotoEssaySection />
     </div>
   );
 };
 
-const SidebarSection = () => {
+const PhotoEssaySection = () => {
   return (
     <div>
-      <SectionTitle />
+      <div className={`${quantico.className} text-lg`}>Photo Essays</div>{" "}
       <div className="ml-6">
         <div className="underline">Blah 1 and something else</div>
         <div className="underline">Blah 2</div>
@@ -24,10 +24,6 @@ const SidebarSection = () => {
       </div>
     </div>
   );
-};
-
-const SectionTitle = () => {
-  return <div className={`${quantico.className} text-lg`}>Photo Essays</div>;
 };
 
 export default Sidebar;
