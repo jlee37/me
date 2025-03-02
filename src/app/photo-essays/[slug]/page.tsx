@@ -62,13 +62,13 @@ export default async function PhotoEssayPage(props: {
               const description = (entry.fields?.description ||
                 "No description") as string;
               return (
-                <div key={index} className="mb-12">
+                <div key={index} className="mb-12  w-[600px]">
                   <img
                     src={url}
-                    className="h-[400px] w-[600px] object-contain"
-                    alt={description} // Use description as alt text
+                    className="h-[400px] object-contain rounded-md"
+                    alt={description}
                   />
-                  <p className="mt-2">{description}</p>
+                  <p className="mt-3">{description}</p>
                 </div>
               );
             })}
