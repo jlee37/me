@@ -17,12 +17,11 @@ async function getPhotoEssay(slug: string) {
   return res.items[0];
 }
 
-// Dynamic Page Component
-export default async function PhotoEssayPage({
-  params,
-}: {
+interface PhotoEssayPageProps {
   params: { slug: string };
-}) {
+}
+
+export default async function PhotoEssayPage({ params }: PhotoEssayPageProps) {
   const essay = await getPhotoEssay(params.slug);
 
   if (!essay || !essay.fields) {
@@ -30,7 +29,6 @@ export default async function PhotoEssayPage({
   }
 
   const fields = essay.fields as IPhotoEssayFields;
-
   const { title, coverImage, content, photos, date } = fields;
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
