@@ -8,7 +8,7 @@ import client from "../../lib/contentful";
 
 // Custom hook to fetch data from Contentful
 export function useContentful<T>(contentType: string) {
-  const [data, setData] = useState<EntryCollection<T> | null>(null);
+  const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -19,7 +19,7 @@ export function useContentful<T>(contentType: string) {
         const response = await client.getEntries<T>({
           content_type: contentType,
         });
-        setData(response);
+        setData(response.items);
       } catch (err) {
         setError("Failed to fetch content");
       } finally {
