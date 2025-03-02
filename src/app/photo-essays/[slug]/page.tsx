@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
-import client from "../../../../lib/contentful"; // Adjust import if needed
+import client from "../../../../lib/contentful";
 import { IPhotoEssayFields } from "../../../../types/contentful";
+import { Asset } from "contentful";
 
 // Fetch a specific photo essay based on the slug
 async function getPhotoEssay(slug: string) {
@@ -17,19 +18,27 @@ async function getPhotoEssay(slug: string) {
   return res.items[0];
 }
 
-interface PhotoEssayPageProps {
-  params: { slug: string };
-}
+type PhotoEssayPageProps = Promise<{
+  slug: string;
+}>;
 
-export default async function PhotoEssayPage({ params }: PhotoEssayPageProps) {
-  const essay = await getPhotoEssay(params.slug);
+export default async function PhotoEssayPage(props: {
+  params: PhotoEssayPageProps;
+}) {
+  const { slug } = await props.params;
+
+  const essay = await getPhotoEssay(slug);
 
   if (!essay || !essay.fields) {
     notFound(); // Automatically shows 404 page
   }
 
   const fields = essay.fields as IPhotoEssayFields;
-  const { title, coverImage, content, photos, date } = fields;
+  const { title, photos, date } = fields;
+
+  if (!title || !photos || !date) {
+    return null;
+  }
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -42,25 +51,27 @@ export default async function PhotoEssayPage({ params }: PhotoEssayPageProps) {
       <div className="border-solid border-[1px] border-white rounded-lg p-12">
         <h1 className="text-2xl mb-2">{title}</h1>
         <h2 className="text-sm mb-8">{formattedDate}</h2>
-        {coverImage && (
-          <img
-            src={coverImage.fields.file.url}
-            alt={title}
-            style={{ maxWidth: "100%" }}
-          />
-        )}
-        <div>{content}</div>
         <div>
-          {photos?.map((entry: any, index: number) => (
-            <div key={index} className="mb-12">
-              <img
-                src={entry.fields.file.url}
-                alt={entry.fields.caption || `Image ${index + 1}`}
-                className="h-[400px] w-[600px] object-contain"
-              />
-              <p className="mt-2">{entry.fields.description}</p>
-            </div>
-          ))}
+          {photos
+            ?.filter(
+              (entry) =>
+                !!entry?.fields?.file?.url && !!entry.fields?.description
+            )
+            ?.map((entry: Asset, index: number) => {
+              const url = entry.fields?.file?.url as string;
+              const description = (entry.fields?.description ||
+                "No description") as string;
+              return (
+                <div key={index} className="mb-12">
+                  <img
+                    src={url}
+                    className="h-[400px] w-[600px] object-contain"
+                    alt={description} // Use description as alt text
+                  />
+                  <p className="mt-2">{description}</p>
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
