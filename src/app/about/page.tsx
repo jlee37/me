@@ -1,5 +1,4 @@
 import ContentPageWrapper from "@/components/ContentPageWrapper";
-import Link from "next/link";
 
 export default function AboutPage() {
   return (
@@ -12,7 +11,7 @@ export default function AboutPage() {
       <Link></Link>
       <Link></Link> */}
       <p>
-        Each one is basically a little bit of space carved out in the internet.
+        {`Each one is basically a little bit of space carved out in the internet.
         They're places to visit, to explore, even to rest. Some of them are even
         little communities unto themselves; this one's got a message board where
         visitors can leave notes for the next person to find. But regardless of
@@ -25,11 +24,11 @@ export default function AboutPage() {
         running the whole thing can only live for so long. And there's the
         heat-death of the universe, to boot. So one wonders: is it all for
         nothing! All that dead space, just to turn , an infinity of abandoned
-        shopping malls?
+        shopping malls?`}
       </p>
       <br />
       <p>
-        Well, obviously not. Since I was very little I've had this idea of
+        {`Well, obviously not. Since I was very little I've had this idea of
         myself as being not one person, but instead a collection of countless
         me's. Because in every moment I really am a different person, all the
         way down to the chemical level– the me who spewed out this big blob of
@@ -44,11 +43,11 @@ export default function AboutPage() {
         a year it's taking me to keep this URL, and some other Jonny Lee will
         come swooping in to take it, the son of a bitch. I guess I should root
         for him, though; if I'm to have a replacement, I can only hope he'll be
-        cooler than I am. Hopefully he will be a sex icon of some kind.
+        cooler than I am. Hopefully he will be a sex icon of some kind.`}
       </p>
       <br />
       <p>
-        So, then, who's this website for? That's an important question to ask.
+        {`So, then, who's this website for? That's an important question to ask.
         The answer is easy: it's for you! You, reading this, wherever and
         whenever you happen to be, whether you're a good friend of mine or a
         future version of me looking back and cringing; this is all for you! It
@@ -62,7 +61,7 @@ export default function AboutPage() {
         important to me, so I don't lose them. Some things I've seen, some
         thoughts I've had, and some people I've been. It's my own sort of
         Neocity. So, to wrap this all up, a message for you, for you reading
-        this, wherever and whenever you are..!
+        this, wherever and whenever you are..!`}
       </p>
       <br />
       <p>Hey, here I am! Here this is!</p>
