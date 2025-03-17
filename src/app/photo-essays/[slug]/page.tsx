@@ -46,8 +46,8 @@ export default async function PhotoEssayPage(props: {
   });
 
   return (
-    <div className="pt-14 pb-32 px-4 md:px-12">
-      <div className="border border-white rounded-lg p-6 md:p-12 max-w-3xl mx-auto">
+    <div className="pt-14 pb-32 px-4 md:px-12 md:mr-20">
+      <div className="border border-white rounded-lg p-6 md:p-12 mx-auto mb-16">
         <h1 className="text-xl md:text-2xl mb-2">{title}</h1>
         <h2 className="text-sm mb-6 md:mb-8">{formattedDate}</h2>
         {opener && <p className="mb-6 md:mb-8 whitespace-pre-line">{opener}</p>}
