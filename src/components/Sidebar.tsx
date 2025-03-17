@@ -23,7 +23,8 @@ const PhotoEssaySection = () => {
   const sortedEssays = photoEssays
     ? [...photoEssays].sort(
         (a, b) =>
-          new Date(b.fields.date).getTime() - new Date(a.fields.date).getTime()
+          new Date(b?.fields?.date ?? 0).getTime() -
+          new Date(a?.fields?.date ?? 0).getTime()
       )
     : [];
 

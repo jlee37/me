@@ -40,8 +40,6 @@ export default async function PhotoEssayPage(props: {
     return null;
   }
 
-  console.log("JLEE opener", opener);
-
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
@@ -53,7 +51,7 @@ export default async function PhotoEssayPage(props: {
       <div className="border-solid border-[1px] border-white rounded-lg p-12">
         <h1 className="text-2xl mb-2">{title}</h1>
         <h2 className="text-sm mb-8">{formattedDate}</h2>
-        {opener && <div className="mb-8">{opener}</div>}
+        {opener && <div className="mb-8 w-[600px]">{opener}</div>}
         <div>
           {photos
             ?.filter((entry) => !!entry?.fields?.file?.url)
@@ -67,7 +65,9 @@ export default async function PhotoEssayPage(props: {
                     className="h-[400px] object-contain rounded-md"
                     alt={description}
                   />
-                  {description && <p className="mt-3">{description}</p>}
+                  {description && (
+                    <p className="mt-3 whitespace-pre-line">{description}</p>
+                  )}
                 </div>
               );
             })}
