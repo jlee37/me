@@ -10,7 +10,7 @@ const quantico = Quantico({
 });
 
 export const metadata: Metadata = {
-  title: "Jonny",
+  title: "A place belonging to Jonny",
   description: "Yeehaw",
 };
 
