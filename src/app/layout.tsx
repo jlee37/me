@@ -10,8 +10,26 @@ const quantico = Quantico({
 });
 
 export const metadata: Metadata = {
-  title: "A place belonging to Jonny",
+  title: "jonny.lee", // Browser tab label
   description: "Yeehaw",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
+  openGraph: {
+    title: "A place belonging to Jonny", // iMessage/social preview title
+    description: "Yeehaw",
+    url: "https://jonnylee.net",
+    // siteName: "jonny.lee",
+    // images: [
+    //   {
+    //     url: "/og-image.png", // Optional but helpful
+    //     width: 1200,
+    //     height: 630,
+    //     alt: "Alt text",
+    //   },
+    // ],
+  },
 };
 
 export default function RootLayout({
