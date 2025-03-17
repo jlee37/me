@@ -77,13 +77,11 @@ const GifCycler: React.FC<GifCyclerProps> = () => {
     return () => clearInterval(timer);
   }, [index]); // Dependency array should track index to adjust the interval
 
-  console.log("JLEE index", index);
-
   return (
     <img
       src={GIFS[index].url}
       alt="Cycling GIF"
-      className="w-[90%] h-[90%] object-cover rounded-lg shadow-lg"
+      className="w-[100%] h-[40%] md:h-[90%] object-cover rounded-lg shadow-lg"
     />
   );
 };

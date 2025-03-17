@@ -22,12 +22,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${quantico.className} antialiased`}>
-        <div className="flex h-screen">
-          <div className="mr-16">
+        <div className="flex flex-col md:flex-row h-screen">
+          {/* Header always on top */}
+          <div className="flex-shrink-0">
             <Header />
+          </div>
+
+          {/* Sidebar: visible only on md+ screens */}
+          <div className="hidden md:block mr-16">
             <Sidebar />
           </div>
-          <main className="flex-1 overflow-y-auto h-screen">{children}</main>
+
+          {/* Main Content */}
+          <main className="flex-1 overflow-y-auto h-full p-4">{children}</main>
         </div>
       </body>
     </html>
