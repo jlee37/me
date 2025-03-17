@@ -18,8 +18,8 @@ const Header = () => {
   return (
     <button className="flex mt-4 ml-4 items-center" onClick={handleGoHome}>
       <img
-        src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm1yc3kwNDk5cDNlcDlpNWExZTF5YXY0bDRnem1kd2Ztb3YzZjFtYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/n4793Frdg4tFVC7jWI/giphy.gif"
-        className="w-32 h-32 object-contain"
+        src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDByeGFpdWR4ZGtxcmJ3MjAwbTh3ZWM5bWNidmo2bWdjb2t4MHo1ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vxW0QlzKz5StSY3Wjg/giphy.gif"
+        className="w-28 h-28 object-contain"
       />
       <div className="mb-4 ml-4">
         <div className={`${quantico.className} text-3xl`}>jojo.wow</div>

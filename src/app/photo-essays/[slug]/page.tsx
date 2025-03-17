@@ -34,11 +34,13 @@ export default async function PhotoEssayPage(props: {
   }
 
   const fields = essay.fields as IPhotoEssayFields;
-  const { title, photos, date } = fields;
+  const { title, photos, date, opener } = fields;
 
   if (!title || !photos || !date) {
     return null;
   }
+
+  console.log("JLEE opener", opener);
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -51,16 +53,13 @@ export default async function PhotoEssayPage(props: {
       <div className="border-solid border-[1px] border-white rounded-lg p-12">
         <h1 className="text-2xl mb-2">{title}</h1>
         <h2 className="text-sm mb-8">{formattedDate}</h2>
+        {opener && <div className="mb-8">{opener}</div>}
         <div>
           {photos
-            ?.filter(
-              (entry) =>
-                !!entry?.fields?.file?.url && !!entry.fields?.description
-            )
+            ?.filter((entry) => !!entry?.fields?.file?.url)
             ?.map((entry: Asset, index: number) => {
               const url = entry.fields?.file?.url as string;
-              const description = (entry.fields?.description ||
-                "No description") as string;
+              const description = entry.fields?.description as string;
               return (
                 <div key={index} className="mb-12  w-[600px]">
                   <img
@@ -68,7 +67,7 @@ export default async function PhotoEssayPage(props: {
                     className="h-[400px] object-contain rounded-md"
                     alt={description}
                   />
-                  <p className="mt-3">{description}</p>
+                  {description && <p className="mt-3">{description}</p>}
                 </div>
               );
             })}

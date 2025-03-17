@@ -20,18 +20,27 @@ const Sidebar = () => {
 const PhotoEssaySection = () => {
   const { data: photoEssays } = usePhotoEssays();
 
+  const sortedEssays = photoEssays
+    ? [...photoEssays].sort(
+        (a, b) =>
+          new Date(b.fields.date).getTime() - new Date(a.fields.date).getTime()
+      )
+    : [];
+
   return (
     <div>
       <div className={`${quantico.className} text-lg`}>photo essays</div>{" "}
       <div className="ml-6">
-        {photoEssays?.map((a) => (
-          <Link
-            href={`/photo-essays/${a.fields.slug}`}
-            key={a.fields.slug}
-            className="underline"
-          >
-            {a.fields.title}
-          </Link>
+        {sortedEssays?.map((a) => (
+          <div key={a.fields.title}>
+            <Link
+              href={`/photo-essays/${a.fields.slug}`}
+              key={a.fields.slug}
+              className="underline"
+            >
+              {a.fields.title}
+            </Link>
+          </div>
         ))}
       </div>
     </div>

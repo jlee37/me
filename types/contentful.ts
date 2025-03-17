@@ -9,6 +9,8 @@ export interface IPhotoEssayFields {
   /** Date */
   date?: string | undefined;
 
+  opener?: string
+
   /** Location */
   location?: { lat: number; lon: number } | undefined;
 
