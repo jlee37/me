@@ -22,35 +22,35 @@ const GIFS: { url: string; lengthMs: number }[] = [
     url: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWdrY2FpZjcwZjd6a2w5MGEwbDBwZmJuYnl3M2dlcWx5Z2h1eTN3cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7qDNQuLZ1gOCedQ4/giphy.gif",
     lengthMs: 2000,
   },
-  // // Dark magician
+  // Goodbye
+  {
+    url: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGk4NGFlZzJlMWVsbTZ1a2h3Z281ZG9idTZyNzRkdHk3cThwYWhpOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/v955sPT2tdBbaBBHFd/giphy.gif",
+    lengthMs: 2000,
+  },
+  // // Exodia left arm
   // {
-  //   url: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmVuenc2ZzNiMTJnZnQ0N2ZidnBsenUzcHp6ZWt1YTUzaWN1NzZsdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/55omzn8jo9Qld5L032/giphy.gif",
-  //   lengthMs: 2000,
+  //   url: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjQ2bGtsdHNxc2ozeTAzbTEweWp1dnYyOW01dTloZXV4b3VtYXlqdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LX0o9BYKg0rKIgFw8l/giphy.gif",
+  //   lengthMs: 200,
   // },
-  // Exodia left arm
-  {
-    url: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjQ2bGtsdHNxc2ozeTAzbTEweWp1dnYyOW01dTloZXV4b3VtYXlqdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LX0o9BYKg0rKIgFw8l/giphy.gif",
-    lengthMs: 200,
-  },
-  // Exodia right arm
-  {
-    url: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExazgwNGt3Z3RscXI5OXM3YjlxNDNkdjF2YTBva2t4Z2t6Z3lkaXQ4ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gC8JUYQDnuspgNmpfK/giphy.gif",
-    lengthMs: 200,
-  },
-  // Exodia left leg
-  {
-    url: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExczJoMjdqM3h6eHZwOXNzZmd1OHF4dTJnanZtbXZubWRycGMxMDE0NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lcyrPD0U5Fv4Xvs7wy/giphy.gif",
-    lengthMs: 200,
-  },
-  {
-    url: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2toZG9raDNmNHpoYzg2ZmJiazlkZ3V6bzNvZnY1bG85cHpidHUzeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/R53jUjenQFp8AvnzJs/giphy.gif",
-    lengthMs: 200,
-  },
-  // Exodia head
-  {
-    url: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWEwOHhoMGNiZTBxNmRwMThzcGkxdWhvN2sxOWd3dmJ1cndkdXk0YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YK1u5d1KSqrwIJojSt/giphy.gif",
-    lengthMs: 1800,
-  },
+  // // Exodia right arm
+  // {
+  //   url: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExazgwNGt3Z3RscXI5OXM3YjlxNDNkdjF2YTBva2t4Z2t6Z3lkaXQ4ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gC8JUYQDnuspgNmpfK/giphy.gif",
+  //   lengthMs: 200,
+  // },
+  // // Exodia left leg
+  // {
+  //   url: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExczJoMjdqM3h6eHZwOXNzZmd1OHF4dTJnanZtbXZubWRycGMxMDE0NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lcyrPD0U5Fv4Xvs7wy/giphy.gif",
+  //   lengthMs: 200,
+  // },
+  // {
+  //   url: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2toZG9raDNmNHpoYzg2ZmJiazlkZ3V6bzNvZnY1bG85cHpidHUzeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/R53jUjenQFp8AvnzJs/giphy.gif",
+  //   lengthMs: 200,
+  // },
+  // // Exodia head
+  // {
+  //   url: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWEwOHhoMGNiZTBxNmRwMThzcGkxdWhvN2sxOWd3dmJ1cndkdXk0YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YK1u5d1KSqrwIJojSt/giphy.gif",
+  //   lengthMs: 1800,
+  // },
   // Static
   {
     url: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHQ4MXliYzZ2N3h2dngyeHhnaHQ3NGwxMm12ZDFtOW40MjJxdDFuNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YRcXl6VfNhCorklI0R/giphy.gif",
