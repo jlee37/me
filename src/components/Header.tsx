@@ -22,7 +22,7 @@ const Header = () => {
         className="w-28 h-28 object-contain"
       />
       <div className="mb-4 ml-4">
-        <div className={`${quantico.className} text-3xl`}>jojo.wow</div>
+        <div className={`${quantico.className} text-3xl`}>jonny.lee</div>
       </div>
     </button>
   );
