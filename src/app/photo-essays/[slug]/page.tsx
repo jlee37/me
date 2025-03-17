@@ -3,16 +3,15 @@ import client from "../../../../lib/contentful";
 import { IPhotoEssayFields } from "../../../../types/contentful";
 import { Asset } from "contentful";
 
-// Fetch a specific photo essay based on the slug
 async function getPhotoEssay(slug: string) {
   const res = await client.getEntries({
     content_type: "photoEssay",
     "fields.slug": slug,
-    include: 2, // Includes linked "Photo with Caption" entries
+    include: 2,
   });
 
   if (!res.items.length) {
-    return null; // Handle not found case
+    return null;
   }
 
   return res.items[0];
@@ -30,7 +29,7 @@ export default async function PhotoEssayPage(props: {
   const essay = await getPhotoEssay(slug);
 
   if (!essay || !essay.fields) {
-    notFound(); // Automatically shows 404 page
+    notFound();
   }
 
   const fields = essay.fields as IPhotoEssayFields;
@@ -47,13 +46,11 @@ export default async function PhotoEssayPage(props: {
   });
 
   return (
-    <div className="pt-14 pb-32 pr-12">
-      <div className="border-solid border-[1px] border-white rounded-lg p-12">
-        <h1 className="text-2xl mb-2">{title}</h1>
-        <h2 className="text-sm mb-8">{formattedDate}</h2>
-        {opener && (
-          <p className="mb-8 w-[600px] whitespace-pre-line">{opener}</p>
-        )}
+    <div className="pt-14 pb-32 px-4 md:px-12">
+      <div className="border border-white rounded-lg p-6 md:p-12 max-w-3xl mx-auto">
+        <h1 className="text-xl md:text-2xl mb-2">{title}</h1>
+        <h2 className="text-sm mb-6 md:mb-8">{formattedDate}</h2>
+        {opener && <p className="mb-6 md:mb-8 whitespace-pre-line">{opener}</p>}
         <div>
           {photos
             ?.filter((entry) => !!entry?.fields?.file?.url)
@@ -61,14 +58,16 @@ export default async function PhotoEssayPage(props: {
               const url = entry.fields?.file?.url as string;
               const description = entry.fields?.description as string;
               return (
-                <div key={index} className="mb-12  w-[600px]">
+                <div key={index} className="mb-10 md:mb-12">
                   <img
                     src={url}
-                    className="h-[400px] object-contain rounded-md"
+                    className="w-full h-auto object-contain rounded-md"
                     alt={description}
                   />
                   {description && (
-                    <p className="mt-3 whitespace-pre-line">{description}</p>
+                    <p className="mt-3 whitespace-pre-line text-sm md:text-base">
+                      {description}
+                    </p>
                   )}
                 </div>
               );

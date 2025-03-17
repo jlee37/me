@@ -4,9 +4,10 @@ import { usePhotoEssays } from "@/utils/hooks";
 import { Quantico } from "next/font/google";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Dialog } from "@headlessui/react";
+// import { Dialog } from "@headlessui/react";
 import { X } from "lucide-react"; // for close icon
-import { useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment } from "react";
 
 const quantico = Quantico({
   subsets: ["latin"],
@@ -27,24 +28,51 @@ const Sidebar = ({
   const content = (
     <div className="ml-4 md:ml-8 mt-4 md:mt-8">
       <AboutSection />
-      <PhotoEssaySection />
+      <PhotoEssaySection onLinkClick={onClose} />
     </div>
   );
 
   if (!isMobile) return content;
 
   return (
-    <Dialog open={isOpen} onClose={onClose} className="relative z-50">
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
-      <div className="fixed inset-0 flex items-center justify-center">
-        <Dialog.Panel className="w-full h-full  p-8 overflow-y-auto relative">
-          <button onClick={onClose} className="absolute top-4 right-4 ">
-            <X size={28} />
-          </button>
-          {content}
-        </Dialog.Panel>
-      </div>
-    </Dialog>
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog
+        as="div"
+        className="relative z-50"
+        onClose={onClose ? () => onClose() : () => {}}
+      >
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 flex items-center justify-center">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-200"
+            enterFrom="translate-x-full opacity-0"
+            enterTo="translate-x-0 opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="translate-x-0 opacity-100"
+            leaveTo="translate-x-full opacity-0"
+          >
+            <Dialog.Panel className="w-full h-full p-8 overflow-y-auto relative ">
+              <button onClick={onClose} className="absolute top-10 right-4">
+                <X size={28} />
+              </button>
+              {content}
+            </Dialog.Panel>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition>
   );
 };
 
@@ -54,7 +82,11 @@ const AboutSection = () => (
   </div>
 );
 
-const PhotoEssaySection = () => {
+type PhotoEssaySectionProps = {
+  onLinkClick?: () => void;
+};
+
+const PhotoEssaySection = (props: PhotoEssaySectionProps) => {
   const { data: photoEssays } = usePhotoEssays();
   const pathname = usePathname();
 
@@ -84,6 +116,7 @@ const PhotoEssaySection = () => {
                 className={`hover:text-indigo-400 transition-colors duration-100 ${
                   isActive ? "text-indigo-400" : ""
                 }`}
+                onClick={props.onLinkClick}
               >
                 {a.fields.title}
               </Link>
