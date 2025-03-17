@@ -13,8 +13,15 @@ const quantico = Quantico({
 const Sidebar = () => {
   return (
     <div className="ml-8 mt-8">
+      <AboutSection />
       <PhotoEssaySection />
     </div>
+  );
+};
+
+const AboutSection = () => {
+  return (
+    <div className={`${quantico.className} text-lg underline mb-1`}>about</div>
   );
 };
 
@@ -34,7 +41,7 @@ const PhotoEssaySection = () => {
     <div>
       <div className={`${quantico.className} text-lg underline mb-1`}>
         photo essays
-      </div>{" "}
+      </div>
       <div className="ml-6">
         {sortedEssays?.map((a) => {
           const isActive = pathname === `/photo-essays/${a.fields.slug}`;
