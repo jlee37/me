@@ -37,7 +37,7 @@ const PhotoEssaySection = () => {
             <Link
               href={`/photo-essays/${a.fields.slug}`}
               key={a.fields.slug}
-              className="underline"
+              className="underline  hover:text-indigo-400 transition-colors duration-300"
             >
               {a.fields.title}
             </Link>
