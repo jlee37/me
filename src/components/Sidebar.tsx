@@ -3,6 +3,7 @@
 import { usePhotoEssays } from "@/utils/hooks";
 import { Quantico } from "next/font/google";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const quantico = Quantico({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ const Sidebar = () => {
 
 const PhotoEssaySection = () => {
   const { data: photoEssays } = usePhotoEssays();
+  const pathname = usePathname();
 
   const sortedEssays = photoEssays
     ? [...photoEssays].sort(
@@ -30,19 +32,27 @@ const PhotoEssaySection = () => {
 
   return (
     <div>
-      <div className={`${quantico.className} text-lg`}>photo essays</div>{" "}
+      <div className={`${quantico.className} text-lg underline mb-1`}>
+        photo essays
+      </div>{" "}
       <div className="ml-6">
-        {sortedEssays?.map((a) => (
-          <div key={a.fields.title}>
-            <Link
-              href={`/photo-essays/${a.fields.slug}`}
-              key={a.fields.slug}
-              className="underline  hover:text-indigo-400 transition-colors duration-300"
-            >
-              {a.fields.title}
-            </Link>
-          </div>
-        ))}
+        {sortedEssays?.map((a) => {
+          const isActive = pathname === `/photo-essays/${a.fields.slug}`;
+
+          return (
+            <div key={a.fields.title} className="mb-[2px]">
+              <Link
+                href={`/photo-essays/${a.fields.slug}`}
+                key={a.fields.slug}
+                className={`hover:text-indigo-400 transition-colors duration-100 ${
+                  isActive ? "text-indigo-400" : ""
+                }`}
+              >
+                {a.fields.title}
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
