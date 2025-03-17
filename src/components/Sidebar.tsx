@@ -77,9 +77,12 @@ const Sidebar = ({
 };
 
 const AboutSection = () => (
-  <div className={`${quantico.className} text-base md:text-lg underline mb-1`}>
+  <Link
+    className={`hover:text-indigo-400 transition-colors duration-100 underline`}
+    href="/about"
+  >
     about
-  </div>
+  </Link>
 );
 
 type PhotoEssaySectionProps = {
