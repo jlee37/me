@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function AboutPage() {
   return (
     <ContentPageWrapper>
-      <h1 className="text-xl md:text-2xl mb-2">What is this place?</h1>
+      <h1 className="text-xl md:text-2xl mb-2">Huh? What is this place?</h1>
       <p>
         {`The inspiration for this website is Neocities, a web
         hosting service that hosts more than a million hyper-stylized websites. Here are a few of my favorites:`}
@@ -48,6 +48,14 @@ export default function AboutPage() {
         even than the one who said "ow, fuck," half a second later. It's the same for everyone. Small things add up; one day you look in the mirror and you're older than you remember. You wake up to a you who isn't so sure she wants kids, after all. And
         on and on, so that the very act of going through life is a constant kind of dying, and living, and dying again.`}
       </p>
+      So I guess what I'm saying, in a very roundabout way, is that things
+      "ending" isn't such an awful thing. We say bye to bits of ourselves
+      everyday, and really there's nothing hopeless or pointless about it; it's
+      the most natural thing in the world. Nothing is taken away from those
+      Neocities still-blinking, just as nothing is taken away from the ones that
+      have seemed. ! So, then, the point of nothing is taken away from any of
+      the million Neocities, just as nothing will be taken away from any of
+      their corpses.
       <br />
       <p>
         {`So, then, the point of this website, its intended audience, isn't really "me." Instead, it's for you! You, reading this, wherever and
