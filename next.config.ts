@@ -6,6 +6,15 @@ const nextConfig: NextConfig = {
     CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
     CONTENTFUL_ENVIRONMENT: process.env.CONTENTFUL_ENVIRONMENT,
   },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/",         // root URL
+  //       destination: "/", // target URL
+  //       permanent: true,     // true = 308 redirect, good for SEO
+  //     },
+  //   ];
+  // },
 };
 
 export default nextConfig;
