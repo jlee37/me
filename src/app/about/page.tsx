@@ -1,15 +1,33 @@
 import ContentPageWrapper from "@/components/ContentPageWrapper";
+import Link from "next/link";
 
 export default function AboutPage() {
   return (
     <ContentPageWrapper>
-      <h1 className="text-xl md:text-2xl mb-2">What is this place?</h1>I was
-      inspired to create this website by Neocities, which is a web hosting
-      service that hosts more than a million sweet little sites. Here are a few
-      examples:
-      {/* <Link></Link>
-      <Link></Link>
-      <Link></Link> */}
+      <h1 className="text-xl md:text-2xl mb-2">What is this place?</h1>
+      <p>
+        {`I was inspired to create this website by Neocities, which is a web
+        hosting service that hosts more than a million sites. The websites are
+        all pretty quirky– the whole point is that they're meant to be outlets
+        for self-expression. Here are a few of my favorites:`}
+      </p>
+      <div className="my-4">
+        <Link href={"https://hillhouse.neocities.org/"} className="underline">
+          Hillhouse
+        </Link>
+        <br />
+        <Link
+          href={"https://ne0nbandit.neocities.org/home"}
+          className="underline"
+        >
+          Ne0nbandit Street
+        </Link>
+        <br />
+        <Link href={"https://fairygore.neocities.org/"} className="underline">
+          Fairygore
+        </Link>
+      </div>
+
       <p>
         {`Each one is basically a little bit of space carved out in the internet.
         They're places to visit, to explore, even to rest. Some of them are even
@@ -23,8 +41,7 @@ export default function AboutPage() {
         thing to be certain of, but it's true. Whichever nameless person's
         running the whole thing can only live for so long. And there's the
         heat-death of the universe, to boot. So one wonders: is it all for
-        nothing! All that dead space, just to turn , an infinity of abandoned
-        shopping malls?`}
+        nothing! All that dead space, just to turn, an expanse of abandoned amusement parks?`}
       </p>
       <br />
       <p>

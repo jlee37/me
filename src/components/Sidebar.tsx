@@ -1,18 +1,12 @@
 "use client";
 
 import { usePhotoEssays } from "@/utils/hooks";
-import { Quantico } from "next/font/google";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 // import { Dialog } from "@headlessui/react";
 import { X } from "lucide-react"; // for close icon
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-
-const quantico = Quantico({
-  subsets: ["latin"],
-  weight: "400",
-});
 
 type SidebarProps = {
   isMobile?: boolean;
@@ -25,10 +19,15 @@ const Sidebar = ({
   isOpen = false,
   onClose,
 }: SidebarProps) => {
+  const currentPathName = usePathname();
+
   const content = (
     <div className="ml-4 md:ml-8 mt-4 md:mt-8">
-      <AboutSection />
-      <PhotoEssaySection onLinkClick={onClose} />
+      <AboutSection currentPathName={currentPathName} />
+      <PhotoEssaySection
+        onLinkClick={onClose}
+        currentPathName={currentPathName}
+      />
     </div>
   );
 
@@ -76,22 +75,28 @@ const Sidebar = ({
   );
 };
 
-const AboutSection = () => (
-  <Link
-    className={`hover:text-indigo-400 transition-colors duration-100 underline`}
-    href="/about"
-  >
-    about
-  </Link>
-);
+const AboutSection = ({ currentPathName }: { currentPathName: string }) => {
+  const isActive = currentPathName === `/about`;
+
+  return (
+    <Link
+      className={`hover:text-indigo-400 transition-colors duration-100 ${
+        isActive ? "text-indigo-400" : ""
+      } md:text-lg underline`}
+      href="/about"
+    >
+      about
+    </Link>
+  );
+};
 
 type PhotoEssaySectionProps = {
   onLinkClick?: () => void;
+  currentPathName: string;
 };
 
 const PhotoEssaySection = (props: PhotoEssaySectionProps) => {
   const { data: photoEssays } = usePhotoEssays();
-  const pathname = usePathname();
 
   const sortedEssays = photoEssays
     ? [...photoEssays].sort(
@@ -103,14 +108,11 @@ const PhotoEssaySection = (props: PhotoEssaySectionProps) => {
 
   return (
     <div>
-      <div
-        className={`${quantico.className} text-base md:text-lg underline mb-1`}
-      >
-        photo essays
-      </div>
+      <div className={`text-base md:text-lg underline mb-1`}>photo essays</div>
       <div className="ml-4 md:ml-6">
         {sortedEssays?.map((a) => {
-          const isActive = pathname === `/photo-essays/${a.fields.slug}`;
+          const isActive =
+            props.currentPathName === `/photo-essays/${a.fields.slug}`;
 
           return (
             <div key={a.fields.title} className="mb-[2px]">
