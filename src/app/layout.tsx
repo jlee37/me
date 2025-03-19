@@ -1,11 +1,30 @@
 import type { Metadata } from "next";
-import { Quantico } from "next/font/google";
+import {
+  Quantico,
+  VT323,
+  Pixelify_Sans,
+  MedievalSharp,
+} from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
+import GifCycler from "@/components/GifCycler";
+import App from "./app";
 
 const quantico = Quantico({
   subsets: ["latin"],
+  weight: "400",
+});
+
+const vt323 = VT323({
+  weight: "400",
+});
+
+const pixelifySans = Pixelify_Sans({
+  weight: "400",
+});
+
+const medievalSharp = MedievalSharp({
   weight: "400",
 });
 
@@ -40,23 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${quantico.className} antialiased`}>
-        {/* Desktop Layout */}
-        <div className="hidden md:flex h-screen">
-          <div className="mr-16">
-            <Header />
-            <Sidebar />
-          </div>
-          <main className="flex-1 overflow-y-auto h-screen w-full">
-            {children}
-          </main>
-        </div>
-
-        {/* Mobile Layout */}
-        <div className="flex flex-col md:hidden min-h-screen">
-          <Header />
-          <main className="flex-1 overflow-y-auto">{children}</main>
-          <Sidebar isMobile /> {/* Triggered by button in Header */}
-        </div>
+        <App>{children}</App>
       </body>
     </html>
   );

@@ -16,7 +16,7 @@ const Header = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleGoHome = () => {
-    router.push("/");
+    router.push("/about");
   };
 
   return (
