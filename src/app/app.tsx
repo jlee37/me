@@ -10,9 +10,7 @@ const App = ({ children }: { children: ReactNode }) => {
       {/* Background Gif Layer */}
       <div className="absolute inset-0 bg-emerald-300 z-10">
         <img
-          src={
-            "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTV5ZHFpMXdoMDhlaGprYTF0cHNnbTcwZnk5aDF6ajQycDV1aHZ1biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYFO5juj6V6zq1O/giphy.gif"
-          }
+          src={"../../haze.gif"}
           alt="Cycling GIF"
           className="w-[100%] h-[100%] object-cover"
         />
