@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const GIFS: { url: string; lengthMs: number }[] = [
   // Pilot
   {
-    url: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWRpd25yYzBuZGtiOWR6d3JuOTF5eHB5NWNsMzdmdnpxbzg5a3U4cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0K423YWdCvHeemsg/giphy.gif",
+    url: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaDVnZTdrYmJwZTBibDkxZWttaW8wa3V5c3ZlMXYzc282ZmxscjgxNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0K423YWdCvHeemsg/giphy.gif",
     lengthMs: 1800,
   },
   // Windows
