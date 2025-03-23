@@ -55,7 +55,7 @@ export default function AboutPage() {
       <br />
       <p>
         {
-          "There's a Jane Hirshfield poem I read as a kid that's always been really important to me:"
+          "There's a Jane Hirshfield poem I read as a kid, on that note, that's always been really important to me:"
         }
       </p>
       <br />
@@ -70,7 +70,7 @@ export default function AboutPage() {
       <p className="italic">{"forgets the weight of the wagon."}</p>
       <br />
       <p>
-        {`This site isn't meant to go on forever. Like all those Neocities, there will come a time when jonnylee.net will come crashing down. Maybe I'll have decided to take it down myself, or maybe I'll have been killed a Western shootout of some kind. So, then, the point of a website like this is to capture, over the course of however long it lasts, a bunch of different versions of "me"– to capture all these little souls. `}
+        {`This site isn't meant to go on forever. Like all those Neocities, there will come a time when jonnylee.net will come crashing down. Maybe I'll have decided to take it down myself, or maybe I'll have been killed in a Western shootout of some kind. So, then, the point of a website like this is to capture, over the course of however long it lasts, a bunch of different versions of "me"– to capture all these little souls. `}
       </p>
       <br />
       <p>{`So, then, whether you're a future version of me looking back at this, or a good friend of mine, whether the last time we talked was yesterday or the week before or years before that:`}</p>
