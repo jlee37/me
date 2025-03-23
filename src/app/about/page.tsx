@@ -29,7 +29,7 @@ export default function AboutPage() {
         {`Each one's a hyper-stylized little spot in the internet, a little oasis of self-expression. They're small pockets of community, even– visit a popular Neocity and chances are that you'll see a message board of some kind, a place where people have left notes for the creator of the space. 
   
         Regardless of what the Neocity looks like, though, whether there's flashing gifs everywhere and not a name in sight, or a fully-fledged bio and a list of all the books and songs the person's ever wanted to love, the same sentiment runs behind every
-        single site– behind every single one, there's someone, someone out there in the hugeness of this world, saying: "Hey, here I am!
+        single site– behind every single one, there's someone, someone out there in the hugeness of this world, saying: "Here I am!
         Here this is!"`}
       </p>
       <br />
@@ -75,7 +75,7 @@ export default function AboutPage() {
       <br />
       <p>{`So, then, whether you're a future version of me looking back at this, or a good friend of mine, whether the last time we talked was yesterday or the week before or years before that:`}</p>
       <br />
-      <p>Hey, here I am! Here this is!</p>
+      <p>Here I am! Here this is!</p>
     </ContentPageWrapper>
   );
 }
