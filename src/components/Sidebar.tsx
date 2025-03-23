@@ -23,7 +23,7 @@ const Sidebar = ({
 
   const content = (
     <div className="ml-4 md:ml-8 mt-4 md:mt-8">
-      <AboutSection currentPathName={currentPathName} />
+      <AboutSection currentPathName={currentPathName} onClose={onClose} />
       <PhotoEssaySection
         onLinkClick={onClose}
         currentPathName={currentPathName}
@@ -75,7 +75,13 @@ const Sidebar = ({
   );
 };
 
-const AboutSection = ({ currentPathName }: { currentPathName: string }) => {
+const AboutSection = ({
+  currentPathName,
+  onClose,
+}: {
+  currentPathName: string;
+  onClose: () => void;
+}) => {
   const isActive = currentPathName === `/about`;
 
   return (
@@ -84,6 +90,7 @@ const AboutSection = ({ currentPathName }: { currentPathName: string }) => {
         isActive ? "text-indigo-400" : ""
       } md:text-lg underline`}
       href="/about"
+      onClick={onClose}
     >
       about
     </Link>
