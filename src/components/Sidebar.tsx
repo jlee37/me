@@ -80,7 +80,7 @@ const AboutSection = ({
   onClose,
 }: {
   currentPathName: string;
-  onClose: () => void;
+  onClose?: () => void;
 }) => {
   const isActive = currentPathName === `/about`;
 
