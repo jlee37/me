@@ -70,7 +70,7 @@ export default function AboutPage() {
       <p className="italic">{"forgets the weight of the wagon."}</p>
       <br />
       <p>
-        {`This site isn't meant to go on forever. Like all those Neocities, all those traces released, there will come a time when jonnylee.net will vanish. Maybe I'll have decided to take it down myself, or maybe I'll have been killed in a Western shootout of some kind. So, then, the point of a website like this is to capture, over the course of however long it lasts, a bunch of different versions of "me": to capture all these little souls. And so whether you're a future version of me looking back at this, or a good friend of mine, whether the last time we talked was yesterday or the week before or years before that:`}
+        {`This site isn't meant to go on forever. Like all those Neocities, like all those traces released, there will come a time when jonnylee.net will vanish. Maybe I'll have decided to take it down myself, or maybe I'll have been killed in a Western shootout of some kind. So, then, the point of a website like this is to capture, over the course of however long it lasts, a bunch of different versions of "me"– to capture all these little souls. And so whether you're a future version of me looking back at this, or a good friend of mine, whether the last time we talked was yesterday or the week before or years before that:`}
       </p>
       <br />
       <p>Here I am! Here this is!</p>
