@@ -22,7 +22,7 @@ const Sidebar = ({
   const currentPathName = usePathname();
 
   const content = (
-    <div className="ml-4 md:ml-8 mt-4 md:mt-8">
+    <div className="ml-4 md:ml-8 mt-4 md:mt-8" key={currentPathName}>
       <AboutSection currentPathName={currentPathName} onClose={onClose} />
       <PhotoEssaySection
         onLinkClick={onClose}
@@ -62,7 +62,7 @@ const Sidebar = ({
             leaveFrom="translate-x-0 opacity-100"
             leaveTo="translate-x-full opacity-0"
           >
-            <Dialog.Panel className="w-full h-full p-8 overflow-y-auto relative ">
+            <Dialog.Panel className="w-full h-full p-8 overflow-y-auto relative">
               <button onClick={onClose} className="absolute top-10 right-4">
                 <X size={28} />
               </button>
