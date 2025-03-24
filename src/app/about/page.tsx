@@ -11,13 +11,6 @@ export default function AboutPage() {
       </p>
       <div className="my-4">
         <Link
-          href={"https://hillhouse.neocities.org/"}
-          className="underline text-"
-        >
-          Hillhouse
-        </Link>
-        <br />
-        <Link
           href={"https://ne0nbandit.neocities.org/home"}
           className="underline text-cyan-300"
         >
@@ -29,6 +22,13 @@ export default function AboutPage() {
           className="underline text-green-300"
         >
           Fairygore
+        </Link>
+        <br />
+        <Link
+          href={"https://getcubed.neocities.org/"}
+          className="underline text-yellow-100"
+        >
+          getcubed
         </Link>
       </div>
       <p>
