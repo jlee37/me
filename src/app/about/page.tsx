@@ -7,7 +7,7 @@ export default function AboutPage() {
       <h1 className="text-xl md:text-2xl mb-2">All these little souls</h1>
       <p>
         {`The inspiration for this website is Neocities, a web
-        hosting service that hosts more than a million individualized websites. Here are a few of my favorites:`}
+        hosting service that hosts more than a million personal websites. Here are a few of my favorites:`}
       </p>
       <div className="my-4">
         <Link href={"https://hillhouse.neocities.org/"} className="underline">
