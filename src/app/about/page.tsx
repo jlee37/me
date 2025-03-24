@@ -10,18 +10,24 @@ export default function AboutPage() {
         hosting service that hosts more than a million personal websites. Here are a few of my favorites:`}
       </p>
       <div className="my-4">
-        <Link href={"https://hillhouse.neocities.org/"} className="underline">
+        <Link
+          href={"https://hillhouse.neocities.org/"}
+          className="underline text-"
+        >
           Hillhouse
         </Link>
         <br />
         <Link
           href={"https://ne0nbandit.neocities.org/home"}
-          className="underline"
+          className="underline text-cyan-300"
         >
           Ne0nbandit Street
         </Link>
         <br />
-        <Link href={"https://fairygore.neocities.org/"} className="underline">
+        <Link
+          href={"https://fairygore.neocities.org/"}
+          className="underline text-green-300"
+        >
           Fairygore
         </Link>
       </div>

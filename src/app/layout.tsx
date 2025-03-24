@@ -52,7 +52,7 @@ export default function RootLayout({
         </div>
 
         {/* Mobile Layout */}
-        <div className="flex flex-col md:hidden h-screen">
+        <div className="flex flex-col md:hidden h-screen overflow-hidden">
           <Header />
           <main className="flex-1 overflow-y-auto">{children}</main>
           <Sidebar isMobile /> {/* Triggered by button in Header */}
