@@ -3,6 +3,7 @@ import { Quantico } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
+import Providers from "@/components/Providers";
 
 const quantico = Quantico({
   subsets: ["latin"],
@@ -40,23 +41,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${quantico.className} antialiased`}>
-        {/* Desktop Layout */}
-        <div className="hidden md:flex h-[100dvh]">
-          <div className="mr-16">
-            <Header />
-            <Sidebar />
+        <Providers>
+          {/* Desktop Layout */}
+          <div className="hidden md:flex h-[100dvh]">
+            <div className="mr-16">
+              <Header />
+              <Sidebar />
+            </div>
+            <main className="flex-1 overflow-y-auto h-[100dvh] w-full">
+              {children}
+            </main>
           </div>
-          <main className="flex-1 overflow-y-auto h-[100dvh] w-full">
-            {children}
-          </main>
-        </div>
 
-        {/* Mobile Layout */}
-        <div className="flex flex-col md:hidden h-[100dvh] overflow-hidden">
-          <Header />
-          <main className="flex-1 overflow-y-auto">{children}</main>
-          <Sidebar isMobile /> {/* Triggered by button in Header */}
-        </div>
+          {/* Mobile Layout */}
+          <div className="flex flex-col md:hidden h-[100dvh] overflow-hidden">
+            <Header />
+            <main className="flex-1 overflow-y-auto">{children}</main>
+            <Sidebar isMobile /> {/* Triggered by button in Header */}
+          </div>
+        </Providers>
       </body>
     </html>
   );

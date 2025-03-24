@@ -1,31 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import client from "../../lib/contentful";
 import { PhotoEssay } from "../../types/contentful";
 
+async function fetchPhotoEssays() {
+  const response = await client.getEntries({
+    content_type: "photoEssay",
+  });
+  return response.items as PhotoEssay[];
+}
+
 export function usePhotoEssays() {
-  const [data, setData] = useState<PhotoEssay[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["photoEssays"],
+    queryFn: fetchPhotoEssays,
+  });
 
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        setLoading(true);
-        const response = await client.getEntries({
-          content_type: "photoEssay",
-        });
-        setData(response.items as PhotoEssay[]);
-      } catch (err) {
-        setError(`Failed to fetch content: ${JSON.stringify(err)}`);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchContent();
-  }, []);
-
-  return { data, error, loading };
+  return { 
+    data: data ?? [], 
+    error: error ? String(error) : null, 
+    loading: isLoading 
+  };
 }
