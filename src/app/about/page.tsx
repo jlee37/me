@@ -13,6 +13,8 @@ export default function AboutPage() {
         <Link
           href={"https://ne0nbandit.neocities.org/home"}
           className="underline text-cyan-300"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Ne0nbandit Street
         </Link>
@@ -20,6 +22,8 @@ export default function AboutPage() {
         <Link
           href={"https://fairygore.neocities.org/"}
           className="underline text-green-300"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Fairygore
         </Link>
@@ -27,6 +31,8 @@ export default function AboutPage() {
         <Link
           href={"https://getcubed.neocities.org/"}
           className="underline text-yellow-100"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           getcubed
         </Link>
