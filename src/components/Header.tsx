@@ -44,7 +44,7 @@ const Header = () => {
 
       {/* Mobile Sidebar */}
       <Sidebar
-        isMobile
+        showFullscreen={true}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />

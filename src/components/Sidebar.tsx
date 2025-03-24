@@ -9,13 +9,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
 type SidebarProps = {
-  isMobile?: boolean;
+  showFullscreen?: boolean;
   isOpen?: boolean;
   onClose?: () => void;
 };
 
 const Sidebar = ({
-  isMobile = false,
+  showFullscreen = false,
   isOpen = false,
   onClose,
 }: SidebarProps) => {
@@ -23,6 +23,7 @@ const Sidebar = ({
 
   const content = (
     <div className="ml-4 md:ml-8 mt-4 md:mt-8" key={currentPathName}>
+      <HomeSection currentPathName={currentPathName} onClose={onClose} />
       <AboutSection currentPathName={currentPathName} onClose={onClose} />
       <PhotoEssaySection
         onLinkClick={onClose}
@@ -31,7 +32,7 @@ const Sidebar = ({
     </div>
   );
 
-  if (!isMobile) return content;
+  if (!showFullscreen) return content;
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -75,6 +76,30 @@ const Sidebar = ({
   );
 };
 
+const HomeSection = ({
+  currentPathName,
+  onClose,
+}: {
+  currentPathName: string;
+  onClose?: () => void;
+}) => {
+  const isActive = currentPathName === `/`;
+
+  if (isActive) return null;
+
+  return (
+    <div><Link
+      className={`hover:text-indigo-400 transition-colors duration-100 ${
+        isActive ? "text-indigo-400" : ""
+      } md:text-lg underline`}
+      href="/"
+      onClick={onClose}
+    >
+      home
+    </Link></div>
+  );
+};
+
 const AboutSection = ({
   currentPathName,
   onClose,
@@ -85,6 +110,7 @@ const AboutSection = ({
   const isActive = currentPathName === `/about`;
 
   return (
+    <div>
     <Link
       className={`hover:text-indigo-400 transition-colors duration-100 ${
         isActive ? "text-indigo-400" : ""
@@ -93,7 +119,7 @@ const AboutSection = ({
       onClick={onClose}
     >
       about
-    </Link>
+    </Link></div>
   );
 };
 

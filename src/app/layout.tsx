@@ -57,7 +57,7 @@ export default function RootLayout({
           <div className="flex flex-col md:hidden h-[100dvh] overflow-hidden">
             <Header />
             <main className="flex-1 overflow-y-auto">{children}</main>
-            <Sidebar isMobile /> {/* Triggered by button in Header */}
+            <Sidebar showFullscreen={true} /> {/* Triggered by button in Header */}
           </div>
         </Providers>
       </body>
