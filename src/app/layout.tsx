@@ -41,12 +41,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${quantico.className} antialiased`}>
         {/* Desktop Layout */}
-        <div className="hidden md:flex h-screen">
+        <div className="hidden md:flex h-[100dvh]">
           <div className="mr-16">
             <Header />
             <Sidebar />
           </div>
-          <main className="flex-1 overflow-y-auto h-screen w-full">
+          <main className="flex-1 overflow-y-auto h-[100dvh] w-full">
             {children}
           </main>
         </div>
