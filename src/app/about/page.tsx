@@ -36,7 +36,7 @@ export default function AboutPage() {
       <p>
         {`But what struck me as sad, when I first started visting all these sites, is how a lot of the creators write about how the reason they decided to put their Neocity together in the first place
         is because of how permanent one is, permanent in a way that a journal
-        isn't, that the human body isn't. It's sad, because it's
+        isn't, that the human body isn't. It's sad because it's
         not really true. There's no guarantee that the people running the Neocities service will still want to do it a year from now, five years from now. Sooner or later they'll get tired of it, or they'll pass away. Even if humanity invented
         some sort of anti-aging device, there'd still be the
         heat-death of the universe, so really there's no way, no how: Neocities
@@ -70,10 +70,8 @@ export default function AboutPage() {
       <p className="italic">{"forgets the weight of the wagon."}</p>
       <br />
       <p>
-        {`This site isn't meant to go on forever. Like all those Neocities, there will come a time when jonnylee.net will come crashing down. Maybe I'll have decided to take it down myself, or maybe I'll have been killed in a Western shootout of some kind. So, then, the point of a website like this is to capture, over the course of however long it lasts, a bunch of different versions of "me"– to capture all these little souls. `}
+        {`This site isn't meant to go on forever. Like all those Neocities, all those traces released, there will come a time when jonnylee.net will vanish. Maybe I'll have decided to take it down myself, or maybe I'll have been killed in a Western shootout of some kind. So, then, the point of a website like this is to capture, over the course of however long it lasts, a bunch of different versions of "me": to capture all these little souls. And so whether you're a future version of me looking back at this, or a good friend of mine, whether the last time we talked was yesterday or the week before or years before that:`}
       </p>
-      <br />
-      <p>{`So, then, whether you're a future version of me looking back at this, or a good friend of mine, whether the last time we talked was yesterday or the week before or years before that:`}</p>
       <br />
       <p>Here I am! Here this is!</p>
     </ContentPageWrapper>
