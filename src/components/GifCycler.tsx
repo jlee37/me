@@ -81,7 +81,7 @@ const GifCycler: React.FC<GifCyclerProps> = () => {
     <img
       src={GIFS[index].url}
       alt="Cycling GIF"
-      className="w-[100%] h-[40%] md:h-[90%] object-cover rounded-lg shadow-lg"
+      className="w-[100%] h-[40%] h-[50%] md:h-[90%] object-cover rounded-lg shadow-lg"
     />
   );
 };
