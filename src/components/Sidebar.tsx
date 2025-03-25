@@ -36,6 +36,7 @@ const Sidebar = ({
 
   const content = (
     <div className="ml-4 md:ml-8 mt-4 md:mt-8" key={key}>
+      {"inside" + currentPathName}
       <HomeSection currentPathName={currentPathName} onClose={onClose} />
       <AboutSection currentPathName={currentPathName} onClose={onClose} />
       <PhotoEssaySection
