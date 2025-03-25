@@ -51,12 +51,12 @@ export default async function WritingPage(props: { params: WritingPageProps }) {
         <img
           src={heroUrl}
           alt={title}
-          className="w-full h-[40%] object-cover rounded-md my-4"
+          className="w-full h-[40%] object-cover rounded-md"
         />
-        <h1 className="text-xl md:text-2xl mb-2 mt-8">{title}</h1>
+        <h1 className="text-xl md:text-2xl mt-12 mb-6">{title}</h1>
         <div>
           {content.split("\n").map((paragraph, index) => {
-            if (!paragraph.trim()) return <div className="h-4" />;
+            if (!paragraph.trim()) return <div className="h-4" key={index} />;
             return (
               <p key={index} className="indent-8">
                 {paragraph}

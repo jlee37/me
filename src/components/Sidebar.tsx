@@ -44,11 +44,11 @@ const Sidebar = ({
     <div className="ml-4 md:ml-8 mt-4 md:mt-8">
       <HomeSection currentPathName={currentPathName} onClose={onClose} />
       <AboutSection currentPathName={currentPathName} onClose={onClose} />
+      <WritingSection onLinkClick={onClose} currentPathName={currentPathName} />
       <PhotoEssaySection
         onLinkClick={onClose}
         currentPathName={currentPathName}
       />
-      <WritingSection onLinkClick={onClose} currentPathName={currentPathName} />
     </div>
   );
 
