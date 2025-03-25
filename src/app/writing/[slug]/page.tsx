@@ -1,10 +1,6 @@
 import { notFound } from "next/navigation";
 import client from "../../../../lib/contentful";
-import {
-  IPhotoEssayFields,
-  IWritingFields,
-} from "../../../../types/contentful";
-import { Asset } from "contentful";
+import { IWritingFields } from "../../../../types/contentful";
 import ContentPageWrapper from "@/components/ContentPageWrapper";
 
 async function getWriting(slug: string) {
