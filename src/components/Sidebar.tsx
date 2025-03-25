@@ -42,7 +42,7 @@ const Sidebar = ({
     <div className="ml-4 md:ml-8 mt-4 md:mt-8" key={key}>
       {"inside" + currentPathName}
       <HomeSection currentPathName={currentPathName} onClose={onClose} />
-      <AboutSection currentPathName={currentPathName} onClose={onClose} />
+      <AboutSection onClose={onClose} />
       <PhotoEssaySection
         onLinkClick={onClose}
         currentPathName={currentPathName}
@@ -119,13 +119,12 @@ const HomeSection = ({
 };
 
 const AboutSection = ({
-  currentPathName,
   onClose,
 }: {
-  currentPathName: string;
   onClose?: () => void;
 }) => {
-  const isActive = currentPathName === `/about`;
+  const pathname = usePathname();
+  const isActive = pathname === `/about`;
 
   return (
     <div>
