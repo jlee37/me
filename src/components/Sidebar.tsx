@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 // import { Dialog } from "@headlessui/react";
 import { X } from "lucide-react"; // for close icon
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react"
 
 type SidebarProps = {
   showFullscreen?: boolean;
@@ -20,6 +20,24 @@ const Sidebar = ({
   onClose,
 }: SidebarProps) => {
   const currentPathName = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // Handle bfcache restoration
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        // Page was restored from bfcache
+        setMounted(false);
+        setTimeout(() => setMounted(true), 0);
+      }
+    };
+
+    setMounted(true);
+    window.addEventListener('pageshow', handlePageShow);
+    return () => window.removeEventListener('pageshow', handlePageShow);
+  }, []);
+
+  if (!mounted) return null;
 
   const content = (
     <div className="ml-4 md:ml-8 mt-4 md:mt-8">
