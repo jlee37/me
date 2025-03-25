@@ -1,12 +1,13 @@
 "use client";
 
-import { usePhotoEssays } from "@/utils/hooks";
+import { usePhotoEssays, useWriting } from "@/utils/hooks";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 // import { Dialog } from "@headlessui/react";
 import { X } from "lucide-react"; // for close icon
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react";
+import { Writing } from "../../types/contentful";
 
 type SidebarProps = {
   showFullscreen?: boolean;
@@ -33,8 +34,8 @@ const Sidebar = ({
     };
 
     setMounted(true);
-    window.addEventListener('pageshow', handlePageShow);
-    return () => window.removeEventListener('pageshow', handlePageShow);
+    window.addEventListener("pageshow", handlePageShow);
+    return () => window.removeEventListener("pageshow", handlePageShow);
   }, []);
 
   if (!mounted) return null;
@@ -47,6 +48,7 @@ const Sidebar = ({
         onLinkClick={onClose}
         currentPathName={currentPathName}
       />
+      <WritingSection onLinkClick={onClose} currentPathName={currentPathName} />
     </div>
   );
 
@@ -102,17 +104,19 @@ const HomeSection = ({
   onClose?: () => void;
 }) => {
   const isActive = currentPathName === `/`;
-  
+
   return (
-    <div><Link
-      className={`hover:text-indigo-400 transition-colors duration-100 ${
-        isActive ? "text-indigo-400" : ""
-      } md:text-lg underline`}
-      href="/"
-      onClick={onClose}
-    >
-      home
-    </Link></div>
+    <div>
+      <Link
+        className={`hover:text-indigo-400 transition-colors duration-100 ${
+          isActive ? "text-indigo-400" : ""
+        } md:text-lg underline`}
+        href="/"
+        onClick={onClose}
+      >
+        home
+      </Link>
+    </div>
   );
 };
 
@@ -127,15 +131,68 @@ const AboutSection = ({
 
   return (
     <div>
-    <Link
-      className={`hover:text-indigo-400 transition-colors duration-100 ${
-        isActive ? "text-indigo-400" : ""
-      } md:text-lg underline`}
-      href="/about"
-      onClick={onClose}
-    >
-      about
-    </Link></div>
+      <Link
+        className={`hover:text-indigo-400 transition-colors duration-100 ${
+          isActive ? "text-indigo-400" : ""
+        } md:text-lg underline`}
+        href="/about"
+        onClick={onClose}
+      >
+        about
+      </Link>
+    </div>
+  );
+};
+
+type SectionProps = {
+  title: string;
+  items: Array<{
+    title: string;
+    slug: string;
+    date?: string;
+  }>;
+  basePath: string;
+  onLinkClick?: () => void;
+  currentPathName: string;
+};
+
+const Section = ({
+  title,
+  items,
+  basePath,
+  onLinkClick,
+  currentPathName,
+}: SectionProps) => {
+  const sortedItems = items
+    ? [...items].sort(
+        (a, b) =>
+          new Date(b?.date ?? 0).getTime() - new Date(a?.date ?? 0).getTime()
+      )
+    : [];
+
+  return (
+    <div>
+      <div className={`text-base md:text-lg underline mb-1`}>{title}</div>
+      <div className="ml-4 md:ml-6">
+        {sortedItems?.map((item) => {
+          const isActive = currentPathName === `/${basePath}/${item.slug}`;
+
+          return (
+            <div key={item.title} className="mb-[2px]">
+              <Link
+                href={`/${basePath}/${item.slug}`}
+                className={`hover:text-indigo-400 transition-colors duration-100 ${
+                  isActive ? "text-indigo-400" : ""
+                }`}
+                onClick={onLinkClick}
+              >
+                {item.title}
+              </Link>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
@@ -147,38 +204,47 @@ type PhotoEssaySectionProps = {
 const PhotoEssaySection = (props: PhotoEssaySectionProps) => {
   const { data: photoEssays } = usePhotoEssays();
 
-  const sortedEssays = photoEssays
-    ? [...photoEssays].sort(
-        (a, b) =>
-          new Date(b?.fields?.date ?? 0).getTime() -
-          new Date(a?.fields?.date ?? 0).getTime()
-      )
-    : [];
+  const items =
+    photoEssays?.map((essay) => ({
+      title: essay.fields.title ?? "",
+      slug: essay.fields.slug ?? "",
+      date: essay.fields.date,
+    })) ?? [];
 
   return (
-    <div>
-      <div className={`text-base md:text-lg underline mb-1`}>photo essays</div>
-      <div className="ml-4 md:ml-6">
-        {sortedEssays?.map((a) => {
-          const isActive =
-            props.currentPathName === `/photo-essays/${a.fields.slug}`;
+    <Section
+      title="photo essays"
+      items={items}
+      basePath="photo-essays"
+      onLinkClick={props.onLinkClick}
+      currentPathName={props.currentPathName}
+    />
+  );
+};
 
-          return (
-            <div key={a.fields.title} className="mb-[2px]">
-              <Link
-                href={`/photo-essays/${a.fields.slug}`}
-                className={`hover:text-indigo-400 transition-colors duration-100 ${
-                  isActive ? "text-indigo-400" : ""
-                }`}
-                onClick={props.onLinkClick}
-              >
-                {a.fields.title}
-              </Link>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+type WritingSectionProps = {
+  onLinkClick?: () => void;
+  currentPathName: string;
+};
+
+const WritingSection = (props: WritingSectionProps) => {
+  const { data: writings } = useWriting();
+
+  const items =
+    writings?.map((writing: Writing) => ({
+      title: writing.fields.title ?? "",
+      slug: writing.fields.title?.toLowerCase().replace(/\s+/g, "-") ?? "",
+      date: undefined,
+    })) ?? [];
+
+  return (
+    <Section
+      title="writing"
+      items={items}
+      basePath="writing"
+      onLinkClick={props.onLinkClick}
+      currentPathName={props.currentPathName}
+    />
   );
 };
 

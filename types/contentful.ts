@@ -28,7 +28,7 @@ export type PhotoEssay = {
 export interface IWritingFields {
   title?: string;
   heroUrl?: string;
-  writingPdf?: any
+  content?: string
 }
 
 export type Writing = {

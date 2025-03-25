@@ -37,11 +37,13 @@ export default async function WritingPage(props: { params: WritingPageProps }) {
   }
 
   const fields = writing.fields as IWritingFields;
-  const { title, heroUrl, writingPdf } = fields;
+  const { title, heroUrl, content } = fields;
 
-  if (!title || !heroUrl || !writingPdf) {
+  if (!title || !heroUrl || !content) {
     return null;
   }
+
+  console.log("JLEE content", content);
 
   return (
     <div className="md:w-[70%] h-full">
@@ -53,7 +55,11 @@ export default async function WritingPage(props: { params: WritingPageProps }) {
         />
         <h1 className="text-xl md:text-2xl mb-2 mt-8">{title}</h1>
         <div>
-          <p>{writingPdf.fields.title}</p>
+          {content.split("\n").map((paragraph, index) => (
+            <p key={index} className="indent-8">
+              {paragraph}
+            </p>
+          ))}
         </div>
       </ContentPageWrapper>
     </div>
