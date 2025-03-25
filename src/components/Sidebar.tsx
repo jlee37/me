@@ -24,6 +24,10 @@ const Sidebar = ({
   const [key, setKey] = useState(0);
 
   useEffect(() => {
+    setKey(prev => prev + 1); // Force re-render on pathname change
+  }, [currentPathName]);
+
+  useEffect(() => {
     const handlePageShow = (event: PageTransitionEvent) => {
       if (event.persisted) {
         setKey(prev => prev + 1); // Forces re-render
@@ -32,7 +36,7 @@ const Sidebar = ({
 
     window.addEventListener("pageshow", handlePageShow);
     return () => window.removeEventListener("pageshow", handlePageShow);
-  }, []);
+  }, [currentPathName]);
 
   const content = (
     <div className="ml-4 md:ml-8 mt-4 md:mt-8" key={key}>
