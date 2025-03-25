@@ -55,11 +55,14 @@ export default async function WritingPage(props: { params: WritingPageProps }) {
         />
         <h1 className="text-xl md:text-2xl mb-2 mt-8">{title}</h1>
         <div>
-          {content.split("\n").map((paragraph, index) => (
-            <p key={index} className="indent-8">
-              {paragraph}
-            </p>
-          ))}
+          {content.split("\n").map((paragraph, index) => {
+            if (!paragraph.trim()) return <div className="h-4" />;
+            return (
+              <p key={index} className="indent-8">
+                {paragraph}
+              </p>
+            );
+          })}
         </div>
       </ContentPageWrapper>
     </div>
