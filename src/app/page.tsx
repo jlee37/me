@@ -3,7 +3,6 @@
 import GifCycler from "@/components/GifCycler";
 import Sidebar from "@/components/Sidebar";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export default function Home() {
   const a = usePathname();
