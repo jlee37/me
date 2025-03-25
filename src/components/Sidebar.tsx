@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 // import { Dialog } from "@headlessui/react";
 import { X } from "lucide-react"; // for close icon
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 type SidebarProps = {
   showFullscreen?: boolean;
@@ -21,8 +21,21 @@ const Sidebar = ({
 }: SidebarProps) => {
   const currentPathName = usePathname();
 
+  const [key, setKey] = useState(0);
+
+  useEffect(() => {
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        setKey(prev => prev + 1); // Forces re-render
+      }
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+    return () => window.removeEventListener("pageshow", handlePageShow);
+  }, []);
+
   const content = (
-    <div className="ml-4 md:ml-8 mt-4 md:mt-8" key={currentPathName}>
+    <div className="ml-4 md:ml-8 mt-4 md:mt-8" key={key}>
       <HomeSection currentPathName={currentPathName} onClose={onClose} />
       <AboutSection currentPathName={currentPathName} onClose={onClose} />
       <PhotoEssaySection
