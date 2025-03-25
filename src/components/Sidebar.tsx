@@ -102,9 +102,7 @@ const HomeSection = ({
   onClose?: () => void;
 }) => {
   const isActive = currentPathName === `/`;
-
-  if (isActive) return null;
-
+  
   return (
     <div><Link
       className={`hover:text-indigo-400 transition-colors duration-100 ${
