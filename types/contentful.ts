@@ -24,3 +24,13 @@ export interface IPhotoEssayFields {
 export type PhotoEssay = {
   fields: IPhotoEssayFields;
 }
+
+export interface IWritingFields {
+  title?: string;
+  heroUrl?: string;
+  writingPdf?: any
+}
+
+export type Writing = {
+  fields: IWritingFields;
+}
