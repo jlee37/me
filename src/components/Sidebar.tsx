@@ -22,15 +22,6 @@ const Sidebar = ({
 }: SidebarProps) => {
   const currentPathName = usePathname();
   const [mounted, setMounted] = useState(false);
-  const [expandedSections, setExpandedSections] = useState<
-    Record<string, boolean>
-  >({
-    home: true,
-    about: false,
-    writing: false,
-    photoEssays: false,
-  });
-
   const isMobile = window.innerWidth < 768;
 
   useEffect(() => {
@@ -50,58 +41,31 @@ const Sidebar = ({
 
   if (!mounted) return null;
 
-  const toggleSection = (section: string) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
-  };
-
   const content = (
     <div className="ml-4 md:ml-8 mt-4 md:mt-8 text-lg md:text-base">
       {!isMobile ||
         (isMobile && showFullscreen && (
-          <div
-            className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
-            onClick={() => !showFullscreen && isMobile && toggleSection("home")}
-          >
+          <div>
             <HomeSection currentPathName={currentPathName} onClose={onClose} />
           </div>
         ))}
-      <div
-        className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
-        onClick={() => !showFullscreen && isMobile && toggleSection("about")}
-      >
+      <div>
         <AboutSection currentPathName={currentPathName} onClose={onClose} />
       </div>
-      <div
-        className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
-        onClick={() => !showFullscreen && isMobile && toggleSection("writing")}
-      >
+      <div>
         <WritingSection
           onLinkClick={onClose}
           currentPathName={currentPathName}
-          isExpanded={
-            showFullscreen ||
-            window.innerWidth >= 768 ||
-            expandedSections.writing
-          }
+          isMobile={isMobile}
+          showFullscreen={showFullscreen}
         />
       </div>
-      <div
-        className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
-        onClick={() =>
-          !showFullscreen && isMobile && toggleSection("photoEssays")
-        }
-      >
+      <div>
         <PhotoEssaySection
           onLinkClick={onClose}
           currentPathName={currentPathName}
-          isExpanded={
-            showFullscreen ||
-            window.innerWidth >= 768 ||
-            expandedSections.photoEssays
-          }
+          isMobile={isMobile}
+          showFullscreen={showFullscreen}
         />
       </div>
     </div>
@@ -209,7 +173,8 @@ type SectionProps = {
   basePath: string;
   onLinkClick?: () => void;
   currentPathName: string;
-  isExpanded?: boolean;
+  isMobile?: boolean;
+  showFullscreen?: boolean;
 };
 
 const Section = ({
@@ -218,8 +183,10 @@ const Section = ({
   basePath,
   onLinkClick,
   currentPathName,
-  isExpanded = true,
+  isMobile = false,
+  showFullscreen = false,
 }: SectionProps) => {
+  const [isExpanded, setIsExpanded] = useState(!isMobile || showFullscreen);
   const sortedItems = items
     ? [...items].sort(
         (a, b) =>
@@ -228,7 +195,10 @@ const Section = ({
     : [];
 
   return (
-    <div>
+    <div
+      className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
+      onClick={() => !showFullscreen && isMobile && setIsExpanded(!isExpanded)}
+    >
       <div className={`underline`}>{title}</div>
       <div
         className={`ml-4 md:ml-6 overflow-hidden transition-all duration-300 ease-in-out ${
@@ -260,7 +230,8 @@ const Section = ({
 type PhotoEssaySectionProps = {
   onLinkClick?: () => void;
   currentPathName: string;
-  isExpanded?: boolean;
+  isMobile?: boolean;
+  showFullscreen?: boolean;
 };
 
 const PhotoEssaySection = (props: PhotoEssaySectionProps) => {
@@ -280,7 +251,8 @@ const PhotoEssaySection = (props: PhotoEssaySectionProps) => {
       basePath="photo-essays"
       onLinkClick={props.onLinkClick}
       currentPathName={props.currentPathName}
-      isExpanded={props.isExpanded}
+      isMobile={props.isMobile}
+      showFullscreen={props.showFullscreen}
     />
   );
 };
@@ -288,7 +260,8 @@ const PhotoEssaySection = (props: PhotoEssaySectionProps) => {
 type WritingSectionProps = {
   onLinkClick?: () => void;
   currentPathName: string;
-  isExpanded?: boolean;
+  isMobile?: boolean;
+  showFullscreen?: boolean;
 };
 
 const WritingSection = (props: WritingSectionProps) => {
@@ -308,7 +281,8 @@ const WritingSection = (props: WritingSectionProps) => {
       basePath="writing"
       onLinkClick={props.onLinkClick}
       currentPathName={props.currentPathName}
-      isExpanded={props.isExpanded}
+      isMobile={props.isMobile}
+      showFullscreen={props.showFullscreen}
     />
   );
 };
