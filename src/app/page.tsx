@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="pt-12 w-full h-full px-4 md:pr-20">
       <GifCycler />
-      <div className="md:hidden mt-8 mb-48">
+      <div className="md:hidden mt-8 pb-48">
         <Sidebar key={usePathname()} />
       </div>
     </div>

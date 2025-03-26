@@ -225,7 +225,7 @@ const Section = ({
             <div key={item.title}>
               <Link
                 href={`/${basePath}/${item.slug}`}
-                className={`hover:text-indigo-400 transition-colors duration-100 ${
+                className={`hover:text-indigo-400 transition-colors duration-100 text-base ${
                   isActive ? "text-indigo-400" : ""
                 }`}
                 onClick={onLinkClick}
