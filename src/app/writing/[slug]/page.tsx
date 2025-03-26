@@ -10,8 +10,6 @@ async function getWriting(slug: string) {
     include: 2,
   });
 
-  console.log("JLEE res", res);
-
   if (!res.items.length) {
     return null;
   }
@@ -38,8 +36,6 @@ export default async function WritingPage(props: { params: WritingPageProps }) {
   if (!title || !heroUrl || !content) {
     return null;
   }
-
-  console.log("JLEE content", content);
 
   return (
     <div className="md:w-[70%] h-full">

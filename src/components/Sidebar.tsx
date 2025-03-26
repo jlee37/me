@@ -206,7 +206,7 @@ const PhotoEssaySection = (props: PhotoEssaySectionProps) => {
 
   const items =
     photoEssays?.map((essay) => ({
-      title: essay.fields.title ?? "",
+      title: essay.fields.title?.toLowerCase() ?? "",
       slug: essay.fields.slug ?? "",
       date: essay.fields.date,
     })) ?? [];
@@ -232,7 +232,7 @@ const WritingSection = (props: WritingSectionProps) => {
 
   const items =
     writings?.map((writing: Writing) => ({
-      title: writing.fields.title ?? "",
+      title: writing.fields.title?.toLowerCase() ?? "",
       slug: writing.fields.title?.toLowerCase().replace(/\s+/g, "-") ?? "",
       date: undefined,
     })) ?? [];
