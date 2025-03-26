@@ -170,7 +170,7 @@ const AboutSection = ({
         href="/about"
         onClick={onClose}
       >
-        about
+        what is this place?
       </Link>
     </div>
   );
