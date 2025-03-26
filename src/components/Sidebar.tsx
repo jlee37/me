@@ -59,12 +59,15 @@ const Sidebar = ({
 
   const content = (
     <div className="ml-4 md:ml-8 mt-4 md:mt-8 text-lg md:text-base">
-      <div
-        className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
-        onClick={() => !showFullscreen && isMobile && toggleSection("home")}
-      >
-        <HomeSection currentPathName={currentPathName} onClose={onClose} />
-      </div>
+      {!isMobile ||
+        (isMobile && showFullscreen && (
+          <div
+            className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
+            onClick={() => !showFullscreen && isMobile && toggleSection("home")}
+          >
+            <HomeSection currentPathName={currentPathName} onClose={onClose} />
+          </div>
+        ))}
       <div
         className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
         onClick={() => !showFullscreen && isMobile && toggleSection("about")}
