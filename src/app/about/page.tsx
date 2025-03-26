@@ -7,7 +7,7 @@ export default function AboutPage() {
       <h1 className="text-xl md:text-2xl mb-2">All these little souls</h1>
       <p>
         {`The inspiration for this website is Neocities, a web
-        hosting service that hosts more than a million personal websites. Here are a few of my favorites:`}
+        hosting service that hosts more than a million personal websites. Here are a few of my favorites (best viewed on desktop):`}
       </p>
       <div className="my-4">
         <Link
@@ -53,13 +53,13 @@ export default function AboutPage() {
         some sort of anti-aging device, there'd still be the
         heat-death of the universe, so really there's no way, no how: Neocities
         will end. A million sites, a million custom cursors, a million heartfelt
-        self-introductions will one day turn to error 404 slush. So one wonders: is this all for
+        self-introductions will one day liquify into error 404 slush. So one wonders: is this all for
         nothing! Is this how every Neocity will be remembered, as an amusement park ditched and left behind? 
         `}
       </p>
       <br />
       <p>
-        {`Well, obviously not. It's a so-true–it's–corny fact of life, after all, that everything ends. The me who spewed out this big blob of
+        {`Well, obviously not. It's a so-true-it's-corny fact of life, after all, that everything ends. The me who spewed out this big blob of
         text replaced the me who an hour ago hadn't even started
         typing. Even the me who stubbed my toe earlier today is a different person
         even than the one who said "ow, fuck," half a second later. And on and on, things are gained, things are lost, so that going through life, I think, is really just a constant kind of dying, and living again.`}
@@ -82,7 +82,7 @@ export default function AboutPage() {
       <p className="italic">{"forgets the weight of the wagon."}</p>
       <br />
       <p>
-        {`This site isn't meant to go on forever. Like all those Neocities, like all those traces released, there will come a time when jonnylee.net will vanish. Maybe I'll have decided to take it down myself, or maybe I'll have been killed in a Western shootout of some kind. So, then, the point of a website like this is to capture, over the course of however long it lasts, a bunch of different versions of "me"– to capture all these little souls. And so whether you're a future version of me looking back at this, or a good friend of mine, whether the last time we talked was yesterday or the week before or years before that:`}
+        {`This site isn't meant to go on forever. Like all those Neocities, like all those traces released, there will come a time when jonnylee.net will vanish. Maybe I'll have decided to take it down myself, or maybe I'll have been killed in a Western shootout of some kind. So, then, the point of this website to capture, over the course of however long it lasts, a bunch of different versions of "me"– to capture all these little souls. And so whether you're a future version of me looking back at this, or a good friend of mine, whether the last time we talked was yesterday or the week before or years before that:`}
       </p>
       <br />
       <p>Here I am! Here this is!</p>
