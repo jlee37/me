@@ -234,7 +234,7 @@ const WritingSection = (props: WritingSectionProps) => {
     writings?.map((writing: Writing) => ({
       title: writing.fields.title?.toLowerCase() ?? "",
       slug: writing.fields.title?.toLowerCase().replace(/\s+/g, "-") ?? "",
-      date: undefined,
+      date: writing.fields.date,
     })) ?? [];
 
   return (

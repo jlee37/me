@@ -31,11 +31,16 @@ export default async function WritingPage(props: { params: WritingPageProps }) {
   }
 
   const fields = writing.fields as IWritingFields;
-  const { title, heroUrl, content } = fields;
+  const { title, heroUrl, content, date } = fields;
 
-  if (!title || !heroUrl || !content) {
+  if (!title || !heroUrl || !content || !date) {
     return null;
   }
+
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+  });
 
   return (
     <div className="md:w-[70%] h-full">
@@ -45,7 +50,8 @@ export default async function WritingPage(props: { params: WritingPageProps }) {
           alt={title}
           className="w-full h-[40%] object-cover rounded-md"
         />
-        <h1 className="text-xl md:text-2xl mt-12 mb-6">{title}</h1>
+        <h1 className="text-xl md:text-2xl mt-12">{title}</h1>
+        <p className="text-sm mb-6">{formattedDate}</p>
         <div>
           {content.split("\n").map((paragraph, index) => {
             if (!paragraph.trim()) return <div className="h-4" key={index} />;
