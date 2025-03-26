@@ -41,7 +41,7 @@ const Sidebar = ({
   if (!mounted) return null;
 
   const content = (
-    <div className="ml-4 md:ml-8 mt-4 md:mt-8">
+    <div className="ml-4 md:ml-8 mt-4 md:mt-8 gap-1 flex flex-col">
       <HomeSection currentPathName={currentPathName} onClose={onClose} />
       <AboutSection currentPathName={currentPathName} onClose={onClose} />
       <WritingSection onLinkClick={onClose} currentPathName={currentPathName} />
@@ -172,13 +172,13 @@ const Section = ({
 
   return (
     <div>
-      <div className={`text-base md:text-lg underline mb-1`}>{title}</div>
+      <div className={`text-base md:text-lg underline`}>{title}</div>
       <div className="ml-4 md:ml-6">
         {sortedItems?.map((item) => {
           const isActive = currentPathName === `/${basePath}/${item.slug}`;
 
           return (
-            <div key={item.title} className="mb-[2px]">
+            <div key={item.title}>
               <Link
                 href={`/${basePath}/${item.slug}`}
                 className={`hover:text-indigo-400 transition-colors duration-100 ${
