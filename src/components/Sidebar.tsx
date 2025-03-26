@@ -22,7 +22,7 @@ const Sidebar = ({
 }: SidebarProps) => {
   const currentPathName = usePathname();
   const [mounted, setMounted] = useState(false);
-  const isMobile = window.innerWidth < 768;
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Handle bfcache restoration
@@ -34,9 +34,22 @@ const Sidebar = ({
       }
     };
 
-    setMounted(true);
+    // Set initial mobile state
+    setIsMobile(window.innerWidth < 768);
+
+    // Handle window resize
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
     window.addEventListener("pageshow", handlePageShow);
-    return () => window.removeEventListener("pageshow", handlePageShow);
+    setMounted(true);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("pageshow", handlePageShow);
+    };
   }, []);
 
   if (!mounted) return null;
