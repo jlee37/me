@@ -31,6 +31,8 @@ const Sidebar = ({
     photoEssays: false,
   });
 
+  const isMobile = window.innerWidth < 768;
+
   useEffect(() => {
     // Handle bfcache restoration
     const handlePageShow = (e: PageTransitionEvent) => {
@@ -56,28 +58,22 @@ const Sidebar = ({
   };
 
   const content = (
-    <div className="ml-4 md:ml-8 mt-4 md:mt-8">
+    <div className="ml-4 md:ml-8 mt-4 md:mt-8 text-lg md:text-base">
       <div
-        className={`${!showFullscreen && window.innerWidth < 768 ? "cursor-pointer" : "cursor-default"}`}
-        onClick={() =>
-          !showFullscreen && window.innerWidth < 768 && toggleSection("home")
-        }
+        className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
+        onClick={() => !showFullscreen && isMobile && toggleSection("home")}
       >
         <HomeSection currentPathName={currentPathName} onClose={onClose} />
       </div>
       <div
-        className={`${!showFullscreen && window.innerWidth < 768 ? "cursor-pointer" : "cursor-default"}`}
-        onClick={() =>
-          !showFullscreen && window.innerWidth < 768 && toggleSection("about")
-        }
+        className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
+        onClick={() => !showFullscreen && isMobile && toggleSection("about")}
       >
         <AboutSection currentPathName={currentPathName} onClose={onClose} />
       </div>
       <div
-        className={`${!showFullscreen && window.innerWidth < 768 ? "cursor-pointer" : "cursor-default"}`}
-        onClick={() =>
-          !showFullscreen && window.innerWidth < 768 && toggleSection("writing")
-        }
+        className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
+        onClick={() => !showFullscreen && isMobile && toggleSection("writing")}
       >
         <WritingSection
           onLinkClick={onClose}
@@ -90,11 +86,9 @@ const Sidebar = ({
         />
       </div>
       <div
-        className={`${!showFullscreen && window.innerWidth < 768 ? "cursor-pointer" : "cursor-default"}`}
+        className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
         onClick={() =>
-          !showFullscreen &&
-          window.innerWidth < 768 &&
-          toggleSection("photoEssays")
+          !showFullscreen && isMobile && toggleSection("photoEssays")
         }
       >
         <PhotoEssaySection
@@ -168,7 +162,7 @@ const HomeSection = ({
       <Link
         className={`hover:text-indigo-400 transition-colors duration-100 ${
           isActive ? "text-indigo-400" : ""
-        } md:text-lg underline`}
+        } underline`}
         href="/"
         onClick={onClose}
       >
@@ -192,7 +186,7 @@ const AboutSection = ({
       <Link
         className={`hover:text-indigo-400 transition-colors duration-100 ${
           isActive ? "text-indigo-400" : ""
-        } md:text-lg underline`}
+        } underline`}
         href="/about"
         onClick={onClose}
       >
@@ -232,10 +226,10 @@ const Section = ({
 
   return (
     <div>
-      <div className={`text-lg md:text-base underline italic`}>{title}</div>
+      <div className={`underline`}>{title}</div>
       <div
         className={`ml-4 md:ml-6 overflow-hidden transition-all duration-300 ease-in-out ${
-          isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+          isExpanded ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         {sortedItems?.map((item) => {
@@ -245,7 +239,7 @@ const Section = ({
             <div key={item.title}>
               <Link
                 href={`/${basePath}/${item.slug}`}
-                className={`hover:text-indigo-400 text-lg md:text-base transition-colors duration-100 ${
+                className={`hover:text-indigo-400 transition-colors duration-100 ${
                   isActive ? "text-indigo-400" : ""
                 }`}
                 onClick={onLinkClick}
