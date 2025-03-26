@@ -41,7 +41,7 @@ const Sidebar = ({
   if (!mounted) return null;
 
   const content = (
-    <div className="ml-4 md:ml-8 mt-4 md:mt-8 gap-1 flex flex-col">
+    <div className="ml-4 md:ml-8 mt-4 md:mt-8">
       <HomeSection currentPathName={currentPathName} onClose={onClose} />
       <AboutSection currentPathName={currentPathName} onClose={onClose} />
       <WritingSection onLinkClick={onClose} currentPathName={currentPathName} />
