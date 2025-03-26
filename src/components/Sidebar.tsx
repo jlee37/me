@@ -232,10 +232,10 @@ const Section = ({
 
   return (
     <div>
-      <div className={`text-base md:text-lg underline`}>{title}</div>
+      <div className={`text-lg md:text-base underline italic`}>{title}</div>
       <div
         className={`ml-4 md:ml-6 overflow-hidden transition-all duration-300 ease-in-out ${
-          isExpanded ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+          isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         {sortedItems?.map((item) => {
@@ -245,7 +245,7 @@ const Section = ({
             <div key={item.title}>
               <Link
                 href={`/${basePath}/${item.slug}`}
-                className={`hover:text-indigo-400 transition-colors duration-100 ${
+                className={`hover:text-indigo-400 text-lg md:text-base transition-colors duration-100 ${
                   isActive ? "text-indigo-400" : ""
                 }`}
                 onClick={onLinkClick}
