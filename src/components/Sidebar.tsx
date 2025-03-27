@@ -55,7 +55,7 @@ const Sidebar = ({
   if (!mounted) return null;
 
   const content = (
-    <div className="ml-4 md:ml-8 mt-4 md:mt-8 text-lg md:text-base">
+    <div className="ml-4 md:ml-8 mt-4 md:mt-8 text-[17px] md:text-base">
       {!isMobile ||
         (isMobile && showFullscreen && (
           <div>
