@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import Providers from "@/components/Providers";
+import { Analytics } from "@vercel/analytics/react";
 
 const quantico = Quantico({
   subsets: ["latin"],
@@ -57,9 +58,11 @@ export default function RootLayout({
           <div className="flex flex-col md:hidden h-[100dvh] overflow-hidden">
             <Header />
             <main className="flex-1 overflow-y-auto">{children}</main>
-            <Sidebar showFullscreen={true} /> {/* Triggered by button in Header */}
+            <Sidebar showFullscreen={true} />{" "}
+            {/* Triggered by button in Header */}
           </div>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
