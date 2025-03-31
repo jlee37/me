@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Quantico, Monda } from "next/font/google";
+import { Monda } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
