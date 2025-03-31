@@ -15,10 +15,6 @@ const monda = Monda({
 export const metadata: Metadata = {
   title: "jonny.lee", // Browser tab label
   description: "Yeehaw",
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/machoke.ico",
-  },
   openGraph: {
     title: "A place belonging to Jonny", // iMessage/social preview title
     description: "Yeehaw",
