@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description: "Yeehaw",
   icons: {
     icon: "/favicon.ico",
-    apple: "/favicon.ico",
+    apple: "/machoke.ico",
   },
   openGraph: {
     title: "A place belonging to Jonny", // iMessage/social preview title
