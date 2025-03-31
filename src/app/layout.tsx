@@ -7,11 +7,6 @@ import Providers from "@/components/Providers";
 import { Analytics } from "@vercel/analytics/react";
 // Yatra_One
 
-const quantico = Quantico({
-  subsets: ["latin"],
-  weight: "400",
-});
-
 const monda = Monda({
   subsets: ["latin"],
   weight: "500",
