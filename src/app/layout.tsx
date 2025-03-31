@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Monda } from "next/font/google";
+import { Chivo_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
@@ -7,7 +7,7 @@ import Providers from "@/components/Providers";
 import { Analytics } from "@vercel/analytics/react";
 // Yatra_One
 
-const monda = Monda({
+const chivoMono = Chivo_Mono({
   subsets: ["latin"],
   weight: "500",
 });
@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${monda.className} antialiased`}>
+      <body className={`${chivoMono.className} antialiased`}>
         <Providers>
           {/* Desktop Layout */}
           <div className="hidden md:flex h-[100dvh]">
