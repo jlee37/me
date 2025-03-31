@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
-import { Quantico } from "next/font/google";
+import { Quantico, Monda } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import Providers from "@/components/Providers";
 import { Analytics } from "@vercel/analytics/react";
+// Yatra_One
 
 const quantico = Quantico({
   subsets: ["latin"],
   weight: "400",
+});
+
+const monda = Monda({
+  subsets: ["latin"],
+  weight: "500",
 });
 
 export const metadata: Metadata = {
@@ -41,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${quantico.className} antialiased`}>
+      <body className={`${monda.className} antialiased`}>
         <Providers>
           {/* Desktop Layout */}
           <div className="hidden md:flex h-[100dvh]">
