@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans } from "next/font/google";
+import { Quantico } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
@@ -7,7 +7,7 @@ import Providers from "@/components/Providers";
 import { Analytics } from "@vercel/analytics/react";
 // Yatra_One
 
-const ibmPlexSans = IBM_Plex_Sans({
+const quantico = Quantico({
   subsets: ["latin"],
   weight: "400",
 });
@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${ibmPlexSans.className} antialiased text-sm md:text-base`}
+        className={`${quantico.className} antialiased text-sm md:text-base`}
       >
         <Providers>
           {/* Desktop Layout */}
