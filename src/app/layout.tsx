@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Chivo_Mono } from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
@@ -7,9 +7,9 @@ import Providers from "@/components/Providers";
 import { Analytics } from "@vercel/analytics/react";
 // Yatra_One
 
-const chivoMono = Chivo_Mono({
+const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: "500",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -38,7 +38,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${chivoMono.className} antialiased`}>
+      <body
+        className={`${ibmPlexSans.className} antialiased text-sm md:text-base`}
+      >
         <Providers>
           {/* Desktop Layout */}
           <div className="hidden md:flex h-[100dvh]">
