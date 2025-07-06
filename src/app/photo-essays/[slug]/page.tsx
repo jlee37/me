@@ -68,7 +68,7 @@ export default async function PhotoEssayPage(props: {
                     width={1500}
                     height={1000}
                     className="w-full h-auto object-contain rounded-md"
-                    priority={index === 0}
+                    // priority={index === 0}
                   />
                   {description && (
                     <p className="mt-3 whitespace-pre-line text-sm md:text-base">
