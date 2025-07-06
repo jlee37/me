@@ -6,6 +6,22 @@ const nextConfig: NextConfig = {
     CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
     CONTENTFUL_ENVIRONMENT: process.env.CONTENTFUL_ENVIRONMENT,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'downloads.ctfassets.net',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
   // async redirects() {
   //   return [
   //     {

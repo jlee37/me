@@ -3,6 +3,7 @@ import client from "../../../../lib/contentful";
 import { IPhotoEssayFields } from "../../../../types/contentful";
 import { Asset } from "contentful";
 import ContentPageWrapper from "@/components/ContentPageWrapper";
+import Image from "next/image";
 
 async function getPhotoEssay(slug: string) {
   const res = await client.getEntries({
@@ -47,32 +48,38 @@ export default async function PhotoEssayPage(props: {
   });
 
   return (
-    <ContentPageWrapper>
-      <h1 className="text-xl md:text-2xl mb-2">{title}</h1>
-      <h2 className="text-sm mb-6 md:mb-8">{formattedDate}</h2>
-      {opener && <p className="mb-6 md:mb-8 whitespace-pre-line">{opener}</p>}
-      <div>
-        {photos
-          ?.filter((entry) => !!entry?.fields?.file?.url)
-          ?.map((entry: Asset, index: number) => {
-            const url = entry.fields?.file?.url as string;
-            const description = entry.fields?.description as string;
-            return (
-              <div key={index} className="mb-10 md:mb-12">
-                <img
-                  src={url}
-                  className="w-full h-auto object-contain rounded-md"
-                  alt={description}
-                />
-                {description && (
-                  <p className="mt-3 whitespace-pre-line text-sm md:text-base">
-                    {description}
-                  </p>
-                )}
-              </div>
-            );
-          })}
-      </div>
-    </ContentPageWrapper>
+    <div className="md:max-w-[1200px] h-full">
+      <ContentPageWrapper>
+        <h1 className="text-xl md:text-2xl mb-2">{title}</h1>
+        <h2 className="text-sm mb-6 md:mb-8">{formattedDate}</h2>
+        {opener && <p className="mb-6 md:mb-8 whitespace-pre-line">{opener}</p>}
+        <div>
+          {photos
+            ?.filter((entry) => !!entry?.fields?.file?.url)
+            ?.map((entry: Asset, index: number) => {
+              const url = entry.fields?.file?.url as string;
+              const description = entry.fields?.description as string;
+              const absoluteUrl = url.startsWith("//") ? `https:${url}` : url;
+              return (
+                <div key={index} className="mb-10 md:mb-16">
+                  <Image
+                    src={absoluteUrl}
+                    alt={description || ""}
+                    width={1500}
+                    height={1000}
+                    className="w-full h-auto object-contain rounded-md"
+                    priority={index === 0}
+                  />
+                  {description && (
+                    <p className="mt-3 whitespace-pre-line text-sm md:text-base">
+                      {description}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+        </div>
+      </ContentPageWrapper>
+    </div>
   );
 }

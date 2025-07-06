@@ -43,7 +43,7 @@ export default async function WritingPage(props: { params: WritingPageProps }) {
   });
 
   return (
-    <div className="md:w-[70%] h-full">
+    <div className="md:max-w-[1200px] h-full">
       <ContentPageWrapper>
         <img
           src={heroUrl}
