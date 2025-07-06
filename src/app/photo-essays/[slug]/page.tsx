@@ -69,7 +69,6 @@ export default async function PhotoEssayPage(props: {
                     height={800}
                     className="w-full h-auto object-contain rounded-md max-w-full md:max-w-[1200px]"
                     priority={index === 0}
-                    loading={index === 0 || index === 1 ? "eager" : "lazy"}
                     sizes="(max-width: 768px) 100vw, 1200px"
                     quality={85}
                   />
