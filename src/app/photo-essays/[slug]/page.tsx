@@ -65,10 +65,13 @@ export default async function PhotoEssayPage(props: {
                   <Image
                     src={absoluteUrl}
                     alt={description || ""}
-                    width={1500}
-                    height={1000}
-                    className="w-full h-auto object-contain rounded-md"
-                    // priority={index === 0}
+                    width={1200}
+                    height={800}
+                    className="w-full h-auto object-contain rounded-md max-w-full md:max-w-[1200px]"
+                    priority={index === 0}
+                    loading={index === 0 || index === 1 ? "eager" : "lazy"}
+                    sizes="(max-width: 768px) 100vw, 1200px"
+                    quality={85}
                   />
                   {description && (
                     <p className="mt-3 whitespace-pre-line text-sm md:text-base">
