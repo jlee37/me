@@ -1,9 +1,6 @@
 import { notFound } from "next/navigation";
 import client from "../../../../lib/contentful";
 import { IPhotoEssayFields } from "../../../../types/contentful";
-import { Asset } from "contentful";
-import ContentPageWrapper from "@/components/ContentPageWrapper";
-import Image from "next/image";
 import WritingsAndPhotos from "@/components/WritingsAndPhotos";
 
 async function getPhotoEssay(slug: string) {
