@@ -1,6 +1,6 @@
 "use client";
 
-import { usePhotoEssays, useWriting } from "@/utils/hooks";
+import { useMemories, usePhotoEssays, useWriting } from "@/utils/hooks";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 // import { Dialog } from "@headlessui/react";
@@ -75,6 +75,14 @@ const Sidebar = ({
       </div>
       <div>
         <PhotoEssaySection
+          onLinkClick={onClose}
+          currentPathName={currentPathName}
+          isMobile={isMobile}
+          showFullscreen={showFullscreen}
+        />
+      </div>
+      <div>
+        <MemorySection
           onLinkClick={onClose}
           currentPathName={currentPathName}
           isMobile={isMobile}
@@ -240,6 +248,36 @@ const Section = ({
   );
 };
 
+type WritingSectionProps = {
+  onLinkClick?: () => void;
+  currentPathName: string;
+  isMobile?: boolean;
+  showFullscreen?: boolean;
+};
+
+const WritingSection = (props: WritingSectionProps) => {
+  const { data: writings } = useWriting();
+
+  const items =
+    writings?.map((writing: Writing) => ({
+      title: writing.fields.title?.toLowerCase() ?? "",
+      slug: writing.fields.title?.toLowerCase().replace(/\s+/g, "-") ?? "",
+      date: writing.fields.date,
+    })) ?? [];
+
+  return (
+    <Section
+      title="writing"
+      items={items}
+      basePath="writing"
+      onLinkClick={props.onLinkClick}
+      currentPathName={props.currentPathName}
+      isMobile={props.isMobile}
+      showFullscreen={props.showFullscreen}
+    />
+  );
+};
+
 type PhotoEssaySectionProps = {
   onLinkClick?: () => void;
   currentPathName: string;
@@ -270,28 +308,28 @@ const PhotoEssaySection = (props: PhotoEssaySectionProps) => {
   );
 };
 
-type WritingSectionProps = {
+type MemorySectionProps = {
   onLinkClick?: () => void;
   currentPathName: string;
   isMobile?: boolean;
   showFullscreen?: boolean;
 };
 
-const WritingSection = (props: WritingSectionProps) => {
-  const { data: writings } = useWriting();
+const MemorySection = (props: MemorySectionProps) => {
+  const { data: memories } = useMemories();
 
   const items =
-    writings?.map((writing: Writing) => ({
-      title: writing.fields.title?.toLowerCase() ?? "",
-      slug: writing.fields.title?.toLowerCase().replace(/\s+/g, "-") ?? "",
-      date: writing.fields.date,
+    memories?.map((memory) => ({
+      title: memory.fields.title?.toLowerCase() ?? "",
+      slug: memory.fields.slug ?? "",
+      date: memory.fields.date,
     })) ?? [];
 
   return (
     <Section
-      title="writing"
+      title="memories"
       items={items}
-      basePath="writing"
+      basePath="memories"
       onLinkClick={props.onLinkClick}
       currentPathName={props.currentPathName}
       isMobile={props.isMobile}
