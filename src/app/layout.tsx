@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import SidebarWithSuspense from "@/components/SidebarWithSuspense";
 import Providers from "@/components/Providers";
 import { Analytics } from "@vercel/analytics/react";
+import KeyButton from "@/components/KeyButton";
 // Yatra_One
 
 const quantico = Quantico({
@@ -60,6 +61,9 @@ export default function RootLayout({
             <SidebarWithSuspense showFullscreen={true} />{" "}
             {/* Triggered by button in Header */}
           </div>
+
+          {/* Key Button - appears on all pages */}
+          <KeyButton />
         </Providers>
         <Analytics />
       </body>

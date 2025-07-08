@@ -52,7 +52,7 @@ const Sidebar = ({
   }, []);
 
   const searchParams = useSearchParams();
-  const hasKey = searchParams.get("key") === "KEY";
+  const hasKey = searchParams.get("key") === "jojo";
 
   if (!mounted) return null;
 
