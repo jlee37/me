@@ -4,7 +4,7 @@ import { Quantico } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { Menu } from "lucide-react"; // Hamburger icon
 import { useState } from "react";
-import Sidebar from "./Sidebar";
+import SidebarWithSuspense from "./SidebarWithSuspense";
 
 const quantico = Quantico({
   subsets: ["latin"],
@@ -43,7 +43,7 @@ const Header = () => {
       </button>
 
       {/* Mobile Sidebar */}
-      <Sidebar
+      <SidebarWithSuspense
         showFullscreen={true}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Quantico } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
+import SidebarWithSuspense from "@/components/SidebarWithSuspense";
 import Providers from "@/components/Providers";
 import { Analytics } from "@vercel/analytics/react";
 // Yatra_One
@@ -46,7 +46,7 @@ export default function RootLayout({
           <div className="hidden md:flex h-[100dvh]">
             <div className="mr-16">
               <Header />
-              <Sidebar />
+              <SidebarWithSuspense />
             </div>
             <main className="flex-1 overflow-y-auto h-[100dvh] w-full">
               {children}
@@ -57,7 +57,7 @@ export default function RootLayout({
           <div className="flex flex-col md:hidden h-[100dvh] overflow-hidden">
             <Header />
             <main className="flex-1 overflow-y-auto">{children}</main>
-            <Sidebar showFullscreen={true} />{" "}
+            <SidebarWithSuspense showFullscreen={true} />{" "}
             {/* Triggered by button in Header */}
           </div>
         </Providers>

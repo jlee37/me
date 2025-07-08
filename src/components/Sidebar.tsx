@@ -8,7 +8,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { Writing } from "../../types/contentful";
 
-type SidebarProps = {
+export type SidebarProps = {
   showFullscreen?: boolean;
   isOpen?: boolean;
   onClose?: () => void;
