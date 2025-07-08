@@ -248,14 +248,14 @@ const Section = ({
   );
 };
 
-type WritingSectionProps = {
+type ContentSectionProps = {
   onLinkClick?: () => void;
   currentPathName: string;
   isMobile?: boolean;
   showFullscreen?: boolean;
 };
 
-const WritingSection = (props: WritingSectionProps) => {
+const WritingSection = (props: ContentSectionProps) => {
   const { data: writings } = useWriting();
 
   const items =
@@ -278,14 +278,7 @@ const WritingSection = (props: WritingSectionProps) => {
   );
 };
 
-type PhotoEssaySectionProps = {
-  onLinkClick?: () => void;
-  currentPathName: string;
-  isMobile?: boolean;
-  showFullscreen?: boolean;
-};
-
-const PhotoEssaySection = (props: PhotoEssaySectionProps) => {
+const PhotoEssaySection = (props: ContentSectionProps) => {
   const { data: photoEssays } = usePhotoEssays();
 
   const items =
@@ -308,14 +301,7 @@ const PhotoEssaySection = (props: PhotoEssaySectionProps) => {
   );
 };
 
-type MemorySectionProps = {
-  onLinkClick?: () => void;
-  currentPathName: string;
-  isMobile?: boolean;
-  showFullscreen?: boolean;
-};
-
-const MemorySection = (props: MemorySectionProps) => {
+const MemorySection = (props: ContentSectionProps) => {
   const { data: memories } = useMemories();
 
   const items =
