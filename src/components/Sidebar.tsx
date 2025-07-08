@@ -2,9 +2,8 @@
 
 import { useMemories, usePhotoEssays, useWriting } from "@/utils/hooks";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-// import { Dialog } from "@headlessui/react";
-import { X } from "lucide-react"; // for close icon
+import { usePathname, useSearchParams } from "next/navigation";
+import { X } from "lucide-react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { Writing } from "../../types/contentful";
@@ -52,6 +51,9 @@ const Sidebar = ({
     };
   }, []);
 
+  const searchParams = useSearchParams();
+  const hasKey = searchParams.get("key") === "KEY";
+
   if (!mounted) return null;
 
   const content = (
@@ -87,6 +89,7 @@ const Sidebar = ({
           currentPathName={currentPathName}
           isMobile={isMobile}
           showFullscreen={showFullscreen}
+          hasKey={hasKey}
         />
       </div>
     </div>
@@ -253,6 +256,7 @@ type ContentSectionProps = {
   currentPathName: string;
   isMobile?: boolean;
   showFullscreen?: boolean;
+  hasKey?: boolean;
 };
 
 const WritingSection = (props: ContentSectionProps) => {
@@ -305,16 +309,22 @@ const MemorySection = (props: ContentSectionProps) => {
   const { data: memories } = useMemories();
 
   const items =
-    memories?.map((memory) => ({
-      title: memory.fields.title?.toLowerCase() ?? "",
-      slug: memory.fields.slug ?? "",
-      date: memory.fields.date,
-    })) ?? [];
+    memories?.map((memory) => {
+      if (!memory.fields.requireKey || props.hasKey) {
+        return {
+          title: memory.fields.title?.toLowerCase() ?? "",
+          slug: memory.fields.slug ?? "",
+          date: memory.fields.date,
+        };
+      }
+    }) ?? [];
+
+  const filteredItems = items.filter((item) => !!item);
 
   return (
     <Section
       title="memories"
-      items={items}
+      items={filteredItems}
       basePath="memories"
       onLinkClick={props.onLinkClick}
       currentPathName={props.currentPathName}

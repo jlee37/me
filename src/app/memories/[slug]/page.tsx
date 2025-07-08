@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import client from "../../../../lib/contentful";
-import { IPhotoEssayFields } from "../../../../types/contentful";
+import { IMemoryFields } from "../../../../types/contentful";
 import WritingsAndPhotos from "@/components/WritingsAndPhotos";
 
 async function getMemory(slug: string) {
@@ -24,13 +24,13 @@ type MemoryPageProps = Promise<{
 export default async function MemoryPage(props: { params: MemoryPageProps }) {
   const { slug } = await props.params;
 
-  const essay = await getMemory(slug);
+  const memory = await getMemory(slug);
 
-  if (!essay || !essay.fields) {
+  if (!memory || !memory.fields) {
     notFound();
   }
 
-  const fields = essay.fields as IPhotoEssayFields;
+  const fields = memory.fields as IMemoryFields;
   const { title, photos, date, opener } = fields;
 
   if (!title || !photos || !date) {

@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import client from "../../lib/contentful";
-import { PhotoEssay, Writing } from "../../types/contentful";
+import { Memory, PhotoEssay, Writing } from "../../types/contentful";
 
 async function fetchWriting() {
   const response = await client.getEntries({
@@ -47,7 +47,7 @@ async function fetchMemories() {
   const response = await client.getEntries({
     content_type: "memory",
   });
-  return response.items as PhotoEssay[];
+  return response.items as Memory[];
 }
 
 export function useMemories() {
