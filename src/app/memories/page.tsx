@@ -42,7 +42,7 @@ function MemoryBox(props: MemoryBoxProps) {
   );
 }
 
-function MemoriesPageWithSuspense() {
+function MemoriesPageContent() {
   const { data: memories } = useMemories();
 
   // Sort memories by date descending (most recent first)
@@ -53,16 +53,18 @@ function MemoriesPageWithSuspense() {
   });
 
   return (
-    <Suspense>
-      <div className="grid md:grid-cols-4 grid-cols-2 pl-4 overflow-auto pr-4 gap-6 w-full md:mt-12 md:pr-8">
-        {sortedMemories.map((memory) => (
-          <MemoryBox memory={memory} key={memory.fields.slug} />
-        ))}
-      </div>
-    </Suspense>
+    <div className="grid md:grid-cols-4 grid-cols-2 pl-4 overflow-auto pr-4 gap-6 w-full md:mt-12 md:pr-8">
+      {sortedMemories.map((memory) => (
+        <MemoryBox memory={memory} key={memory.fields.slug} />
+      ))}
+    </div>
   );
 }
 
 export default function MemoriesPage() {
-  return <MemoriesPageWithSuspense />;
+  return (
+    <Suspense>
+      <MemoriesPageContent />
+    </Suspense>
+  );
 }
