@@ -9,7 +9,11 @@ export default function KeyButton() {
 
   const handleClick = () => {
     const params = new URLSearchParams(searchParams);
-    params.set("key", HIDDEN_KEY);
+    if (params.get("key") === HIDDEN_KEY) {
+      params.delete("key");
+    } else {
+      params.set("key", HIDDEN_KEY);
+    }
     router.push(`?${params.toString()}`);
   };
 
