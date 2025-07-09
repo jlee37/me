@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ContentPageWrapper from "./ContentPageWrapper";
 import { Asset } from "contentful";
+import Link from "next/link";
 
 type WritingsAndPhotosProps = {
   title: string;
