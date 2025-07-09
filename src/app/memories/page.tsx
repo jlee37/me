@@ -34,5 +34,5 @@ const MemoriesPageContent = () => {
       directToUrl: `/memories/${memory.fields.slug}`,
     };
   });
-  return <Preview items={items} />;
+  return <Preview title="Memories" items={items} />;
 };

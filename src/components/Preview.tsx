@@ -27,6 +27,7 @@ function PreviewBox(props: PreviewBoxProps) {
 }
 
 type PreviewProps = {
+  title: string;
   items: {
     imageUrl: string;
     title: string;
@@ -35,15 +36,19 @@ type PreviewProps = {
 };
 export const Preview = (props: PreviewProps) => {
   return (
-    <div className="grid md:grid-cols-4 grid-cols-2 pl-4 overflow-auto pr-4 gap-3 md:gap-4 w-full md:mt-12 md:pr-8">
-      {props.items.map((item, i) => (
-        <PreviewBox
-          imageUrl={item.imageUrl}
-          title={item.title}
-          directToUrl={item.directToUrl}
-          key={i}
-        />
-      ))}
+    <div className="relative pl-4 pr-4 w-full md:mt-12 md:pr-8">
+      <h1 className="text-2xl pt-2 mb-0 bg-black">{props.title}</h1>
+
+      <div className="grid md:grid-cols-4 grid-cols-2 overflow-auto gap-2 mt-4 md:gap-4">
+        {props.items.map((item, i) => (
+          <PreviewBox
+            imageUrl={item.imageUrl}
+            title={item.title}
+            directToUrl={item.directToUrl}
+            key={i}
+          />
+        ))}
+      </div>
     </div>
   );
 };
