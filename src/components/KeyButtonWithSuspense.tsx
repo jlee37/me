@@ -4,7 +4,7 @@ import KeyButton from "./KeyButton";
 
 export default function KeyButtonWithSuspense() {
   return (
-    <Suspense fallback={null}>
+    <Suspense>
       <KeyButton />
     </Suspense>
   );

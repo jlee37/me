@@ -4,7 +4,7 @@ import Header from "./Header";
 
 export default function HeaderWithSuspense() {
   return (
-    <Suspense fallback={null}>
+    <Suspense>
       <Header />
     </Suspense>
   );

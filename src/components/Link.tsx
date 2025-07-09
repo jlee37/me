@@ -32,7 +32,7 @@ function LinkWithParams({ href, children, ...rest }: Props) {
 
 export default function Link(props: Props) {
   return (
-    <Suspense fallback={null}>
+    <Suspense>
       <LinkWithParams {...props} />
     </Suspense>
   );

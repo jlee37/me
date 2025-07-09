@@ -4,6 +4,7 @@ import Link from "@/components/Link";
 import Image from "next/image";
 import { useMemories } from "@/utils/hooks";
 import { Memory } from "../../../types/contentful";
+import { Suspense } from "react";
 
 type MemoryBoxProps = {
   memory: Memory;
@@ -41,7 +42,7 @@ function MemoryBox(props: MemoryBoxProps) {
   );
 }
 
-export default function MemoriesPage() {
+function MemoriesPageWithSuspense() {
   const { data: memories } = useMemories();
 
   // Sort memories by date descending (most recent first)
@@ -52,10 +53,16 @@ export default function MemoriesPage() {
   });
 
   return (
-    <div className="grid md:grid-cols-4 grid-cols-2 pl-4 overflow-auto pr-4 gap-6 w-full md:mt-12 md:pr-8">
-      {sortedMemories.map((memory) => (
-        <MemoryBox memory={memory} key={memory.fields.slug} />
-      ))}
-    </div>
+    <Suspense>
+      <div className="grid md:grid-cols-4 grid-cols-2 pl-4 overflow-auto pr-4 gap-6 w-full md:mt-12 md:pr-8">
+        {sortedMemories.map((memory) => (
+          <MemoryBox memory={memory} key={memory.fields.slug} />
+        ))}
+      </div>
+    </Suspense>
   );
+}
+
+export default function MemoriesPage() {
+  return <MemoriesPageWithSuspense />;
 }
