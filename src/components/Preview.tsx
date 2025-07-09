@@ -10,7 +10,7 @@ type PreviewBoxProps = {
 function PreviewBox(props: PreviewBoxProps) {
   return (
     <Link href={props.directToUrl} className="w-full">
-      <div className="group border border-gray-200 rounded-lg p-2 flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 w-full hover:border-indigo-400">
+      <div className="group border border-gray-200 rounded-lg p-2 flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 w-full md:hover:border-indigo-400">
         <Image
           src={props.imageUrl}
           alt={""}
@@ -18,7 +18,7 @@ function PreviewBox(props: PreviewBoxProps) {
           height={200}
           className="object-cover rounded-md mb-2 w-full h-40"
         />
-        <div className="text-center font-semibold mt-2 mb-2 transition-colors group-hover:text-indigo-400 truncate w-full pl-2 pr-2">
+        <div className="text-center font-semibold md:mt-2 md:mb-2 transition-colors md:group-hover:text-indigo-400 truncate w-full pl-2 pr-2">
           {props.title}
         </div>
       </div>
@@ -35,7 +35,7 @@ type PreviewProps = {
 };
 export const Preview = (props: PreviewProps) => {
   return (
-    <div className="grid md:grid-cols-4 grid-cols-2 pl-4 overflow-auto pr-4 gap-6 w-full md:mt-12 md:pr-8">
+    <div className="grid md:grid-cols-4 grid-cols-2 pl-4 overflow-auto pr-4 gap-3 md:gap-4 w-full md:mt-12 md:pr-8">
       {props.items.map((item, i) => (
         <PreviewBox
           imageUrl={item.imageUrl}

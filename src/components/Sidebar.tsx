@@ -147,7 +147,7 @@ const HomeSection = ({
   return (
     <div>
       <Link
-        className={`hover:text-indigo-400 transition-colors duration-100 ${isActive ? "text-indigo-400" : ""} underline`}
+        className={`hover:md:hover:text-indigo-400 transition-colors duration-100 ${isActive ? "text-indigo-400" : ""} underline`}
         href="/"
         onClick={onClose}
       >
@@ -213,12 +213,17 @@ const Section = ({
   return (
     <div
       className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
-      onClick={() => !showFullscreen && isMobile && setIsExpanded(!isExpanded)}
+      onClick={() =>
+        !showFullscreen &&
+        isMobile &&
+        title !== "memories" &&
+        setIsExpanded(!isExpanded)
+      }
     >
       {title === "memories" ? (
         <Link
           href="/memories"
-          className={`underline hover:text-indigo-400 transition-colors duration-100 ${currentPathName === "/memories" ? "text-indigo-400" : ""}`}
+          className={`underline md:hover:text-indigo-400 transition-colors duration-100 ${currentPathName === "/memories" ? "text-indigo-400" : ""}`}
         >
           {title}
         </Link>
@@ -237,7 +242,7 @@ const Section = ({
             <div key={item.title}>
               <Link
                 href={`/${basePath}/${item.slug}`}
-                className={`hover:text-indigo-400 transition-colors duration-100 text-base ${isActive ? "text-indigo-400" : ""}`}
+                className={`md:hover:text-indigo-400 transition-colors duration-100 text-base ${isActive ? "text-indigo-400" : ""}`}
                 onClick={onLinkClick}
               >
                 {item.title}
