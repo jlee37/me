@@ -1,7 +1,7 @@
 "use client";
 
 import { Quantico } from "next/font/google";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Menu } from "lucide-react"; // Hamburger icon
 import { useState } from "react";
 import SidebarWithSuspense from "./SidebarWithSuspense";
@@ -13,10 +13,12 @@ const quantico = Quantico({
 
 const Header = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleGoHome = () => {
-    router.push("/");
+    const params = searchParams.toString();
+    router.push(`/${params ? `?${params}` : ""}`);
   };
 
   return (

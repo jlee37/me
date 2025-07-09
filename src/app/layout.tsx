@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Quantico } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import HeaderWithSuspense from "@/components/HeaderWithSuspense";
 import SidebarWithSuspense from "@/components/SidebarWithSuspense";
 import Providers from "@/components/Providers";
 import { Analytics } from "@vercel/analytics/react";
@@ -46,7 +46,7 @@ export default function RootLayout({
           {/* Desktop Layout */}
           <div className="hidden md:flex h-[100dvh]">
             <div className="mr-16">
-              <Header />
+              <HeaderWithSuspense />
               <SidebarWithSuspense />
             </div>
             <main className="flex-1 overflow-y-auto h-[100dvh] w-full">
@@ -56,7 +56,7 @@ export default function RootLayout({
 
           {/* Mobile Layout */}
           <div className="flex flex-col md:hidden h-[100dvh] overflow-hidden">
-            <Header />
+            <HeaderWithSuspense />
             <main className="flex-1 overflow-y-auto">{children}</main>
             <SidebarWithSuspense showFullscreen={true} />{" "}
             {/* Triggered by button in Header */}

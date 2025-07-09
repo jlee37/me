@@ -53,6 +53,7 @@ const Sidebar = ({
 
   const searchParams = useSearchParams();
   const hasKey = searchParams.get("key") === "jojo";
+  const currentParams = searchParams.toString();
 
   if (!mounted) return null;
 
@@ -61,11 +62,19 @@ const Sidebar = ({
       {!isMobile ||
         (isMobile && showFullscreen && (
           <div>
-            <HomeSection currentPathName={currentPathName} onClose={onClose} />
+            <HomeSection
+              currentPathName={currentPathName}
+              onClose={onClose}
+              currentParams={currentParams}
+            />
           </div>
         ))}
       <div>
-        <AboutSection currentPathName={currentPathName} onClose={onClose} />
+        <AboutSection
+          currentPathName={currentPathName}
+          onClose={onClose}
+          currentParams={currentParams}
+        />
       </div>
       <div>
         <WritingSection
@@ -73,6 +82,7 @@ const Sidebar = ({
           currentPathName={currentPathName}
           isMobile={isMobile}
           showFullscreen={showFullscreen}
+          currentParams={currentParams}
         />
       </div>
       <div>
@@ -81,6 +91,7 @@ const Sidebar = ({
           currentPathName={currentPathName}
           isMobile={isMobile}
           showFullscreen={showFullscreen}
+          currentParams={currentParams}
         />
       </div>
       <div>
@@ -90,6 +101,7 @@ const Sidebar = ({
           isMobile={isMobile}
           showFullscreen={showFullscreen}
           hasKey={hasKey}
+          currentParams={currentParams}
         />
       </div>
     </div>
@@ -142,9 +154,11 @@ const Sidebar = ({
 const HomeSection = ({
   currentPathName,
   onClose,
+  currentParams,
 }: {
   currentPathName: string;
   onClose?: () => void;
+  currentParams: string;
 }) => {
   const isActive = currentPathName === `/`;
 
@@ -154,7 +168,7 @@ const HomeSection = ({
         className={`hover:text-indigo-400 transition-colors duration-100 ${
           isActive ? "text-indigo-400" : ""
         } underline`}
-        href="/"
+        href={`/${currentParams ? `?${currentParams}` : ""}`}
         onClick={onClose}
       >
         home
@@ -166,9 +180,11 @@ const HomeSection = ({
 const AboutSection = ({
   currentPathName,
   onClose,
+  currentParams,
 }: {
   currentPathName: string;
   onClose?: () => void;
+  currentParams: string;
 }) => {
   const isActive = currentPathName === `/about`;
 
@@ -178,7 +194,7 @@ const AboutSection = ({
         className={`hover:text-indigo-400 transition-colors duration-100 ${
           isActive ? "text-indigo-400" : ""
         } underline`}
-        href="/about"
+        href={`/about${currentParams ? `?${currentParams}` : ""}`}
         onClick={onClose}
       >
         what is this place?
@@ -199,6 +215,7 @@ type SectionProps = {
   currentPathName: string;
   isMobile?: boolean;
   showFullscreen?: boolean;
+  currentParams: string;
 };
 
 const Section = ({
@@ -209,6 +226,7 @@ const Section = ({
   currentPathName,
   isMobile = false,
   showFullscreen = false,
+  currentParams,
 }: SectionProps) => {
   const [isExpanded, setIsExpanded] = useState(!isMobile || showFullscreen);
   const sortedItems = items
@@ -235,7 +253,7 @@ const Section = ({
           return (
             <div key={item.title}>
               <Link
-                href={`/${basePath}/${item.slug}`}
+                href={`/${basePath}/${item.slug}${currentParams ? `?${currentParams}` : ""}`}
                 className={`hover:text-indigo-400 transition-colors duration-100 text-base ${
                   isActive ? "text-indigo-400" : ""
                 }`}
@@ -257,6 +275,7 @@ type ContentSectionProps = {
   isMobile?: boolean;
   showFullscreen?: boolean;
   hasKey?: boolean;
+  currentParams: string;
 };
 
 const WritingSection = (props: ContentSectionProps) => {
@@ -278,6 +297,7 @@ const WritingSection = (props: ContentSectionProps) => {
       currentPathName={props.currentPathName}
       isMobile={props.isMobile}
       showFullscreen={props.showFullscreen}
+      currentParams={props.currentParams}
     />
   );
 };
@@ -301,6 +321,7 @@ const PhotoEssaySection = (props: ContentSectionProps) => {
       currentPathName={props.currentPathName}
       isMobile={props.isMobile}
       showFullscreen={props.showFullscreen}
+      currentParams={props.currentParams}
     />
   );
 };
@@ -330,6 +351,7 @@ const MemorySection = (props: ContentSectionProps) => {
       currentPathName={props.currentPathName}
       isMobile={props.isMobile}
       showFullscreen={props.showFullscreen}
+      currentParams={props.currentParams}
     />
   );
 };
