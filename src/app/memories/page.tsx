@@ -18,7 +18,7 @@ function MemoryBox({ memory }: { memory: any }) {
       : memory.fields.title || "";
   return (
     <Link href={`/memories/${memory.fields.slug}`} className="w-full">
-      <div className="group border rounded-lg p-2 flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 w-full">
+      <div className="group border border-gray-200 rounded-lg p-2 flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 w-full hover:border-indigo-400">
         {absoluteUrl && (
           <Image
             src={absoluteUrl}
@@ -28,7 +28,7 @@ function MemoryBox({ memory }: { memory: any }) {
             className="object-cover rounded-md mb-2 w-full h-40"
           />
         )}
-        <div className="text-center font-semibold mt-2 transition-colors duration-150 group-hover:text-indigo-400">
+        <div className="text-center font-semibold mt-2 mb-2 transition-colors group-hover:text-indigo-400 truncate w-full pl-2 pr-2">
           {memory.fields.title}
         </div>
       </div>
@@ -47,7 +47,7 @@ export default function MemoriesPage() {
   });
 
   return (
-    <div className="grid grid-cols-4 gap-6 w-full md:mt-12">
+    <div className="grid md:grid-cols-4 grid-cols-2 pl-4 overflow-auto pr-4 gap-6 w-full md:mt-12 md:pr-8">
       {sortedMemories.map((memory) => (
         <MemoryBox memory={memory} key={memory.fields.slug} />
       ))}

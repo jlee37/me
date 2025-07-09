@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import client from "../../lib/contentful";
 import { Memory, PhotoEssay, Writing } from "../../types/contentful";
+import { useSearchParams } from "next/navigation";
 
 async function fetchWriting() {
   const response = await client.getEntries({
@@ -56,8 +57,15 @@ export function useMemories() {
     queryFn: fetchMemories,
   });
 
+  const searchParams = useSearchParams();
+  const hasKey = searchParams.get("key") === "jojo";
+
+  const filteredData = data?.filter(
+    (d) => (d.fields.requireKey && hasKey) || !d.fields.requireKey
+  );
+
   return {
-    data: data ?? [],
+    data: filteredData ?? [],
     error: error ? String(error) : null,
     loading: isLoading,
   };

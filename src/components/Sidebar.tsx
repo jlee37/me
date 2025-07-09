@@ -52,7 +52,6 @@ const Sidebar = ({
   }, []);
 
   const searchParams = useSearchParams();
-  const hasKey = searchParams.get("key") === "jojo";
   const currentParams = searchParams.toString();
 
   if (!mounted) return null;
@@ -100,7 +99,6 @@ const Sidebar = ({
           currentPathName={currentPathName}
           isMobile={isMobile}
           showFullscreen={showFullscreen}
-          hasKey={hasKey}
           currentParams={currentParams}
         />
       </div>
@@ -241,7 +239,16 @@ const Section = ({
       className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
       onClick={() => !showFullscreen && isMobile && setIsExpanded(!isExpanded)}
     >
-      <div className={`underline`}>{title}</div>
+      {title === "memories" ? (
+        <Link
+          href={`/memories${currentParams ? `?${currentParams}` : ""}`}
+          className={`underline hover:text-indigo-400 transition-colors duration-100 ${currentPathName === "/memories" ? "text-indigo-400" : ""}`}
+        >
+          {title}
+        </Link>
+      ) : (
+        <div className={`underline`}>{title}</div>
+      )}
       <div
         className={`ml-4 md:ml-6 overflow-hidden transition-all duration-300 ease-in-out ${
           isExpanded ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
@@ -274,7 +281,6 @@ type ContentSectionProps = {
   currentPathName: string;
   isMobile?: boolean;
   showFullscreen?: boolean;
-  hasKey?: boolean;
   currentParams: string;
 };
 
@@ -330,15 +336,11 @@ const MemorySection = (props: ContentSectionProps) => {
   const { data: memories } = useMemories();
 
   const items =
-    memories?.map((memory) => {
-      if (!memory.fields.requireKey || props.hasKey) {
-        return {
-          title: memory.fields.title?.toLowerCase() ?? "",
-          slug: memory.fields.slug ?? "",
-          date: memory.fields.date,
-        };
-      }
-    }) ?? [];
+    memories?.map((memory) => ({
+      title: memory.fields.title?.toLowerCase() ?? "",
+      slug: memory.fields.slug ?? "",
+      date: memory.fields.date,
+    })) ?? [];
 
   const filteredItems = items.filter((item) => !!item);
 
