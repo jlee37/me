@@ -2,7 +2,7 @@
 
 import { useMemories, usePhotoEssays, useWriting } from "@/utils/hooks";
 import Link from "@/components/Link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";

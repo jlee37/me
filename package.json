@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate:types": "contentful-typescript-codegen --output types/contentful.ts"
+    "lint:fix": "eslint src --ext .ts,.tsx,.js,.jsx --fix",
+    "generate:types": "contentful-typescript-codegen --output types/contentful.ts",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
@@ -17,6 +19,7 @@
     "contentful": "^11.5.0",
     "contentful-management": "^11.47.2",
     "dotenv": "^16.4.7",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "lucide-react": "^0.482.0",
     "next": "15.1.7",
     "react": "^19.0.0",
