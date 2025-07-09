@@ -39,7 +39,7 @@ export const Preview = (props: PreviewProps) => {
     <div className="relative pl-4 pr-4 w-full md:mt-12 md:pr-8">
       <h1 className="text-2xl pt-2 mb-0 bg-black">{props.title}</h1>
 
-      <div className="grid md:grid-cols-4 grid-cols-2 overflow-auto gap-2 mt-4 md:gap-4">
+      <div className="grid md:grid-cols-4 grid-cols-1 overflow-auto gap-6 mt-4 md:gap-4">
         {props.items.map((item, i) => (
           <PreviewBox
             imageUrl={item.imageUrl}
