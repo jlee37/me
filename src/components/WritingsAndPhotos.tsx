@@ -31,7 +31,7 @@ const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
                   alt={description || ""}
                   width={1200}
                   height={800}
-                  className="w-full h-auto object-contain rounded-md max-w-full md:max-w-[1200px]"
+                  className="w-full h-auto object-contain rounded-md max-h-[800px] md:max-w-[1200px]"
                   priority={index === 0}
                   loading="eager"
                   sizes="(max-width: 768px) 100vw, 1200px"
