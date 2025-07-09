@@ -242,7 +242,7 @@ const Section = ({
       {title === "memories" ? (
         <Link
           href={`/memories${currentParams ? `?${currentParams}` : ""}`}
-          className={`underline hover:text-indigo-400 transition-colors duration-100 ${currentPathName === "/memories" ? "text-indigo-400" : ""}`}
+          className="underline hover:text-indigo-400 transition-colors duration-100"
         >
           {title}
         </Link>

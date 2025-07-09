@@ -3,9 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useMemories } from "@/utils/hooks";
+import { Memory } from "../../../types/contentful";
 
-function MemoryBox({ memory }: { memory: any }) {
-  const photos = memory.fields.photos;
+type MemoryBoxProps = {
+  memory: Memory;
+};
+
+function MemoryBox(props: MemoryBoxProps) {
+  const photos = props.memory.fields.photos;
   const firstPhoto = photos && photos.length > 0 ? photos[0] : null;
   const url =
     typeof firstPhoto?.fields?.file?.url === "string"
@@ -15,9 +20,9 @@ function MemoryBox({ memory }: { memory: any }) {
   const description =
     typeof firstPhoto?.fields?.description === "string"
       ? firstPhoto.fields.description
-      : memory.fields.title || "";
+      : props.memory.fields.title || "";
   return (
-    <Link href={`/memories/${memory.fields.slug}`} className="w-full">
+    <Link href={`/memories/${props.memory.fields.slug}`} className="w-full">
       <div className="group border border-gray-200 rounded-lg p-2 flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 w-full hover:border-indigo-400">
         {absoluteUrl && (
           <Image
@@ -29,7 +34,7 @@ function MemoryBox({ memory }: { memory: any }) {
           />
         )}
         <div className="text-center font-semibold mt-2 mb-2 transition-colors group-hover:text-indigo-400 truncate w-full pl-2 pr-2">
-          {memory.fields.title}
+          {props.memory.fields.title}
         </div>
       </div>
     </Link>
