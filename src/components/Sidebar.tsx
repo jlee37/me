@@ -202,7 +202,6 @@ const Section = ({
   isMobile = false,
   showFullscreen = false,
 }: SectionProps) => {
-  const [isExpanded, setIsExpanded] = useState(!isMobile || showFullscreen);
   const sortedItems = items
     ? [...items].sort(
         (a, b) =>
@@ -213,28 +212,14 @@ const Section = ({
   return (
     <div
       className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
-      onClick={() =>
-        !showFullscreen &&
-        isMobile &&
-        title !== "memories" &&
-        setIsExpanded(!isExpanded)
-      }
     >
-      {title === "memories" ? (
-        <Link
-          href="/memories"
-          className={`underline md:hover:text-indigo-400 transition-colors duration-100 ${currentPathName === "/memories" ? "text-indigo-400" : ""}`}
-        >
-          {title}
-        </Link>
-      ) : (
-        <div className={`underline`}>{title}</div>
-      )}
-      <div
-        className={`ml-4 md:ml-6 overflow-hidden transition-all duration-300 ease-in-out ${
-          isExpanded ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
-        }`}
+      <Link
+        href={`/${title.replace(/\s+/g, "-")}`}
+        className={`underline md:hover:text-indigo-400 transition-colors duration-100 ${currentPathName === `/${title}` ? "text-indigo-400" : ""}`}
       >
+        {title}
+      </Link>
+      <div className={`ml-4 md:ml-6`}>
         {sortedItems?.map((item) => {
           const isActive = currentPathName === `/${basePath}/${item.slug}`;
 
