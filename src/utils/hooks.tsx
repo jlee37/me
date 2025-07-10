@@ -45,7 +45,7 @@ export function usePhotoEssays() {
   };
 }
 
-async function fetchMemories() {
+async function fetchMemory() {
   const response = await client.getEntries({
     content_type: "memory",
   });
@@ -54,8 +54,8 @@ async function fetchMemories() {
 
 export function useMemories() {
   const { data, error, isLoading } = useQuery({
-    queryKey: ["memories"],
-    queryFn: fetchMemories,
+    queryKey: ["memory"],
+    queryFn: fetchMemory,
   });
 
   const searchParams = useSearchParams();

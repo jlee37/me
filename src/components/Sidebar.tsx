@@ -73,7 +73,7 @@ const Sidebar = ({
         />
       </div>
       <div>
-        <PhotoEssaySection
+        <PhotojournalSection
           onLinkClick={onClose}
           currentPathName={currentPathName}
           isMobile={isMobile}
@@ -81,7 +81,7 @@ const Sidebar = ({
         />
       </div>
       <div>
-        <MemorySection
+        <MenagerieSection
           onLinkClick={onClose}
           currentPathName={currentPathName}
           isMobile={isMobile}
@@ -209,13 +209,15 @@ const Section = ({
       )
     : [];
 
+  const slugifiedTitle = title.replace(/\s+/g, "-");
+
   return (
     <div
       className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
     >
       <Link
-        href={`/${title.replace(/\s+/g, "-")}`}
-        className={`underline md:hover:text-indigo-400 transition-colors duration-100 ${currentPathName === `/${title}` ? "text-indigo-400" : ""}`}
+        href={`/${slugifiedTitle}`}
+        className={`underline md:hover:text-indigo-400 transition-colors duration-100 ${currentPathName === `/${slugifiedTitle}` ? "text-indigo-400" : ""}`}
       >
         {title}
       </Link>
@@ -270,7 +272,7 @@ const WritingSection = (props: ContentSectionProps) => {
   );
 };
 
-const PhotoEssaySection = (props: ContentSectionProps) => {
+const MenagerieSection = (props: ContentSectionProps) => {
   const { data: photoEssays } = usePhotoEssays();
 
   const items =
@@ -282,9 +284,9 @@ const PhotoEssaySection = (props: ContentSectionProps) => {
 
   return (
     <Section
-      title="photo collections"
+      title="menagerie"
       items={items}
-      basePath="photo-collections"
+      basePath="menagerie"
       onLinkClick={props.onLinkClick}
       currentPathName={props.currentPathName}
       isMobile={props.isMobile}
@@ -293,7 +295,7 @@ const PhotoEssaySection = (props: ContentSectionProps) => {
   );
 };
 
-const MemorySection = (props: ContentSectionProps) => {
+const PhotojournalSection = (props: ContentSectionProps) => {
   const { data: memories } = useMemories();
 
   const items =
@@ -307,9 +309,9 @@ const MemorySection = (props: ContentSectionProps) => {
 
   return (
     <Section
-      title="memories"
+      title="photojournal"
       items={filteredItems}
-      basePath="memories"
+      basePath="photojournal"
       onLinkClick={props.onLinkClick}
       currentPathName={props.currentPathName}
       isMobile={props.isMobile}

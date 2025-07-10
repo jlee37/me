@@ -17,11 +17,13 @@ async function getMemory(slug: string) {
   return res.items[0];
 }
 
-type MemoryPageProps = Promise<{
+type PhotojournalProps = Promise<{
   slug: string;
 }>;
 
-export default async function MemoryPage(props: { params: MemoryPageProps }) {
+export default async function PhotojournalPage(props: {
+  params: PhotojournalProps;
+}) {
   const { slug } = await props.params;
 
   const memory = await getMemory(slug);
