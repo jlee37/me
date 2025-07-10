@@ -282,7 +282,7 @@ const PhotoEssaySection = (props: ContentSectionProps) => {
 
   return (
     <Section
-      title="photo essays"
+      title="photo collections"
       items={items}
       basePath="photo-essays"
       onLinkClick={props.onLinkClick}

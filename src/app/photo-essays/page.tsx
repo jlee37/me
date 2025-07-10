@@ -40,5 +40,5 @@ const PhotoEssaysPageContent = () => {
       directToUrl: `/photo-essays/${photoEssay.fields.slug}`,
     };
   });
-  return <Preview title="Photo Essays" items={items} />;
+  return <Preview title="Photo Collections" items={items} />;
 };
