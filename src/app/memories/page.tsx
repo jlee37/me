@@ -20,11 +20,17 @@ const MemoriesPageContent = () => {
     return dateB - dateA;
   });
   const items = sortedMemories.map((memory) => {
-    const photos = memory.fields.photos;
-    const firstPhoto = photos && photos.length > 0 ? photos[0] : null;
+    let previewPhoto;
+    if (memory.fields.previewPhoto) {
+      previewPhoto = memory.fields.previewPhoto;
+    } else {
+      const photos = memory.fields.photos;
+      previewPhoto = photos && photos.length > 0 ? photos[0] : null;
+    }
+
     const url =
-      typeof firstPhoto?.fields?.file?.url === "string"
-        ? firstPhoto.fields.file.url
+      typeof previewPhoto?.fields?.file?.url === "string"
+        ? previewPhoto.fields.file.url
         : undefined;
     const absoluteUrl = url && url.startsWith("//") ? `https:${url}` : url;
     const title = memory.fields.title || "";

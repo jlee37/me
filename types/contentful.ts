@@ -31,6 +31,8 @@ export interface IPhotoEssayFields {
 
   /** Photos */
   photos?: Asset[] | undefined;
+
+  previewPhoto?: Asset
 }
 
 export type PhotoEssay = {
@@ -54,6 +56,8 @@ export interface IMemoryFields {
 
   /** Photos */
   photos?: Asset[] | undefined;
+
+  previewPhoto?: Asset
 
   requireKey?: boolean
 }
