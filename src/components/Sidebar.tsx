@@ -284,7 +284,7 @@ const PhotoEssaySection = (props: ContentSectionProps) => {
     <Section
       title="photo collections"
       items={items}
-      basePath="photo-essays"
+      basePath="photo-collections"
       onLinkClick={props.onLinkClick}
       currentPathName={props.currentPathName}
       isMobile={props.isMobile}

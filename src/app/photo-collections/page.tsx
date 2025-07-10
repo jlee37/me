@@ -37,7 +37,7 @@ const PhotoEssaysPageContent = () => {
     return {
       imageUrl: absoluteUrl || "/placeholder.png", // fallback if no image
       title,
-      directToUrl: `/photo-essays/${photoEssay.fields.slug}`,
+      directToUrl: `/photo-collections/${photoEssay.fields.slug}`,
     };
   });
   return <Preview title="Photo Collections" items={items} />;
