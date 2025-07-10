@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "./Link";
 
@@ -8,17 +10,26 @@ type PreviewBoxProps = {
 };
 
 function PreviewBox(props: PreviewBoxProps) {
+  const [loaded, setLoaded] = useState(false);
+
   return (
     <Link href={props.directToUrl} className="w-full">
       <div className="group border border-gray-200 rounded-lg p-2 flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 w-full md:hover:border-indigo-400">
-        <Image
-          src={props.imageUrl}
-          alt={""}
-          width={300}
-          height={200}
-          className="object-cover rounded-md mb-2 w-full h-40"
-        />
-        <div className="text-center font-semibold md:mt-2 md:mb-2 transition-colors md:group-hover:text-indigo-400 truncate w-full pl-2 pr-2">
+        <div className="relative w-full h-40 mb-2 rounded-md overflow-hidden ">
+          {!loaded && (
+            // Skeleton is the gray animated block shown while loading
+            <div className="absolute inset-0 bg-gray-800 animate-pulse" />
+          )}
+          <Image
+            src={props.imageUrl}
+            alt={props.title || ""}
+            fill
+            sizes="(max-width: 768px) 100vw, 300px"
+            className={`object-cover rounded-md transition-opacity duration-500`}
+            onLoadingComplete={() => setLoaded(true)}
+          />
+        </div>
+        <div className="text-center font-semibold md:mt-2 md:mb-2 transition-colors md:group-hover:text-indigo-400 truncate w-full px-2">
           {props.title}
         </div>
       </div>
@@ -34,6 +45,7 @@ type PreviewProps = {
     directToUrl: string;
   }[];
 };
+
 export const Preview = (props: PreviewProps) => {
   return (
     <div className="relative pl-4 pr-4 w-full md:mt-12 md:pr-8">
