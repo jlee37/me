@@ -42,7 +42,7 @@ const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
               <div key={index} className="mb-10 md:mb-16">
                 <div className="relative w-full max-w-[1200px]">
                   {!isLoaded && (
-                    <div className="w-full h-[300px] md:h-[600px] bg-gray-800 rounded-md animate-pulse" />
+                    <div className="w-full h-[230px] md:h-[600px] bg-gray-800 rounded-md animate-pulse" />
                   )}
                   <Image
                     src={absoluteUrl}
