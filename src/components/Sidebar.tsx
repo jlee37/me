@@ -219,7 +219,7 @@ const Section = ({
       >
         {title}
       </Link>
-      <div className={`ml-4 md:ml-6`}>
+      <div className={`ml-4 md:ml-6 ${isMobile ? "hidden" : ""}`}>
         {sortedItems?.map((item) => {
           const isActive = currentPathName === `/${basePath}/${item.slug}`;
 
