@@ -50,7 +50,7 @@ const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
                     width={1200}
                     height={800}
                     className={`w-full h-auto object-contain rounded-md max-h-[600px] md:max-w-[1200px] transition-opacity duration-500 ${
-                      isLoaded ? "opacity-100" : "opacity-0"
+                      isLoaded ? "" : "h-0"
                     }`}
                     priority={index === 0}
                     loading="eager"
