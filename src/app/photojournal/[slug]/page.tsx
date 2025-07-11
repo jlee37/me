@@ -48,7 +48,7 @@ export async function generateMetadata({
   if (previewPhoto?.fields?.file?.url) {
     const baseUrl = previewPhoto.fields.file.url as string;
     const cleanUrl = baseUrl.startsWith("//") ? `https:${baseUrl}` : baseUrl;
-    imageUrl = `${cleanUrl}?w=1200&h=630&fit=thumb&fm=jpg&q=30`;
+    imageUrl = `${cleanUrl}?w=1200&h=630&fit=thumb&fm=jpg&q=25`;
   } else {
     if (memory?.fields?.photos) {
       const photos = memory.fields.photos as Asset[];
