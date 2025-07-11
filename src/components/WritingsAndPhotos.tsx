@@ -4,7 +4,13 @@ import Image from "next/image";
 import { Asset } from "contentful";
 import ContentPageWrapper from "./ContentPageWrapper";
 
-const WritingsAndPhotosImage = ({ asset }: { asset: Asset }) => {
+const WritingsAndPhotosImage = ({
+  asset,
+  eagerLoad,
+}: {
+  asset: Asset;
+  eagerLoad: boolean;
+}) => {
   const url = asset.fields?.file?.url as string;
   const description = asset.fields?.description as string;
   const absoluteUrl = url.startsWith("//") ? `https:${url}` : url;
@@ -28,7 +34,7 @@ const WritingsAndPhotosImage = ({ asset }: { asset: Asset }) => {
           className={`absolute top-0 left-0 w-full h-full object-contain rounded-md transition-opacity duration-500 ${
             loaded ? "opacity-100 z-10" : "opacity-0 z-0"
           }`}
-          loading="lazy"
+          loading={eagerLoad ? "eager" : "lazy"}
           sizes="(max-width: 768px) 100vw, 1200px"
           quality={85}
           onLoadingComplete={() => setLoaded(true)}
@@ -52,6 +58,8 @@ type WritingsAndPhotosProps = {
   photos: Asset[];
 };
 const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
+  const eagerLoad = props.photos.length <= 20;
+
   return (
     <ContentPageWrapper>
       <h1 className="text-xl md:text-2xl mb-2">{props.title}</h1>
@@ -63,7 +71,11 @@ const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
         {props.photos
           ?.filter((entry) => !!entry?.fields?.file?.url)
           ?.map((entry: Asset, index: number) => (
-            <WritingsAndPhotosImage key={index} asset={entry} />
+            <WritingsAndPhotosImage
+              key={index}
+              asset={entry}
+              eagerLoad={eagerLoad}
+            />
           ))}
       </div>
     </ContentPageWrapper>
