@@ -147,7 +147,7 @@ const HomeSection = ({
   return (
     <div>
       <Link
-        className={`hover:md:hover:text-indigo-400 transition-colors duration-100 ${isActive ? "text-indigo-400" : ""} underline`}
+        className={`md:hover:text-indigo-400 transition-colors duration-100 ${isActive ? "text-indigo-400" : ""} underline`}
         href="/"
         onClick={onClose}
       >
@@ -229,7 +229,7 @@ const Section = ({
             <div key={item.title}>
               <Link
                 href={`/${basePath}/${item.slug}`}
-                className={`md:hover:text-indigo-400 transition-colors duration-100 text-base ${isActive ? "text-indigo-400" : ""}`}
+                className={`md:hover:text-indigo-400 active:text-indigo-400 transition-colors duration-100 text-base ${isActive ? "text-indigo-400" : ""}`}
                 onClick={onLinkClick}
               >
                 {item.title}

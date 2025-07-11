@@ -48,7 +48,7 @@ export async function generateMetadata({
     const baseUrl = previewPhoto.fields.file.url as string;
     const cleanUrl = baseUrl.startsWith("//") ? `https:${baseUrl}` : baseUrl;
     console.log(cleanUrl);
-    imageUrl = `https://images.ctfassets.net/hc7yg3n2axlr/LPhcrATDzsjRgmDzfw4mZ/df6bfdc09d18a2ca6233c3372d03d9f2/kodak_400_c_41_26080_94763_211060_002110600012.jpeg?w=1200&h=630&fit=thumb&fm=jpg&q=80`;
+    imageUrl = `https://images.ctfassets.net/hc7yg3n2axlr/LPhcrATDzsjRgmDzfw4mZ/df6bfdc09d18a2ca6233c3372d03d9f2/kodak_400_c_41_26080_94763_211060_002110600012.jpeg?w=1200&h=630&fit=thumb&fm=jpg&q=30`;
   }
   return {
     title: title,
