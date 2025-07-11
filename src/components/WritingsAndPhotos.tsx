@@ -31,7 +31,7 @@ const WritingsAndPhotosImage = ({ asset }: { asset: Asset }) => {
             sizes="(max-width: 768px) 100vw, 1200px"
             quality={85}
             onLoadingComplete={() => setLoaded(true)}
-            lazyBoundary="1000px"
+            lazyBoundary="10000px"
           />
         }
       </div>
