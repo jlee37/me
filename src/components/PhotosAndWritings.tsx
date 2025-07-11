@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Asset } from "contentful";
-import ContentPageWrapper from "./ContentPageWrapper";
 import { useSearchParams } from "next/navigation";
 import { HIDDEN_KEY } from "@/constants/hiddenKey";
 
