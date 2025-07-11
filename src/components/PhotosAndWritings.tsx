@@ -69,7 +69,7 @@ const PhotosAndWritings = (props: PhotosAndWritingsProps) => {
   const hasKey = params.get("key") == HIDDEN_KEY;
 
   return (
-    <ContentPageWrapper>
+    <div>
       <h1 className="text-xl md:text-2xl mb-2">{props.title}</h1>
       <h2 className="text-sm mb-6 md:mb-8">{props.formattedDate}</h2>
       {props.opener && (
@@ -87,7 +87,7 @@ const PhotosAndWritings = (props: PhotosAndWritingsProps) => {
             />
           ))}
       </div>
-    </ContentPageWrapper>
+    </div>
   );
 };
 

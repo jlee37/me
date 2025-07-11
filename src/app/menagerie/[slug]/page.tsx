@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import client from "../../../../lib/contentful";
 import { IPhotoEssayFields } from "../../../../types/contentful";
-import PhotosAndWritings from "@/components/WritingsAndPhotos";
+import PhotosAndWritings from "@/components/PhotosAndWritings";
+import ContentPageWrapper from "@/components/ContentPageWrapper";
 
 async function getPhotoEssay(slug: string) {
   const res = await client.getEntries({
@@ -47,12 +48,14 @@ export default async function PhotoEssayPage(props: {
 
   return (
     <div className="md:max-w-[1200px] h-full">
-      <PhotosAndWritings
-        title={title}
-        formattedDate={formattedDate}
-        opener={opener}
-        photos={photos}
-      />
+      <ContentPageWrapper>
+        <PhotosAndWritings
+          title={title}
+          formattedDate={formattedDate}
+          opener={opener}
+          photos={photos}
+        />
+      </ContentPageWrapper>
     </div>
   );
 }
