@@ -47,7 +47,8 @@ export async function generateMetadata({
   if (previewPhoto?.fields?.file?.url) {
     const baseUrl = previewPhoto.fields.file.url as string;
     const cleanUrl = baseUrl.startsWith("//") ? `https:${baseUrl}` : baseUrl;
-    imageUrl = `${cleanUrl}?w=1200&h=630&fit=thumb&fm=jpeg&q=80`;
+    console.log(cleanUrl);
+    imageUrl = `https://images.ctfassets.net/hc7yg3n2axlr/LPhcrATDzsjRgmDzfw4mZ/df6bfdc09d18a2ca6233c3372d03d9f2/kodak_400_c_41_26080_94763_211060_002110600012.jpeg?w=1200&h=630&fit=thumb&fm=jpg&q=80`;
   }
   return {
     title: title,
