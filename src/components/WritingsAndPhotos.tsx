@@ -1,5 +1,4 @@
 "use client";
-import { useInView } from "react-intersection-observer";
 import { useState } from "react";
 import Image from "next/image";
 import { Asset } from "contentful";
