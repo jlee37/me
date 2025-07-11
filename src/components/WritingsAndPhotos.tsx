@@ -64,7 +64,7 @@ const WritingsAndPhotosImage = ({ asset }: { asset: Asset }) => {
             className={`w-full h-auto object-contain rounded-md max-h-[600px] md:max-w-[1200px] transition-opacity duration-500 ${
               loaded ? "" : "h-0"
             }`}
-            loading="lazy"
+            loading="eager"
             sizes="(max-width: 768px) 100vw, 1200px"
             quality={85}
             onLoadingComplete={() => setLoaded(true)}
