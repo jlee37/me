@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <div className="flex justify-between items-center p-4">
-      <Link className="flex items-center" href="">
+      <Link className="flex items-center" href="/">
         <img
           src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDByeGFpdWR4ZGtxcmJ3MjAwbTh3ZWM5bWNidmo2bWdjb2t4MHo1ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vxW0QlzKz5StSY3Wjg/giphy.gif"
           className="w-20 h-20 md:w-28 md:h-28 object-contain"
