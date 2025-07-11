@@ -51,7 +51,7 @@ const WritingsAndPhotosImage = ({ asset }: { asset: Asset }) => {
   return (
     <div className="mb-10 md:mb-16" ref={ref}>
       <div className="relative w-full max-w-[1200px]">
-        {!loaded && isVisible && (
+        {!loaded && (
           <div className="w-full h-[230px] md:h-[600px] bg-gray-800 rounded-md animate-pulse" />
         )}
 
@@ -71,7 +71,7 @@ const WritingsAndPhotosImage = ({ asset }: { asset: Asset }) => {
           />
         )}
       </div>
-      {description && isVisible && (
+      {description && (
         <p className="mt-3 whitespace-pre-line text-sm md:text-base">
           {description}
         </p>
