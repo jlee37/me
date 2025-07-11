@@ -40,21 +40,15 @@ export async function generateMetadata({
   }
 
   const fields = memory.fields as IMemoryFields;
-  const { title, photos, previewPhoto } = fields;
+  const { title, previewPhoto } = fields;
 
   // Use preview photo if available, otherwise use first photo
   let imageUrl = "";
   if (previewPhoto?.fields?.file?.url) {
     const baseUrl = previewPhoto.fields.file.url as string;
     const cleanUrl = baseUrl.startsWith("//") ? `https:${baseUrl}` : baseUrl;
-    imageUrl = `${cleanUrl}?w=1200&h=630&fit=thumb&fm=jpg&q=80`;
-  } else if (photos && photos.length > 0 && photos[0]?.fields?.file?.url) {
-    const url = photos[0].fields.file.url as string;
-    imageUrl = url.startsWith("//") ? `https:${url}` : url;
+    imageUrl = `${cleanUrl}?w=1200&h=630&fit=thumb&fm=jpeg&q=80`;
   }
-
-  console.log(imageUrl);
-
   return {
     title: title,
     openGraph: {
@@ -62,7 +56,7 @@ export async function generateMetadata({
       url: `https://jonnylee.net/photojournal/${slug}`,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&h=630&fit=crop&q=80",
+          url: imageUrl,
           width: 1200,
           height: 630,
           alt: title || "Photojournal entry",
@@ -84,7 +78,10 @@ export default async function PhotojournalPage(props: {
   }
 
   const fields = memory.fields as IMemoryFields;
-  const { title, photos, date, opener, requireKeyForText } = fields;
+  const { title, photos, date, opener, requireKeyForText, previewPhoto } =
+    fields;
+
+  console.log("JLEE look", previewPhoto);
 
   if (!title || !photos || !date) {
     return null;
