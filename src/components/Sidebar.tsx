@@ -147,7 +147,7 @@ const HomeSection = ({
   return (
     <div>
       <Link
-        className={`md:hover:text-indigo-400 transition-colors duration-100 ${isActive ? "text-indigo-400" : ""} underline`}
+        className={`md:hover:text-indigo-400 active:text-indigo-400  transition-colors duration-100 ${isActive ? "text-indigo-400" : ""} underline`}
         href="/"
         onClick={onClose}
       >
@@ -169,7 +169,7 @@ const AboutSection = ({
   return (
     <div>
       <Link
-        className={`hover:text-indigo-400 transition-colors duration-100 ${isActive ? "text-indigo-400" : ""} underline`}
+        className={`hover:text-indigo-400 active:text-indigo-400  transition-colors duration-100 ${isActive ? "text-indigo-400" : ""} underline`}
         href="/about"
         onClick={onClose}
       >
@@ -217,7 +217,7 @@ const Section = ({
     >
       <Link
         href={`/${slugifiedTitle}`}
-        className={`underline md:hover:text-indigo-400 transition-colors duration-100 ${currentPathName === `/${slugifiedTitle}` ? "text-indigo-400" : ""}`}
+        className={`underline md:hover:text-indigo-400 active:text-indigo-400 transition-colors duration-100 ${currentPathName === `/${slugifiedTitle}` ? "text-indigo-400" : ""}`}
       >
         {title}
       </Link>
