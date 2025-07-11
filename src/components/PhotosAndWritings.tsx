@@ -66,12 +66,13 @@ const PhotosAndWritings = (props: PhotosAndWritingsProps) => {
 
   const params = useSearchParams();
   const hasKey = params.get("key") == HIDDEN_KEY;
+  const showText = hasKey || !props.requireKeyForText;
 
   return (
     <div>
       <h1 className="text-xl md:text-2xl mb-2">{props.title}</h1>
       <h2 className="text-sm mb-6 md:mb-8">{props.formattedDate}</h2>
-      {props.opener && (
+      {props.opener && showText && (
         <p className="mb-6 md:mb-8 whitespace-pre-line">{props.opener}</p>
       )}
       <div>
@@ -82,7 +83,7 @@ const PhotosAndWritings = (props: PhotosAndWritingsProps) => {
               key={index}
               asset={entry}
               eagerLoad={eagerLoad}
-              showText={hasKey || !props.requireKeyForText}
+              showText={showText}
             />
           ))}
       </div>
