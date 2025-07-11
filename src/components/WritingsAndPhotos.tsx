@@ -11,36 +11,34 @@ type WritingsAndPhotosProps = {
   photos: Asset[];
 };
 
-// Intersection observer hook defined inline
 function useIntersectionObserver(options = {}) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect();
         }
       },
       {
-        rootMargin: "1000px", // Preload before it enters viewport
+        rootMargin: "800px", // adjust as needed for mobile
         threshold: 0.01,
         ...options,
       }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    observer.observe(node);
 
-    return () => observer.disconnect();
-  }, [options]);
+    return () => observer.unobserve(node);
+  }, [ref, options]);
 
   return { ref, isVisible };
 }
-
 // Nested component for each photo
 const WritingsAndPhotosImage = ({ asset }: { asset: Asset }) => {
   const url = asset.fields?.file?.url as string;
