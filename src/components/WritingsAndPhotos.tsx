@@ -25,7 +25,7 @@ function useIntersectionObserver(options = {}) {
         }
       },
       {
-        rootMargin: "500px", // Preload before it enters viewport
+        rootMargin: "1000px", // Preload before it enters viewport
         threshold: 0.01,
         ...options,
       }
