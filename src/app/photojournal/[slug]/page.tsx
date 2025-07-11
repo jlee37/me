@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import client from "../../../../lib/contentful";
 import { IMemoryFields } from "../../../../types/contentful";
-import WritingsAndPhotos from "@/components/WritingsAndPhotos";
+import PhotosAndWritings from "@/components/WritingsAndPhotos";
+import { HIDDEN_KEY } from "@/constants/hiddenKey";
 
 async function getMemory(slug: string) {
   const res = await client.getEntries({
@@ -23,8 +24,11 @@ type PhotojournalProps = Promise<{
 
 export default async function PhotojournalPage(props: {
   params: PhotojournalProps;
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const { slug } = await props.params;
+  const searchParams = await props.searchParams;
+  const hasValidKey = searchParams["key"] == HIDDEN_KEY;
 
   const memory = await getMemory(slug);
 
@@ -33,11 +37,13 @@ export default async function PhotojournalPage(props: {
   }
 
   const fields = memory.fields as IMemoryFields;
-  const { title, photos, date, opener } = fields;
+  const { title, photos, date, opener, requireKeyForText } = fields;
 
   if (!title || !photos || !date) {
     return null;
   }
+
+  console.log("JLEE look", requireKeyForText);
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -47,11 +53,12 @@ export default async function PhotojournalPage(props: {
 
   return (
     <div className="md:max-w-[1200px] h-full">
-      <WritingsAndPhotos
+      <PhotosAndWritings
         title={title}
         formattedDate={formattedDate}
         opener={opener}
         photos={photos}
+        showText={hasValidKey || !requireKeyForText}
       />
     </div>
   );

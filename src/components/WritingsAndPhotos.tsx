@@ -4,12 +4,14 @@ import Image from "next/image";
 import { Asset } from "contentful";
 import ContentPageWrapper from "./ContentPageWrapper";
 
-const WritingsAndPhotosImage = ({
+const PhotoAndDescription = ({
   asset,
   eagerLoad,
+  showText,
 }: {
   asset: Asset;
   eagerLoad: boolean;
+  showText: boolean;
 }) => {
   const url = asset.fields?.file?.url as string;
   const description = asset.fields?.description as string;
@@ -43,7 +45,7 @@ const WritingsAndPhotosImage = ({
       </div>
 
       {/* Description */}
-      {description && (
+      {description && showText && (
         <p className="mt-3 whitespace-pre-line text-sm md:text-base">
           {description}
         </p>
@@ -51,14 +53,14 @@ const WritingsAndPhotosImage = ({
     </div>
   );
 };
-type WritingsAndPhotosProps = {
+type PhotosAndWritingsProps = {
   title: string;
   formattedDate: string;
   opener?: string;
   photos: Asset[];
+  showText: boolean;
 };
-const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
-  
+const PhotosAndWritings = (props: PhotosAndWritingsProps) => {
   const eagerLoad = props.photos.length <= 20;
 
   return (
@@ -72,10 +74,11 @@ const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
         {props.photos
           ?.filter((entry) => !!entry?.fields?.file?.url)
           ?.map((entry: Asset, index: number) => (
-            <WritingsAndPhotosImage
+            <PhotoAndDescription
               key={index}
               asset={entry}
               eagerLoad={eagerLoad}
+              showText={props.showText}
             />
           ))}
       </div>
@@ -83,4 +86,4 @@ const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
   );
 };
 
-export default WritingsAndPhotos;
+export default PhotosAndWritings;

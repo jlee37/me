@@ -59,7 +59,7 @@ export interface IMemoryFields {
 
   previewPhoto?: Asset
 
-  requireKey?: boolean
+  requireKeyForText?: boolean
 }
 
 export type Memory = {

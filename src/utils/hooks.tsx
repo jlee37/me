@@ -3,8 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import client from "../../lib/contentful";
 import { Memory, PhotoEssay, Writing } from "../../types/contentful";
-import { useSearchParams } from "next/navigation";
-import { HIDDEN_KEY } from "../constants/hiddenKey";
 
 async function fetchWriting() {
   const response = await client.getEntries({
@@ -58,15 +56,8 @@ export function useMemories() {
     queryFn: fetchMemory,
   });
 
-  const searchParams = useSearchParams();
-  const hasKey = searchParams.get("key") === HIDDEN_KEY;
-
-  const filteredData = data?.filter(
-    (d) => (d.fields.requireKey && hasKey) || !d.fields.requireKey
-  );
-
   return {
-    data: filteredData ?? [],
+    data: data ?? [],
     error: error ? String(error) : null,
     loading: isLoading,
   };

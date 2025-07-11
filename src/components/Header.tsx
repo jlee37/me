@@ -1,10 +1,10 @@
 "use client";
 
 import { Quantico } from "next/font/google";
-import { useRouter, useSearchParams } from "next/navigation";
 import { Menu } from "lucide-react"; // Hamburger icon
 import { useState } from "react";
 import SidebarWithSuspense from "./SidebarWithSuspense";
+import Link from "./Link";
 
 const quantico = Quantico({
   subsets: ["latin"],
@@ -12,18 +12,11 @@ const quantico = Quantico({
 });
 
 const Header = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const handleGoHome = () => {
-    const params = searchParams.toString();
-    router.push(`/${params ? `?${params}` : ""}`);
-  };
 
   return (
     <div className="flex justify-between items-center p-4">
-      <button className="flex items-center" onClick={handleGoHome}>
+      <Link className="flex items-center" href="">
         <img
           src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDByeGFpdWR4ZGtxcmJ3MjAwbTh3ZWM5bWNidmo2bWdjb2t4MHo1ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vxW0QlzKz5StSY3Wjg/giphy.gif"
           className="w-20 h-20 md:w-28 md:h-28 object-contain"
@@ -33,7 +26,7 @@ const Header = () => {
             jonny.lee
           </div>
         </div>
-      </button>
+      </Link>
 
       {/* Hamburger - only shows on mobile */}
       <button
