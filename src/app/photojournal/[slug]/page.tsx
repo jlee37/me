@@ -20,6 +20,7 @@ async function getMemory(slug: string) {
 
 type PhotojournalProps = Promise<{
   slug: string;
+  searchParams: { [key: string]: string | string[] | undefined };
 }>;
 
 export default async function PhotojournalPage(props: {
@@ -42,8 +43,6 @@ export default async function PhotojournalPage(props: {
   if (!title || !photos || !date) {
     return null;
   }
-
-  console.log("JLEE look", requireKeyForText);
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",

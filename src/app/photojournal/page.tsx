@@ -4,15 +4,15 @@ import { Preview } from "@/components/Preview";
 import { useMemories } from "@/utils/hooks";
 import { Suspense } from "react";
 
-export default function PhotojournalPage() {
+export default function PhotojournalPreviewPage() {
   return (
     <Suspense>
-      <PhotojournalPageContent />
+      <PhotojournalPreviewPageContent />
     </Suspense>
   );
 }
 
-const PhotojournalPageContent = () => {
+const PhotojournalPreviewPageContent = () => {
   const { data: photojournal } = useMemories();
   const sortedPhotojournal = [...photojournal].sort((a, b) => {
     const dateA = new Date(a.fields.date || 0).getTime();
