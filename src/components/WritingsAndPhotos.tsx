@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import ContentPageWrapper from "./ContentPageWrapper";
 import { Asset } from "contentful";
@@ -11,17 +11,78 @@ type WritingsAndPhotosProps = {
   photos: Asset[];
 };
 
+// Intersection observer hook defined inline
+function useIntersectionObserver(options = {}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: "500px", // Preload before it enters viewport
+        threshold: 0.01,
+        ...options,
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [options]);
+
+  return { ref, isVisible };
+}
+
+// Nested component for each photo
+const WritingsAndPhotosImage = ({ asset }: { asset: Asset }) => {
+  const url = asset.fields?.file?.url as string;
+  const description = asset.fields?.description as string;
+  const absoluteUrl = url.startsWith("//") ? `https:${url}` : url;
+
+  const { ref, isVisible } = useIntersectionObserver();
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="mb-10 md:mb-16" ref={ref}>
+      <div className="relative w-full max-w-[1200px]">
+        {!loaded && isVisible && (
+          <div className="w-full h-[230px] md:h-[600px] bg-gray-800 rounded-md animate-pulse" />
+        )}
+
+        {isVisible && (
+          <Image
+            src={absoluteUrl}
+            alt={description || ""}
+            width={1200}
+            height={800}
+            className={`w-full h-auto object-contain rounded-md max-h-[600px] md:max-w-[1200px] transition-opacity duration-500 ${
+              loaded ? "" : "h-0"
+            }`}
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 1200px"
+            quality={85}
+            onLoadingComplete={() => setLoaded(true)}
+          />
+        )}
+      </div>
+      {description && isVisible && (
+        <p className="mt-3 whitespace-pre-line text-sm md:text-base">
+          {description}
+        </p>
+      )}
+    </div>
+  );
+};
+
 const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
-  const [loaded, setLoaded] = useState<boolean[]>([]);
-
-  const handleLoad = (index: number) => {
-    setLoaded((prev) => {
-      const next = [...prev];
-      next[index] = true;
-      return next;
-    });
-  };
-
   return (
     <ContentPageWrapper>
       <h1 className="text-xl md:text-2xl mb-2">{props.title}</h1>
@@ -32,41 +93,9 @@ const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
       <div>
         {props.photos
           ?.filter((entry) => !!entry?.fields?.file?.url)
-          ?.map((entry: Asset, index: number) => {
-            const url = entry.fields?.file?.url as string;
-            const description = entry.fields?.description as string;
-            const absoluteUrl = url.startsWith("//") ? `https:${url}` : url;
-            const isLoaded = loaded[index];
-
-            return (
-              <div key={index} className="mb-10 md:mb-16">
-                <div className="relative w-full max-w-[1200px]">
-                  {!isLoaded && (
-                    <div className="w-full h-[230px] md:h-[600px] bg-gray-800 rounded-md animate-pulse" />
-                  )}
-                  <Image
-                    src={absoluteUrl}
-                    alt={description || ""}
-                    width={1200}
-                    height={800}
-                    className={`w-full h-auto object-contain rounded-md max-h-[600px] md:max-w-[1200px] transition-opacity duration-500 ${
-                      isLoaded ? "" : "h-0"
-                    }`}
-                    priority={index === 0}
-                    loading="lazy"
-                    sizes="(max-width: 768px) 100vw, 1200px"
-                    quality={85}
-                    onLoadingComplete={() => handleLoad(index)}
-                  />
-                </div>
-                {description && (
-                  <p className="mt-3 whitespace-pre-line text-sm md:text-base">
-                    {description}
-                  </p>
-                )}
-              </div>
-            );
-          })}
+          ?.map((entry: Asset, index: number) => (
+            <WritingsAndPhotosImage key={index} asset={entry} />
+          ))}
       </div>
     </ContentPageWrapper>
   );
