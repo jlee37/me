@@ -53,21 +53,21 @@ export async function generateMetadata({
     imageUrl = url.startsWith("//") ? `https:${url}` : url;
   }
 
+  console.log(imageUrl);
+
   return {
     title: title,
     openGraph: {
       title: title || "Photojournal Entry",
       url: `https://jonnylee.net/photojournal/${slug}`,
-      images: imageUrl
-        ? [
-            {
-              url: imageUrl,
-              width: 1200,
-              height: 630,
-              alt: title || "Photojournal entry",
-            },
-          ]
-        : undefined,
+      images: [
+        {
+          url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&h=630&fit=crop&q=80",
+          width: 1200,
+          height: 630,
+          alt: title || "Photojournal entry",
+        },
+      ],
     },
   };
 }
