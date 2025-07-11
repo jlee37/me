@@ -53,7 +53,7 @@ const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
                       isLoaded ? "" : "h-0"
                     }`}
                     priority={index === 0}
-                    loading="eager"
+                    loading="lazy"
                     sizes="(max-width: 768px) 100vw, 1200px"
                     quality={85}
                     onLoadingComplete={() => handleLoad(index)}
