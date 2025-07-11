@@ -4,6 +4,7 @@ import client from "../../../../lib/contentful";
 import { IMemoryFields } from "../../../../types/contentful";
 import PhotosAndWritings from "@/components/PhotosAndWritings";
 import ContentPageWrapper from "@/components/ContentPageWrapper";
+import { Asset } from "contentful";
 
 async function getMemory(slug: string) {
   const res = await client.getEntries({
@@ -48,6 +49,17 @@ export async function generateMetadata({
     const baseUrl = previewPhoto.fields.file.url as string;
     const cleanUrl = baseUrl.startsWith("//") ? `https:${baseUrl}` : baseUrl;
     imageUrl = `${cleanUrl}?w=1200&h=630&fit=thumb&fm=jpg&q=30`;
+  } else {
+    if (memory?.fields?.photos) {
+      const photos = memory.fields.photos as Asset[];
+      if (photos.length > 0 && photos[0]?.fields?.file?.url) {
+        const baseUrl = photos[0].fields.file.url as string;
+        const cleanUrl = baseUrl.startsWith("//")
+          ? `https:${baseUrl}`
+          : baseUrl;
+        imageUrl = `${cleanUrl}?w=1200&h=630&fit=thumb&fm=jpg&q=30`;
+      }
+    }
   }
   return {
     title: title,
