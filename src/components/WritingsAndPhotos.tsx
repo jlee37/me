@@ -58,6 +58,7 @@ type WritingsAndPhotosProps = {
   photos: Asset[];
 };
 const WritingsAndPhotos = (props: WritingsAndPhotosProps) => {
+  
   const eagerLoad = props.photos.length <= 20;
 
   return (
