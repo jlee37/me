@@ -3,6 +3,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { Asset } from "contentful";
 import ContentPageWrapper from "./ContentPageWrapper";
+import { useSearchParams } from "next/navigation";
+import { HIDDEN_KEY } from "@/constants/hiddenKey";
 
 const PhotoAndDescription = ({
   asset,
@@ -58,10 +60,13 @@ type PhotosAndWritingsProps = {
   formattedDate: string;
   opener?: string;
   photos: Asset[];
-  showText: boolean;
+  requireKeyForText: boolean;
 };
 const PhotosAndWritings = (props: PhotosAndWritingsProps) => {
   const eagerLoad = props.photos.length <= 20;
+
+  const params = useSearchParams();
+  const hasKey = params.get("key") == HIDDEN_KEY;
 
   return (
     <ContentPageWrapper>
@@ -78,7 +83,7 @@ const PhotosAndWritings = (props: PhotosAndWritingsProps) => {
               key={index}
               asset={entry}
               eagerLoad={eagerLoad}
-              showText={props.showText}
+              showText={hasKey || !props.requireKeyForText}
             />
           ))}
       </div>

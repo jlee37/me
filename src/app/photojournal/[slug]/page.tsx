@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import client from "../../../../lib/contentful";
 import { IMemoryFields } from "../../../../types/contentful";
 import PhotosAndWritings from "@/components/WritingsAndPhotos";
-import { HIDDEN_KEY } from "@/constants/hiddenKey";
 
 async function getMemory(slug: string) {
   const res = await client.getEntries({
@@ -20,16 +19,12 @@ async function getMemory(slug: string) {
 
 type PhotojournalProps = Promise<{
   slug: string;
-  searchParams: { [key: string]: string | string[] | undefined };
 }>;
 
 export default async function PhotojournalPage(props: {
   params: PhotojournalProps;
-  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const { slug } = await props.params;
-  const searchParams = await props.searchParams;
-  const hasValidKey = searchParams["key"] == HIDDEN_KEY;
 
   const memory = await getMemory(slug);
 
@@ -57,7 +52,7 @@ export default async function PhotojournalPage(props: {
         formattedDate={formattedDate}
         opener={opener}
         photos={photos}
-        showText={hasValidKey || !requireKeyForText}
+        requireKeyForText={!!requireKeyForText}
       />
     </div>
   );
