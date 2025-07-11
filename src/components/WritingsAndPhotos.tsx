@@ -13,28 +13,30 @@ const WritingsAndPhotosImage = ({ asset }: { asset: Asset }) => {
 
   return (
     <div className="mb-10 md:mb-16">
-      <div className="relative w-full max-w-[1200px]">
+      <div className="relative w-full max-w-[1200px] h-[230px] md:h-[600px]">
+        {/* Skeleton */}
         {!loaded && (
-          <div className="w-full h-[230px] md:h-[600px] bg-gray-800 rounded-md animate-pulse" />
+          <div className="absolute top-0 left-0 w-full h-full bg-gray-800 rounded-md animate-pulse z-0" />
         )}
 
-        {
-          <Image
-            src={absoluteUrl}
-            alt={description || ""}
-            width={1200}
-            height={800}
-            className={`w-full h-auto object-contain rounded-md max-h-[600px] md:max-w-[1200px] transition-opacity duration-500 ${
-              loaded ? "" : "h-0"
-            }`}
-            loading="lazy"
-            sizes="(max-width: 768px) 100vw, 1200px"
-            quality={85}
-            onLoadingComplete={() => setLoaded(true)}
-            lazyBoundary="10000px"
-          />
-        }
+        {/* Image */}
+        <Image
+          src={absoluteUrl}
+          alt={description || ""}
+          width={1200}
+          height={800}
+          className={`absolute top-0 left-0 w-full h-full object-contain rounded-md transition-opacity duration-500 ${
+            loaded ? "opacity-100 z-10" : "opacity-0 z-0"
+          }`}
+          loading="lazy"
+          sizes="(max-width: 768px) 100vw, 1200px"
+          quality={85}
+          onLoadingComplete={() => setLoaded(true)}
+          lazyBoundary="1000px" // or 1000px if desired
+        />
       </div>
+
+      {/* Description */}
       {description && (
         <p className="mt-3 whitespace-pre-line text-sm md:text-base">
           {description}
