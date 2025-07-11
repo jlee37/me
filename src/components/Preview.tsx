@@ -14,7 +14,7 @@ function PreviewBox(props: PreviewBoxProps) {
 
   return (
     <Link href={props.directToUrl} className="w-full">
-      <div className="group border border-gray-200 rounded-lg p-2 flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 w-full md:hover:border-indigo-400">
+      <div className="group border border-gray-200 rounded-lg p-2 flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 w-full md:hover:border-indigo-400 active:border-indigo-400 ">
         <div className="relative w-full h-40 mb-2 rounded-md overflow-hidden ">
           {!loaded && (
             // Skeleton is the gray animated block shown while loading
@@ -29,7 +29,7 @@ function PreviewBox(props: PreviewBoxProps) {
             onLoadingComplete={() => setLoaded(true)}
           />
         </div>
-        <div className="text-center font-semibold md:mt-2 md:mb-2 transition-colors md:group-hover:text-indigo-400 truncate w-full px-2">
+        <div className="text-center font-semibold md:mt-2 md:mb-2 transition-colors md:group-hover:text-indigo-400 truncate w-full px-2 active:text-indigo-400 ">
           {props.title}
         </div>
       </div>
