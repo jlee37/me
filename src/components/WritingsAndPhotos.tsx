@@ -60,7 +60,7 @@ type PhotosAndWritingsProps = {
   formattedDate: string;
   opener?: string;
   photos: Asset[];
-  requireKeyForText: boolean;
+  requireKeyForText?: boolean;
 };
 const PhotosAndWritings = (props: PhotosAndWritingsProps) => {
   const eagerLoad = props.photos.length <= 20;
