@@ -45,12 +45,14 @@ export async function generateMetadata({
   // Use preview photo if available, otherwise use first photo
   let imageUrl = "";
   if (previewPhoto?.fields?.file?.url) {
-    const url = previewPhoto.fields.file.url as string;
-    imageUrl = url.startsWith("//") ? `https:${url}` : url;
+    const baseUrl = previewPhoto.fields.file.url as string;
+    const cleanUrl = baseUrl.startsWith("//") ? `https:${baseUrl}` : baseUrl;
+    imageUrl = `${cleanUrl}?w=1200&h=630&fit=thumb&fm=jpg&q=80`;
   } else if (photos && photos.length > 0 && photos[0]?.fields?.file?.url) {
     const url = photos[0].fields.file.url as string;
     imageUrl = url.startsWith("//") ? `https:${url}` : url;
   }
+
   return {
     title: title,
     openGraph: {
