@@ -5,6 +5,19 @@ import { Asset } from "contentful";
 import { useSearchParams } from "next/navigation";
 import { HIDDEN_KEY } from "@/constants/hiddenKey";
 
+// Helper to add Contentful image optimization parameters
+function getOptimizedContentfulImageUrl(
+  url: string,
+  width: number,
+  quality = 70,
+  format = "webp"
+) {
+  // Contentful URLs sometimes start with //
+  const absoluteUrl = url.startsWith("//") ? `https:${url}` : url;
+  const separator = absoluteUrl.includes("?") ? "&" : "?";
+  return `${absoluteUrl}${separator}w=${width}&q=${quality}&fm=${format}`;
+}
+
 const PhotoAndDescription = ({
   asset,
   eagerLoad,
@@ -14,10 +27,12 @@ const PhotoAndDescription = ({
   eagerLoad: boolean;
   showText: boolean;
 }) => {
-  
   const url = asset.fields?.file?.url as string;
   const description = asset.fields?.description as string;
-  const absoluteUrl = url.startsWith("//") ? `https:${url}` : url;
+
+  // Optimize image URL to reduce bandwidth
+  // Use width 1200 for desktop, smaller for eager loading if desired
+  const optimizedUrl = getOptimizedContentfulImageUrl(url, 1200, 70);
 
   const [loaded, setLoaded] = useState(false);
 
@@ -31,7 +46,7 @@ const PhotoAndDescription = ({
 
         {/* Image */}
         <Image
-          src={absoluteUrl}
+          src={optimizedUrl}
           alt={description || ""}
           width={1200}
           height={800}
@@ -42,7 +57,7 @@ const PhotoAndDescription = ({
           sizes="(max-width: 768px) 100vw, 1200px"
           quality={85}
           onLoadingComplete={() => setLoaded(true)}
-          lazyBoundary="1000px" // or 1000px if desired
+          lazyBoundary="1000px"
         />
       </div>
 
@@ -55,6 +70,7 @@ const PhotoAndDescription = ({
     </div>
   );
 };
+
 type PhotosAndWritingsProps = {
   title: string;
   formattedDate: string;
@@ -62,11 +78,12 @@ type PhotosAndWritingsProps = {
   photos: Asset[];
   requireKeyForText?: boolean;
 };
+
 const PhotosAndWritings = (props: PhotosAndWritingsProps) => {
   const eagerLoad = props.photos.length <= 20;
 
   const params = useSearchParams();
-  const hasKey = params.get("key") == HIDDEN_KEY;
+  const hasKey = params.get("key") === HIDDEN_KEY;
   const showText = hasKey || !props.requireKeyForText;
 
   return (
