@@ -14,6 +14,7 @@ const PhotoAndDescription = ({
   eagerLoad: boolean;
   showText: boolean;
 }) => {
+  
   const url = asset.fields?.file?.url as string;
   const description = asset.fields?.description as string;
   const absoluteUrl = url.startsWith("//") ? `https:${url}` : url;
