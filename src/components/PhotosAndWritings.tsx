@@ -32,7 +32,7 @@ const PhotoAndDescription = ({
 
   // Optimize image URL to reduce bandwidth
   // Use width 1200 for desktop, smaller for eager loading if desired
-  const optimizedUrl = getOptimizedContentfulImageUrl(url, 1200, 85);
+  const optimizedUrl = getOptimizedContentfulImageUrl(url, 1200, 80);
 
   const [loaded, setLoaded] = useState(false);
 
