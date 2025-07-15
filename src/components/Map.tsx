@@ -38,7 +38,7 @@ export default function Map({ coordinates }: MapProps) {
   useEffect(() => {
     function updateCenter() {
       if (window.innerWidth <= 768) {
-        setCenter({ lat: 30, lng: -98.557527 });
+        setCenter({ lat: 35, lng: -98.557527 });
       }
     }
 
