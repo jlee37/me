@@ -115,8 +115,6 @@ const Sidebar = ({
 
   if (!showFullscreen) return content;
 
-  console.log("JLEE is open", isOpen);
-
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog

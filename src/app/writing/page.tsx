@@ -26,7 +26,7 @@ const WritingPageContent = () => {
     return {
       imageUrl: prefixURL(url) || "/placeholder.png", // fallback if no image
       title,
-      directToUrl: `/writing/${writing.fields.title?.toLowerCase().replace(/\s+/g, "-") ?? ""}`,
+      directToUrl: `/writing/${writing.fields.slug}`,
     };
   });
   return <Preview title="Writing" items={items} />;

@@ -15,10 +15,7 @@ export default function MapPage() {
 
 function MapPageContent() {
   const { data: memories } = useMemories();
-  console.log(
-    "JLEE  look",
-    memories.filter((m) => !!m.fields.location).map((m) => m.fields.location)
-  );
+
   const coordinates = memories
     .filter((m) => !!m.fields.location)
     .map((m) => ({
