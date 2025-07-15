@@ -27,7 +27,7 @@ function MapPageContent() {
     }));
 
   return (
-    <div className="w-full h-full p-12">
+    <div className="w-full h-full md:p-12 p-2">
       <Map coordinates={coordinates} />
     </div>
   );

@@ -31,27 +31,30 @@ export default function Map({ coordinates }: MapProps) {
   const mapRef = useRef<google.maps.Map | null>(null);
 
   const router = useRouter();
-  const [zoom, setZoom] = useState(8); // initial zoom level
+  const [zoom, setZoom] = useState(3); // initial zoom level
 
   const overlayViews = useMemo(() => {
     return coordinates.map((coord, index) => {
-      const scale = Math.max(0.5, Math.min(1.2, zoom / 10));
+      const scale = Math.max(0.5, Math.min(1.5, zoom / 8));
       return (
         <OverlayViewF
           key={index}
           position={coord}
           mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+          getPixelPositionOffset={(width, height) => ({
+            x: -width / 2,
+            y: -height,
+          })}
         >
           <div
-            className="relative flex flex-col items-center cursor-pointer transition-transform duration-300 group"
+            className="relative flex flex-col items-center cursor-pointer transition-transform duration-300 group w-full"
             onClick={() => router.push(`/photojournal/${coord.slug}`)}
             style={{
-              transform: `translateX(-50%) translateY(-100%) scale(${scale})`,
+              transform: `scale(${scale})`,
               transformOrigin: "bottom center",
             }}
           >
-            {/* Scaled Box */}
-            <div className="rounded-md border bg-background shadow-lg p-1 group-hover:border-red-700">
+            <div className="group cursor-pointer rounded-md border bg-background shadow-lg p-1 group-hover:border-red-700">
               <Image
                 src={`${coord.photoUrl}?w=800&h=520&fit=thumb&fm=jpg&q=10`}
                 alt={coord.title}
@@ -60,7 +63,7 @@ export default function Map({ coordinates }: MapProps) {
                 className="rounded-md object-cover"
               />
               <div
-                className={`text-xs text-center text-foreground font-quantico overflow-hidden transition-all duration-300 ease-in-out ${
+                className={`text-[12px] text-center text-foreground font-quantico overflow-hidden transition-all duration-300 ease-in-out truncate max-w-[160px] w-full ${
                   zoom >= 8
                     ? "opacity-100 max-h-24 pt-1"
                     : "opacity-0 max-h-0 pointer-events-none"
@@ -78,11 +81,11 @@ export default function Map({ coordinates }: MapProps) {
     });
   }, [coordinates, zoom]);
 
+  const center = useMemo(() => ({ lat: 32.889508, lng: -44.815861 }), []);
+
   if (!isLoaded) return <p>Loading map...</p>;
 
   // Center map on the first coordinate
-  const center = coordinates[0] ?? { lat: 0, lng: 0 };
-
   return (
     <div className="w-full h-full rounded-xl overflow-hidden shadow-lg border">
       <GoogleMap
@@ -102,7 +105,7 @@ export default function Map({ coordinates }: MapProps) {
         }}
         onLoad={(map) => {
           mapRef.current = map;
-          setZoom(map.getZoom() ?? 8);
+          setZoom(map.getZoom() ?? 3);
         }}
       >
         {overlayViews}
