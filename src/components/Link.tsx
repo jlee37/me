@@ -27,9 +27,7 @@ function LinkWithParams({ href, children, onClick, ...rest }: Props) {
 
   // Custom onClick logic for dialog transitions
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    console.log("JLEE outside");
     if (onClick) {
-      console.log("JLEE inside");
       e.preventDefault();
       onClick();
       setTimeout(() => {
