@@ -90,10 +90,7 @@ export default async function PhotojournalPage(props: {
   }
 
   const fields = memory.fields as IMemoryFields;
-  const { title, photos, date, opener, requireKeyForText, previewPhoto } =
-    fields;
-
-  console.log("JLEE look", previewPhoto);
+  const { title, photos, date, opener, requireKeyForText } = fields;
 
   if (!title || !photos || !date) {
     return null;

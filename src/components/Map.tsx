@@ -1,13 +1,13 @@
 "use client";
 import {
   GoogleMap,
-  Marker,
   OverlayView,
+  OverlayViewF,
   useJsApiLoader,
 } from "@react-google-maps/api";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 // Updated Coordinate type to include title and photoUrl
 // Make sure to pass these fields in the coordinates prop
@@ -28,9 +28,55 @@ export default function Map({ coordinates }: MapProps) {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
   });
+  const mapRef = useRef<google.maps.Map | null>(null);
 
   const router = useRouter();
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [zoom, setZoom] = useState(8); // initial zoom level
+
+  const overlayViews = useMemo(() => {
+    return coordinates.map((coord, index) => {
+      const scale = Math.max(0.5, Math.min(1.2, zoom / 10));
+      return (
+        <OverlayViewF
+          key={index}
+          position={coord}
+          mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+        >
+          <div
+            className="relative flex flex-col items-center cursor-pointer transition-transform duration-300 group"
+            onClick={() => router.push(`/photojournal/${coord.slug}`)}
+            style={{
+              transform: `translateX(-50%) translateY(-100%) scale(${scale})`,
+              transformOrigin: "bottom center",
+            }}
+          >
+            {/* Scaled Box */}
+            <div className="rounded-md border bg-background shadow-lg p-1 group-hover:border-red-700">
+              <Image
+                src={`${coord.photoUrl}?w=800&h=520&fit=thumb&fm=jpg&q=10`}
+                alt={coord.title}
+                width={160}
+                height={120}
+                className="rounded-md object-cover"
+              />
+              <div
+                className={`text-xs text-center text-foreground font-quantico overflow-hidden transition-all duration-300 ease-in-out ${
+                  zoom >= 8
+                    ? "opacity-100 max-h-24 pt-1"
+                    : "opacity-0 max-h-0 pointer-events-none"
+                }`}
+              >
+                {coord.title}
+              </div>
+            </div>
+
+            {/* External Caret */}
+            <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-l-transparent border-r-transparent border-t-foreground group-hover:border-t-red-700" />
+          </div>
+        </OverlayViewF>
+      );
+    });
+  }, [coordinates, zoom]);
 
   if (!isLoaded) return <p>Loading map...</p>;
 
@@ -42,57 +88,24 @@ export default function Map({ coordinates }: MapProps) {
       <GoogleMap
         mapContainerStyle={{ width: "100%", height: "100%" }}
         center={center}
-        zoom={8}
         options={{
           styles: customMapStyle,
           disableDefaultUI: true, // optional: hide controls
           gestureHandling: "greedy", // smoother mobile UX
         }}
-      >
-        {coordinates.map((coord, index) => (
-          <Marker
-            key={index}
-            position={coord}
-            onClick={() => router.push(`/photojournal/${coord.slug}`)}
-            onMouseOver={() => setHoveredIndex(index)}
-            onMouseOut={() =>
-              setHoveredIndex((prev) => (prev === index ? null : prev))
-            }
-          />
-        ))}
-        <OverlayView
-          position={
-            hoveredIndex !== null
-              ? coordinates[hoveredIndex]
-              : { lat: 0, lng: 0 } // dummy fallback to keep overlay rendered
+        zoom={zoom}
+        onZoomChanged={() => {
+          const newZoom = mapRef.current?.getZoom?.();
+          if (typeof newZoom === "number") {
+            setZoom(newZoom);
           }
-          mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-        >
-          <div className="relative">
-            <div
-              className={`absolute bottom-10 left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center rounded bg-white p-2 shadow-lg transition-all duration-300 ${
-                hoveredIndex !== null
-                  ? "opacity-100 scale-100 pointer-events-auto"
-                  : "opacity-0 scale-95 pointer-events-none"
-              }`}
-            >
-              {hoveredIndex !== null && (
-                <>
-                  <Image
-                    src={coordinates[hoveredIndex].photoUrl}
-                    alt={coordinates[hoveredIndex].title}
-                    width={160}
-                    height={100}
-                    className="rounded-md object-cover"
-                  />
-                  <div className="text-xs text-center text-black mt-2 font-sans">
-                    {coordinates[hoveredIndex].title}
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        </OverlayView>
+        }}
+        onLoad={(map) => {
+          mapRef.current = map;
+          setZoom(map.getZoom() ?? 8);
+        }}
+      >
+        {overlayViews}
       </GoogleMap>
     </div>
   );

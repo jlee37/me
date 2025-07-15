@@ -26,7 +26,6 @@ function MapPageContent() {
       photoUrl: prefixURL(m.fields.previewPhoto?.fields.file?.url as string)!,
     }));
 
-  console.log("JLEE huh", coordinates);
   return (
     <div className="w-full h-full p-12">
       <Map coordinates={coordinates} />
