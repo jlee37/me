@@ -85,6 +85,12 @@ export default function Map({ coordinates }: MapProps) {
                 router.push(`/photojournal/${coord.slug}`);
               }
             }}
+            onClick={() => {
+              // Mobile: simple tap triggers navigation
+              if (window.innerWidth <= 768) {
+                router.push(`/photojournal/${coord.slug}`);
+              }
+            }}
           >
             <div className="group cursor-pointer rounded-md border bg-background shadow-lg p-1 group-hover:border-red-700">
               <Image
