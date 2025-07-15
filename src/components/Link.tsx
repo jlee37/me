@@ -1,16 +1,18 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import NextLink, { LinkProps } from "next/link";
 import React, { Suspense } from "react";
 
 type Props = LinkProps & {
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 };
 
-function LinkWithParams({ href, children, ...rest }: Props) {
+function LinkWithParams({ href, children, onClick, ...rest }: Props) {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const params = searchParams.toString();
 
   let finalHref = href;
@@ -23,8 +25,25 @@ function LinkWithParams({ href, children, ...rest }: Props) {
     };
   }
 
+  // Custom onClick logic for dialog transitions
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    console.log("JLEE outside");
+    if (onClick) {
+      console.log("JLEE inside");
+      e.preventDefault();
+      onClick();
+      setTimeout(() => {
+        if (typeof finalHref === "string") {
+          router.push(finalHref);
+        } else if (typeof finalHref === "object" && finalHref.pathname) {
+          router.push(finalHref.pathname + (finalHref.search || ""));
+        }
+      }, 300); // Adjust delay to match your transition
+    }
+  };
+
   return (
-    <NextLink href={finalHref} {...rest}>
+    <NextLink href={finalHref} {...rest} onClick={handleClick}>
       {children}
     </NextLink>
   );

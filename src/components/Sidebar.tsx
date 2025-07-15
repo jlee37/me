@@ -1,12 +1,10 @@
 "use client";
 
 import { useMemories, usePhotoEssays, useWriting } from "@/utils/hooks";
-import Link from "@/components/Link";
 import { usePathname } from "next/navigation";
-import { Section, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, memo, useEffect, useState } from "react";
-import { Writing } from "../../types/contentful";
+import { Fragment, useEffect, useState } from "react";
 import { SidebarSection } from "./SidebarSection";
 
 export type SidebarProps = {
@@ -66,7 +64,7 @@ const Sidebar = ({
         (isMobile && showFullscreen && (
           <SidebarSection
             title="home"
-            basePath="home"
+            basePath=""
             currentPathName={currentPathName}
             onLinkClick={onClose}
           />
@@ -104,8 +102,8 @@ const Sidebar = ({
         showFullscreen={showFullscreen}
       />
       <SidebarSection
-        title="photo essays"
-        basePath="photo-essays"
+        title="menagerie"
+        basePath="menagerie"
         realItems={photoEssays}
         onLinkClick={onClose}
         currentPathName={currentPathName}
@@ -116,6 +114,8 @@ const Sidebar = ({
   );
 
   if (!showFullscreen) return content;
+
+  console.log("JLEE is open", isOpen);
 
   return (
     <Transition appear show={isOpen} as={Fragment}>

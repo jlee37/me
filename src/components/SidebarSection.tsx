@@ -41,6 +41,7 @@ export const SidebarSection = ({
       <Link
         href={`/${basePath}`}
         className={`underline md:hover:text-indigo-400 active:text-indigo-400 transition-colors duration-100 ${currentPathName === `/${basePath}` ? "text-indigo-400" : ""}`}
+        onClick={onLinkClick}
       >
         {title}
       </Link>
