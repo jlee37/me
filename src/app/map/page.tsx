@@ -1,0 +1,33 @@
+"use client";
+
+import Map from "@/components/Map";
+import { useMemories, usePhotoEssays } from "@/utils/hooks";
+import { Suspense } from "react";
+
+export default function MapPage() {
+  return (
+    <Suspense>
+      <MapPageContent />
+    </Suspense>
+  );
+}
+
+function MapPageContent() {
+  const { data: memories } = useMemories();
+  console.log(
+    "JLEE  look",
+    memories.filter((m) => !!m.fields.location).map((m) => m.fields.location)
+  );
+  const coordinates = memories
+    .filter((m) => !!m.fields.location)
+    .map((m) => ({
+      lat: m.fields.location!.lat,
+      lng: m.fields.location!.lon,
+      slug: m.fields.slug!,
+    }));
+  return (
+    <div className="w-full h-full p-12">
+      <Map coordinates={coordinates} />
+    </div>
+  );
+}
