@@ -7,7 +7,7 @@ import {
 } from "@react-google-maps/api";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 // Updated Coordinate type to include title and photoUrl
 // Make sure to pass these fields in the coordinates prop
@@ -31,7 +31,25 @@ export default function Map({ coordinates }: MapProps) {
   const mapRef = useRef<google.maps.Map | null>(null);
 
   const router = useRouter();
-  const [zoom, setZoom] = useState(3); // initial zoom level
+  const [zoom, setZoom] = useState(3);
+
+  const [center, setCenter] = useState({ lat: 32.889508, lng: -44.815861 });
+
+  useEffect(() => {
+    function updateCenter() {
+      if (window.innerWidth <= 768) {
+        // mobile viewport width (you can adjust breakpoint)
+        setCenter({ lat: 38.814597, lng: -98.557527 });
+      } else {
+        setCenter({ lat: 32.889508, lng: -44.815861 }); // desktop center
+      }
+    }
+
+    updateCenter(); // initial check
+
+    window.addEventListener("resize", updateCenter);
+    return () => window.removeEventListener("resize", updateCenter);
+  }, []);
 
   const overlayViews = useMemo(() => {
     return coordinates.map((coord, index) => {
@@ -97,8 +115,6 @@ export default function Map({ coordinates }: MapProps) {
       );
     });
   }, [coordinates, zoom]);
-
-  const center = useMemo(() => ({ lat: 32.889508, lng: -44.815861 }), []);
 
   if (!isLoaded) return <p>Loading map...</p>;
 
