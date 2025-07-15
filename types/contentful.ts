@@ -7,6 +7,7 @@ export interface IWritingFields {
   heroUrl?: string;
   content?: string;
   date?: string;
+  slug: string
 
 }
 

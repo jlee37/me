@@ -3,10 +3,11 @@
 import { useMemories, usePhotoEssays, useWriting } from "@/utils/hooks";
 import Link from "@/components/Link";
 import { usePathname } from "next/navigation";
-import { X } from "lucide-react";
+import { Section, X } from "lucide-react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 import { Writing } from "../../types/contentful";
+import { SidebarSection } from "./SidebarSection";
 
 export type SidebarProps = {
   showFullscreen?: boolean;
@@ -22,6 +23,12 @@ const Sidebar = ({
   const currentPathName = usePathname();
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  const { data: writings } = useWriting();
+
+  const { data: memories } = useMemories();
+
+  const { data: photoEssays } = usePhotoEssays();
 
   useEffect(() => {
     // Handle bfcache restoration
@@ -57,37 +64,54 @@ const Sidebar = ({
     <div className="ml-4 md:ml-8 mt-4 md:mt-8 text-[17px] md:text-base flex flex-col gap-2">
       {!isMobile ||
         (isMobile && showFullscreen && (
-          <div>
-            <HomeSection currentPathName={currentPathName} onClose={onClose} />
-          </div>
+          <SidebarSection
+            title="home"
+            basePath="home"
+            currentPathName={currentPathName}
+            onLinkClick={onClose}
+          />
         ))}
-      <div>
-        <AboutSection currentPathName={currentPathName} onClose={onClose} />
-      </div>
-      <div>
-        <WritingSection
-          onLinkClick={onClose}
-          currentPathName={currentPathName}
-          isMobile={isMobile}
-          showFullscreen={showFullscreen}
-        />
-      </div>
-      <div>
-        <PhotojournalSection
-          onLinkClick={onClose}
-          currentPathName={currentPathName}
-          isMobile={isMobile}
-          showFullscreen={showFullscreen}
-        />
-      </div>
-      <div>
-        <MenagerieSection
-          onLinkClick={onClose}
-          currentPathName={currentPathName}
-          isMobile={isMobile}
-          showFullscreen={showFullscreen}
-        />
-      </div>
+      <SidebarSection
+        title="what is this place?"
+        basePath="about"
+        currentPathName={currentPathName}
+        onLinkClick={onClose}
+      />
+      <SidebarSection
+        title="trotting"
+        basePath="map"
+        onLinkClick={onClose}
+        currentPathName={currentPathName}
+        isMobile={isMobile}
+        showFullscreen={showFullscreen}
+      />
+      <SidebarSection
+        title="writing"
+        basePath="writing"
+        realItems={writings}
+        onLinkClick={onClose}
+        currentPathName={currentPathName}
+        isMobile={isMobile}
+        showFullscreen={showFullscreen}
+      />
+      <SidebarSection
+        title="photojournal"
+        basePath="photojournal"
+        realItems={memories}
+        onLinkClick={onClose}
+        currentPathName={currentPathName}
+        isMobile={isMobile}
+        showFullscreen={showFullscreen}
+      />
+      <SidebarSection
+        title="photo essays"
+        basePath="photo-essays"
+        realItems={photoEssays}
+        onLinkClick={onClose}
+        currentPathName={currentPathName}
+        isMobile={isMobile}
+        showFullscreen={showFullscreen}
+      />
     </div>
   );
 
@@ -132,191 +156,6 @@ const Sidebar = ({
         </div>
       </Dialog>
     </Transition>
-  );
-};
-
-const HomeSection = ({
-  currentPathName,
-  onClose,
-}: {
-  currentPathName: string;
-  onClose?: () => void;
-}) => {
-  const isActive = currentPathName === `/`;
-
-  return (
-    <div>
-      <Link
-        className={`md:hover:text-indigo-400 active:text-indigo-400  transition-colors duration-100 ${isActive ? "text-indigo-400" : ""} underline`}
-        href="/"
-        onClick={onClose}
-      >
-        home
-      </Link>
-    </div>
-  );
-};
-
-const AboutSection = ({
-  currentPathName,
-  onClose,
-}: {
-  currentPathName: string;
-  onClose?: () => void;
-}) => {
-  const isActive = currentPathName === `/about`;
-
-  return (
-    <div>
-      <Link
-        className={`hover:text-indigo-400 active:text-indigo-400  transition-colors duration-100 ${isActive ? "text-indigo-400" : ""} underline`}
-        href="/about"
-        onClick={onClose}
-      >
-        what is this place?
-      </Link>
-    </div>
-  );
-};
-
-type SectionProps = {
-  title: string;
-  items: Array<{
-    title: string;
-    slug: string;
-    date?: string;
-  }>;
-  basePath: string;
-  onLinkClick?: () => void;
-  currentPathName: string;
-  isMobile?: boolean;
-  showFullscreen?: boolean;
-};
-
-const Section = ({
-  title,
-  items,
-  basePath,
-  onLinkClick,
-  currentPathName,
-  isMobile = false,
-  showFullscreen = false,
-}: SectionProps) => {
-  const sortedItems = items
-    ? [...items].sort(
-        (a, b) =>
-          new Date(b?.date ?? 0).getTime() - new Date(a?.date ?? 0).getTime()
-      )
-    : [];
-
-  const slugifiedTitle = title.replace(/\s+/g, "-");
-
-  return (
-    <div
-      className={`${!showFullscreen && isMobile ? "cursor-pointer" : "cursor-default"}`}
-    >
-      <Link
-        href={`/${slugifiedTitle}`}
-        className={`underline md:hover:text-indigo-400 active:text-indigo-400 transition-colors duration-100 ${currentPathName === `/${slugifiedTitle}` ? "text-indigo-400" : ""}`}
-      >
-        {title}
-      </Link>
-      <div className={`ml-4 md:ml-6 ${isMobile ? "hidden" : ""}`}>
-        {sortedItems?.map((item) => {
-          const isActive = currentPathName === `/${basePath}/${item.slug}`;
-
-          return (
-            <div key={item.title}>
-              <Link
-                href={`/${basePath}/${item.slug}`}
-                className={`md:hover:text-indigo-400 active:text-indigo-400 transition-colors duration-100 text-base ${isActive ? "text-indigo-400" : ""}`}
-                onClick={onLinkClick}
-              >
-                {item.title}
-              </Link>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
-type ContentSectionProps = {
-  onLinkClick?: () => void;
-  currentPathName: string;
-  isMobile?: boolean;
-  showFullscreen?: boolean;
-};
-
-const WritingSection = (props: ContentSectionProps) => {
-  const { data: writings } = useWriting();
-
-  const items =
-    writings?.map((writing: Writing) => ({
-      title: writing.fields.title?.toLowerCase() ?? "",
-      slug: writing.fields.title?.toLowerCase().replace(/\s+/g, "-") ?? "",
-      date: writing.fields.date,
-    })) ?? [];
-
-  return (
-    <Section
-      title="writing"
-      items={items}
-      basePath="writing"
-      onLinkClick={props.onLinkClick}
-      currentPathName={props.currentPathName}
-      isMobile={props.isMobile}
-      showFullscreen={props.showFullscreen}
-    />
-  );
-};
-
-const MenagerieSection = (props: ContentSectionProps) => {
-  const { data: photoEssays } = usePhotoEssays();
-
-  const items =
-    photoEssays?.map((essay) => ({
-      title: essay.fields.title?.toLowerCase() ?? "",
-      slug: essay.fields.slug ?? "",
-      date: essay.fields.date,
-    })) ?? [];
-
-  return (
-    <Section
-      title="menagerie"
-      items={items}
-      basePath="menagerie"
-      onLinkClick={props.onLinkClick}
-      currentPathName={props.currentPathName}
-      isMobile={props.isMobile}
-      showFullscreen={props.showFullscreen}
-    />
-  );
-};
-
-const PhotojournalSection = (props: ContentSectionProps) => {
-  const { data: memories } = useMemories();
-
-  const items =
-    memories?.map((memory) => ({
-      title: memory.fields.title?.toLowerCase() ?? "",
-      slug: memory.fields.slug ?? "",
-      date: memory.fields.date,
-    })) ?? [];
-
-  const filteredItems = items.filter((item) => !!item);
-
-  return (
-    <Section
-      title="photojournal"
-      items={filteredItems}
-      basePath="photojournal"
-      onLinkClick={props.onLinkClick}
-      currentPathName={props.currentPathName}
-      isMobile={props.isMobile}
-      showFullscreen={props.showFullscreen}
-    />
   );
 };
 
