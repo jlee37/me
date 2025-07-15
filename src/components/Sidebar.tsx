@@ -76,7 +76,7 @@ const Sidebar = ({
         onLinkClick={onClose}
       />
       <SidebarSection
-        title="trotting"
+        title="atlas"
         basePath="map"
         onLinkClick={onClose}
         currentPathName={currentPathName}
