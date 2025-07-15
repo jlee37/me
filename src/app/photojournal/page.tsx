@@ -2,6 +2,7 @@
 
 import { Preview } from "@/components/Preview";
 import { useMemories } from "@/utils/hooks";
+import { prefixURL } from "@/utils/utils";
 import { Suspense } from "react";
 
 export default function PhotojournalPreviewPage() {
@@ -32,10 +33,9 @@ const PhotojournalPreviewPageContent = () => {
       typeof previewPhoto?.fields?.file?.url === "string"
         ? previewPhoto.fields.file.url
         : undefined;
-    const absoluteUrl = url && url.startsWith("//") ? `https:${url}` : url;
     const title = memory.fields.title || "";
     return {
-      imageUrl: absoluteUrl || "/placeholder.png", // fallback if no image
+      imageUrl: prefixURL(url) || "/placeholder.png", // fallback if no image
       title,
       directToUrl: `/photojournal/${memory.fields.slug}`,
     };

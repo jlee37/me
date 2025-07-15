@@ -3,6 +3,7 @@
 import { Preview } from "@/components/Preview";
 import { usePhotoEssays } from "@/utils/hooks";
 import { Suspense } from "react";
+import { prefixURL } from "../../utils/utils";
 
 export default function PhotoEssaysPage() {
   return (
@@ -32,10 +33,9 @@ const PhotoEssaysPageContent = () => {
       typeof previewPhoto?.fields?.file?.url === "string"
         ? previewPhoto.fields.file.url
         : undefined;
-    const absoluteUrl = url && url.startsWith("//") ? `https:${url}` : url;
     const title = photoEssay.fields.title || "";
     return {
-      imageUrl: absoluteUrl || "/placeholder.png", // fallback if no image
+      imageUrl: prefixURL(url) || "/placeholder.png", // fallback if no image
       title,
       directToUrl: `/menagerie/${photoEssay.fields.slug}`,
     };

@@ -2,6 +2,7 @@
 
 import { Preview } from "@/components/Preview";
 import { useWriting } from "@/utils/hooks";
+import { prefixURL } from "@/utils/utils";
 import { Suspense } from "react";
 
 export default function WritingPage() {
@@ -21,10 +22,9 @@ const WritingPageContent = () => {
   });
   const items = sortedWritings.map((writing) => {
     const url = writing.fields.heroUrl;
-    const absoluteUrl = url && url.startsWith("//") ? `https:${url}` : url;
     const title = writing.fields.title || "";
     return {
-      imageUrl: absoluteUrl || "/placeholder.png", // fallback if no image
+      imageUrl: prefixURL(url) || "/placeholder.png", // fallback if no image
       title,
       directToUrl: `/writing/${writing.fields.title?.toLowerCase().replace(/\s+/g, "-") ?? ""}`,
     };

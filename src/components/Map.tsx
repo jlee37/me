@@ -1,11 +1,23 @@
 "use client";
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  Marker,
+  OverlayView,
+  useJsApiLoader,
+} from "@react-google-maps/api";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
+// Updated Coordinate type to include title and photoUrl
+// Make sure to pass these fields in the coordinates prop
+// e.g. { lat, lng, slug, title, photoUrl }
 type Coordinate = {
   lat: number;
   lng: number;
   slug: string;
+  title: string;
+  photoUrl: string;
 };
 
 type MapProps = {
@@ -18,6 +30,7 @@ export default function Map({ coordinates }: MapProps) {
   });
 
   const router = useRouter();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   if (!isLoaded) return <p>Loading map...</p>;
 
@@ -41,8 +54,33 @@ export default function Map({ coordinates }: MapProps) {
             key={index}
             position={coord}
             onClick={() => router.push(`/photojournal/${coord.slug}`)}
+            onMouseOver={() => setHoveredIndex(index)}
+            onMouseOut={() =>
+              setHoveredIndex((prev) => (prev === index ? null : prev))
+            }
           />
         ))}
+        {hoveredIndex !== null && (
+          <OverlayView
+            position={coordinates[hoveredIndex]}
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+          >
+            <div className="relative">
+              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center rounded bg-background p-2 shadow-lg  border border-foreground">
+                <Image
+                  src={coordinates[hoveredIndex].photoUrl}
+                  alt={coordinates[hoveredIndex].title}
+                  width={160}
+                  height={100}
+                  className="rounded-md object-cover"
+                />
+                <div className="text-center mt-2">
+                  {coordinates[hoveredIndex].title}
+                </div>
+              </div>
+            </div>
+          </OverlayView>
+        )}
       </GoogleMap>
     </div>
   );

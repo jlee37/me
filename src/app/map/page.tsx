@@ -1,7 +1,8 @@
 "use client";
 
 import Map from "@/components/Map";
-import { useMemories, usePhotoEssays } from "@/utils/hooks";
+import { useMemories } from "@/utils/hooks";
+import { prefixURL } from "@/utils/utils";
 import { Suspense } from "react";
 
 export default function MapPage() {
@@ -24,7 +25,11 @@ function MapPageContent() {
       lat: m.fields.location!.lat,
       lng: m.fields.location!.lon,
       slug: m.fields.slug!,
+      title: m.fields.title!,
+      photoUrl: prefixURL(m.fields.previewPhoto?.fields.file?.url as string)!,
     }));
+
+  console.log("JLEE huh", coordinates);
   return (
     <div className="w-full h-full p-12">
       <Map coordinates={coordinates} />
