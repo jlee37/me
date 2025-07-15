@@ -48,10 +48,27 @@ export default function Map({ coordinates }: MapProps) {
         >
           <div
             className="relative flex flex-col items-center cursor-pointer transition-transform duration-300 group w-full"
-            onClick={() => router.push(`/photojournal/${coord.slug}`)}
             style={{
               transform: `scale(${scale})`,
               transformOrigin: "bottom center",
+            }}
+            onMouseDown={(e) => {
+              (e.currentTarget as HTMLElement).dataset.downX =
+                e.clientX.toString();
+              (e.currentTarget as HTMLElement).dataset.downY =
+                e.clientY.toString();
+            }}
+            onMouseUp={(e) => {
+              const target = e.currentTarget as HTMLElement;
+              const startX = parseInt(target.dataset.downX || "0", 10);
+              const startY = parseInt(target.dataset.downY || "0", 10);
+              const dx = Math.abs(e.clientX - startX);
+              const dy = Math.abs(e.clientY - startY);
+              const dragThreshold = 5; // pixels
+
+              if (dx < dragThreshold && dy < dragThreshold) {
+                router.push(`/photojournal/${coord.slug}`);
+              }
             }}
           >
             <div className="group cursor-pointer rounded-md border bg-background shadow-lg p-1 group-hover:border-red-700">
@@ -64,7 +81,7 @@ export default function Map({ coordinates }: MapProps) {
               />
               <div
                 className={`text-[12px] text-center text-foreground font-quantico overflow-hidden transition-all duration-300 ease-in-out truncate max-w-[160px] w-full ${
-                  zoom >= 8
+                  zoom >= 5
                     ? "opacity-100 max-h-24 pt-1"
                     : "opacity-0 max-h-0 pointer-events-none"
                 }`}
