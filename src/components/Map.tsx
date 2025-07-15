@@ -38,14 +38,11 @@ export default function Map({ coordinates }: MapProps) {
   useEffect(() => {
     function updateCenter() {
       if (window.innerWidth <= 768) {
-        // mobile viewport width (you can adjust breakpoint)
         setCenter({ lat: 38.814597, lng: -98.557527 });
-      } else {
-        setCenter({ lat: 32.889508, lng: -44.815861 }); // desktop center
       }
     }
 
-    updateCenter(); // initial check
+    updateCenter();
 
     window.addEventListener("resize", updateCenter);
     return () => window.removeEventListener("resize", updateCenter);
