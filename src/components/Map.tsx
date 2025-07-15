@@ -9,9 +9,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-// Updated Coordinate type to include title and photoUrl
-// Make sure to pass these fields in the coordinates prop
-// e.g. { lat, lng, slug, title, photoUrl }
 type Coordinate = {
   lat: number;
   lng: number;
@@ -121,7 +118,6 @@ export default function Map({ coordinates }: MapProps) {
 
   if (!isLoaded) return <p>Loading map...</p>;
 
-  // Center map on the first coordinate
   return (
     <div className="w-full h-full rounded-xl overflow-hidden shadow-lg border">
       <GoogleMap
@@ -129,8 +125,8 @@ export default function Map({ coordinates }: MapProps) {
         center={center}
         options={{
           styles: customMapStyle,
-          disableDefaultUI: true, // optional: hide controls
-          gestureHandling: "greedy", // smoother mobile UX
+          disableDefaultUI: true,
+          gestureHandling: "greedy",
         }}
         zoom={zoom}
         onZoomChanged={() => {
@@ -174,7 +170,7 @@ const customMapStyle = [
     elementType: "all",
     stylers: [
       {
-        hue: "#330b6f",
+        hue: "#28057a",
       },
       {
         saturation: 75,
