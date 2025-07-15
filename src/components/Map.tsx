@@ -218,6 +218,22 @@ const customMapStyle = [
     ],
   },
   {
+    featureType: "poi",
+    elementType: "labels.text.fill",
+    stylers: [
+      { color: "#ffffff" }, // white text for park names
+      { lightness: 100 }, // brighten if needed
+    ],
+  },
+  {
+    featureType: "poi",
+    elementType: "labels.text.stroke",
+    stylers: [
+      { color: "#000000" }, // optional: black outline for contrast
+      { weight: 2 },
+    ],
+  },
+  {
     featureType: "administrative",
     elementType: "labels",
     stylers: [
@@ -232,24 +248,6 @@ const customMapStyle = [
       },
       {
         visibility: "simplified",
-      },
-    ],
-  },
-  {
-    featureType: "administrative.locality",
-    elementType: "labels",
-    stylers: [
-      {
-        hue: "#ffffff",
-      },
-      {
-        saturation: 0,
-      },
-      {
-        lightness: 100,
-      },
-      {
-        visibility: "off",
       },
     ],
   },
