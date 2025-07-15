@@ -60,27 +60,39 @@ export default function Map({ coordinates }: MapProps) {
             }
           />
         ))}
-        {hoveredIndex !== null && (
-          <OverlayView
-            position={coordinates[hoveredIndex]}
-            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-          >
-            <div className="relative">
-              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center rounded bg-background p-2 shadow-lg  border border-foreground">
-                <Image
-                  src={coordinates[hoveredIndex].photoUrl}
-                  alt={coordinates[hoveredIndex].title}
-                  width={160}
-                  height={100}
-                  className="rounded-md object-cover"
-                />
-                <div className="text-center mt-2">
-                  {coordinates[hoveredIndex].title}
-                </div>
-              </div>
+        <OverlayView
+          position={
+            hoveredIndex !== null
+              ? coordinates[hoveredIndex]
+              : { lat: 0, lng: 0 } // dummy fallback to keep overlay rendered
+          }
+          mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+        >
+          <div className="relative">
+            <div
+              className={`absolute bottom-10 left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center rounded bg-white p-2 shadow-lg transition-all duration-300 ${
+                hoveredIndex !== null
+                  ? "opacity-100 scale-100 pointer-events-auto"
+                  : "opacity-0 scale-95 pointer-events-none"
+              }`}
+            >
+              {hoveredIndex !== null && (
+                <>
+                  <Image
+                    src={coordinates[hoveredIndex].photoUrl}
+                    alt={coordinates[hoveredIndex].title}
+                    width={160}
+                    height={100}
+                    className="rounded-md object-cover"
+                  />
+                  <div className="text-xs text-center text-black mt-2 font-sans">
+                    {coordinates[hoveredIndex].title}
+                  </div>
+                </>
+              )}
             </div>
-          </OverlayView>
-        )}
+          </div>
+        </OverlayView>
       </GoogleMap>
     </div>
   );
