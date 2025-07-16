@@ -54,7 +54,7 @@ export const Preview = (props: PreviewProps) => {
       {props.includeAtlasLink && (
         <div className="mt-6 mb-6">
           <Link
-            className="p-2 border border-foreground rounded-md md:hover:border-indigo-400 transition-colors md:hover:text-indigo-400 active:border-indigo-400"
+            className="p-2 border border-foreground rounded-md md:hover:border-indigo-400 transition-colors md:hover:text-indigo-400 active:border-indigo-400 active:text-indigo-400"
             href="/map"
           >
             View atlas
