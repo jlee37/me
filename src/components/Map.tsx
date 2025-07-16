@@ -59,7 +59,7 @@ export default function Map({ coordinates }: MapProps) {
 
   useEffect(() => {
     function updateCenter() {
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 768 && !initialLat && !initialLng) {
         setCenter({
           lat: MOBILE_DEFAULT_COORDINATES.lat,
           lng: MOBILE_DEFAULT_COORDINATES.lng,
