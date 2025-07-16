@@ -67,7 +67,6 @@ export default function Map({ coordinates }: MapProps) {
         !latFromSearchParams &&
         !lngFromSearchParams
       ) {
-        console.log("JLEE should");
         setCenter({
           lat: MOBILE_DEFAULT_COORDINATES.lat,
           lng: MOBILE_DEFAULT_COORDINATES.lng,
@@ -143,7 +142,7 @@ export default function Map({ coordinates }: MapProps) {
                 className="rounded-md object-cover"
               />
               <div
-                className={`text-[12px] text-center text-foreground font-quantico overflow-hidden transition-all duration-300 ease-in-out truncate max-w-[160px] w-full pl-2 pr-2 ${
+                className={`text-[10px] text-center text-foreground font-quantico overflow-hidden transition-all duration-300 ease-in-out truncate max-w-[160px] w-full pl-2 pr-2 ${
                   zoom >= 5
                     ? "opacity-100 max-h-24 pt-1"
                     : "opacity-0 max-h-0 pointer-events-none"
