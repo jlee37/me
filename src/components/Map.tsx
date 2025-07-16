@@ -16,7 +16,7 @@ const DESKTOP_DEFAULT_COORDINATES = {
 
 const MOBILE_DEFAULT_COORDINATES = {
   lat: 35,
-  lng: -98.557527,
+  lng: -100.557527,
 };
 
 type Coordinate = {
@@ -44,10 +44,10 @@ export default function Map({ coordinates }: MapProps) {
   const latFromSearchParams = searchParams.get("lat");
   const lngFromSearchParams = searchParams.get("lng");
 
-  const initialLat = latFromSearchParams
+  const initialDesktopLat = latFromSearchParams
     ? parseFloat(latFromSearchParams)
     : DESKTOP_DEFAULT_COORDINATES.lat;
-  const initialLng = lngFromSearchParams
+  const initialDesktopLng = lngFromSearchParams
     ? parseFloat(lngFromSearchParams)
     : DESKTOP_DEFAULT_COORDINATES.lng;
 
@@ -55,11 +55,19 @@ export default function Map({ coordinates }: MapProps) {
 
   const [zoom, setZoom] = useState(initialZoom);
 
-  const [center, setCenter] = useState({ lat: initialLat, lng: initialLng });
+  const [center, setCenter] = useState({
+    lat: initialDesktopLat,
+    lng: initialDesktopLng,
+  });
 
   useEffect(() => {
     function updateCenter() {
-      if (window.innerWidth <= 768 && !initialLat && !initialLng) {
+      if (
+        window.innerWidth <= 768 &&
+        !latFromSearchParams &&
+        !lngFromSearchParams
+      ) {
+        console.log("JLEE should");
         setCenter({
           lat: MOBILE_DEFAULT_COORDINATES.lat,
           lng: MOBILE_DEFAULT_COORDINATES.lng,
