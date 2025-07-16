@@ -76,14 +76,6 @@ const Sidebar = ({
         onLinkClick={onClose}
       />
       <SidebarSection
-        title="atlas"
-        basePath="map"
-        onLinkClick={onClose}
-        currentPathName={currentPathName}
-        isMobile={isMobile}
-        showFullscreen={showFullscreen}
-      />
-      <SidebarSection
         title="writing"
         basePath="writing"
         realItems={writings}
@@ -105,6 +97,14 @@ const Sidebar = ({
         title="menagerie"
         basePath="menagerie"
         realItems={photoEssays}
+        onLinkClick={onClose}
+        currentPathName={currentPathName}
+        isMobile={isMobile}
+        showFullscreen={showFullscreen}
+      />
+      <SidebarSection
+        title="atlas"
+        basePath="map"
         onLinkClick={onClose}
         currentPathName={currentPathName}
         isMobile={isMobile}

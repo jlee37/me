@@ -13,19 +13,23 @@ type Props = LinkProps & {
 function LinkWithParams({ href, children, onClick, ...rest }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const params = searchParams.toString();
+  const key = searchParams.get("key");
 
   let finalHref = href;
-  if (typeof href === "string" && params) {
-    finalHref = href.includes("?") ? `${href}&${params}` : `${href}?${params}`;
-  } else if (typeof href === "object" && params) {
+  const appendKeyParam = key ? `key=${encodeURIComponent(key)}` : "";
+
+  if (typeof href === "string" && appendKeyParam) {
+    const hasQuery = href.includes("?");
+    finalHref = `${href}${hasQuery ? "&" : "?"}${appendKeyParam}`;
+  } else if (typeof href === "object" && appendKeyParam) {
     finalHref = {
       ...href,
-      search: href.search ? `${href.search}&${params}` : `?${params}`,
+      search: href.search
+        ? `${href.search}&${appendKeyParam}`
+        : `?${appendKeyParam}`,
     };
   }
 
-  // Custom onClick logic for dialog transitions
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (onClick) {
       e.preventDefault();
@@ -36,7 +40,7 @@ function LinkWithParams({ href, children, onClick, ...rest }: Props) {
         } else if (typeof finalHref === "object" && finalHref.pathname) {
           router.push(finalHref.pathname + (finalHref.search || ""));
         }
-      }, 300); // Adjust delay to match your transition
+      }, 300);
     }
   };
 

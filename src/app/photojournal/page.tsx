@@ -40,5 +40,5 @@ const PhotojournalPreviewPageContent = () => {
       directToUrl: `/photojournal/${memory.fields.slug}`,
     };
   });
-  return <Preview title="Photojournal" items={items} />;
+  return <Preview title="Photojournal" items={items} includeAtlasLink />;
 };
