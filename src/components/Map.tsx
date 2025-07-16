@@ -16,7 +16,7 @@ const DESKTOP_DEFAULT_COORDINATES = {
 
 const MOBILE_DEFAULT_COORDINATES = {
   lat: 35,
-  lng: -100.557527,
+  lng: -97.557527,
 };
 
 type Coordinate = {
