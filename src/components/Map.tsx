@@ -6,8 +6,18 @@ import {
   useJsApiLoader,
 } from "@react-google-maps/api";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
+
+const DESKTOP_DEFAULT_COORDINATES = {
+  lat: 32.889508,
+  lng: -44.815861,
+};
+
+const MOBILE_DEFAULT_COORDINATES = {
+  lat: 35,
+  lng: -98.557527,
+};
 
 type Coordinate = {
   lat: number;
@@ -28,14 +38,32 @@ export default function Map({ coordinates }: MapProps) {
   const mapRef = useRef<google.maps.Map | null>(null);
 
   const router = useRouter();
-  const [zoom, setZoom] = useState(3);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const [center, setCenter] = useState({ lat: 32.889508, lng: -44.815861 });
+  const latFromSearchParams = searchParams.get("lat");
+  const lngFromSearchParams = searchParams.get("lng");
+
+  const initialLat = latFromSearchParams
+    ? parseFloat(latFromSearchParams)
+    : DESKTOP_DEFAULT_COORDINATES.lat;
+  const initialLng = lngFromSearchParams
+    ? parseFloat(lngFromSearchParams)
+    : DESKTOP_DEFAULT_COORDINATES.lng;
+
+  const initialZoom = parseInt(searchParams.get("zoom") || "3", 10);
+
+  const [zoom, setZoom] = useState(initialZoom);
+
+  const [center, setCenter] = useState({ lat: initialLat, lng: initialLng });
 
   useEffect(() => {
     function updateCenter() {
       if (window.innerWidth <= 768) {
-        setCenter({ lat: 35, lng: -98.557527 });
+        setCenter({
+          lat: MOBILE_DEFAULT_COORDINATES.lat,
+          lng: MOBILE_DEFAULT_COORDINATES.lng,
+        });
       }
     }
 
@@ -44,6 +72,15 @@ export default function Map({ coordinates }: MapProps) {
     window.addEventListener("resize", updateCenter);
     return () => window.removeEventListener("resize", updateCenter);
   }, []);
+
+  function updateUrl(lat: number, lng: number, zoom: number) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("lat", lat.toFixed(5));
+    params.set("lng", lng.toFixed(5));
+    params.set("zoom", zoom.toFixed(2));
+
+    router.replace(`${pathname}?${params.toString()}`);
+  }
 
   const overlayViews = useMemo(() => {
     return coordinates.map((coord, index) => {
@@ -130,9 +167,27 @@ export default function Map({ coordinates }: MapProps) {
         }}
         zoom={zoom}
         onZoomChanged={() => {
-          const newZoom = mapRef.current?.getZoom?.();
-          if (typeof newZoom === "number") {
-            setZoom(newZoom);
+          const map = mapRef.current;
+          if (map) {
+            const center = map.getCenter();
+            const lat = center?.lat();
+            const lng = center?.lng();
+            setZoom(zoom);
+            if (lat && lng) {
+              updateUrl(lat, lng, zoom);
+              updateUrl(lat, lng, zoom);
+            }
+          }
+        }}
+        onCenterChanged={() => {
+          const map = mapRef.current;
+          if (map) {
+            const center = map.getCenter();
+            const lat = center?.lat();
+            const lng = center?.lng();
+            if (lat && lng) {
+              updateUrl(lat, lng, zoom);
+            }
           }
         }}
         onLoad={(map) => {
