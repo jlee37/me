@@ -170,12 +170,12 @@ export default function Map({ coordinates }: MapProps) {
           const map = mapRef.current;
           if (map) {
             const center = map.getCenter();
+            const newZoom = map.getZoom();
             const lat = center?.lat();
             const lng = center?.lng();
-            setZoom(zoom);
-            if (lat && lng) {
-              updateUrl(lat, lng, zoom);
-              updateUrl(lat, lng, zoom);
+            if (lat && lng && newZoom) {
+              setZoom(newZoom);
+              updateUrl(lat, lng, newZoom);
             }
           }
         }}
