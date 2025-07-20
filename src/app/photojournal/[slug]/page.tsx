@@ -1,4 +1,4 @@
-import { notFound, useSearchParams } from "next/navigation";
+import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import client from "../../../../lib/contentful";
 import { IMemoryFields } from "../../../../types/contentful";
@@ -6,6 +6,7 @@ import PhotosAndWritings from "@/components/PhotosAndWritings";
 import ContentPageWrapper from "@/components/ContentPageWrapper";
 import { Asset } from "contentful";
 import { HIDDEN_KEY } from "@/constants/hiddenKey";
+import Link from "@/components/Link";
 
 async function getMemory(slug: string) {
   const res = await client.getEntries({
@@ -93,7 +94,7 @@ export default async function PhotojournalPage(props: {
   }
 
   const fields = memory.fields as IMemoryFields;
-  const { title, photos, date, opener, requireKeyForText } = fields;
+  const { title, photos, date, opener, requireKeyForText, location } = fields;
 
   if (!title || !photos || !date) {
     return null;
@@ -108,11 +109,23 @@ export default async function PhotojournalPage(props: {
   const hasKey = key === HIDDEN_KEY;
   const showText = !requireKeyForText || hasKey;
 
+  const showAtlasLink = !!location;
+
   return (
     <div className="md:max-w-[1200px] h-full">
       <ContentPageWrapper>
-        <h1 className="text-xl md:text-2xl mb-2">{title}</h1>
-        <h2 className="text-sm mb-6 md:mb-8">{formattedDate}</h2>
+        <div className=" mb-6 md:mb-8">
+          <h1 className="text-xl md:text-2xl mb-2">{title}</h1>
+          <h2 className="text-sm">{formattedDate}</h2>
+          {showAtlasLink && (
+            <Link
+              className="text-sm underline"
+              href={`/map?lat=${location.lat}&lng=${location.lon}&zoom=10`}
+            >
+              View in Atlas
+            </Link>
+          )}
+        </div>
         {opener && showText && (
           <p className="mb-6 md:mb-8 whitespace-pre-line">{opener}</p>
         )}
