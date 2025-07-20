@@ -133,7 +133,7 @@ export default function Map({ coordinates }: MapProps) {
               }
             }}
           >
-            <div className="group cursor-pointer rounded-md border bg-background shadow-lg p-1 group-hover:border-red-700">
+            <div className="group cursor-pointer rounded-md border bg-background shadow-lg p-1 group-hover:border-[#fc03a1]">
               <Image
                 src={`${coord.photoUrl}?w=800&h=520&fit=thumb&fm=jpg&q=10`}
                 alt={coord.title}
