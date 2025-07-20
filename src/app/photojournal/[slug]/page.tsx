@@ -82,7 +82,9 @@ export async function generateMetadata({
 
 export default async function PhotojournalPage(props: {
   params: PhotojournalProps;
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{
+    key: string;
+  }>;
 }) {
   const { slug } = await props.params;
   const { key } = await props.searchParams;
