@@ -5,7 +5,6 @@ import HeaderWithSuspense from "@/components/HeaderWithSuspense";
 import SidebarWithSuspense from "@/components/SidebarWithSuspense";
 import Providers from "@/components/Providers";
 import { Analytics } from "@vercel/analytics/react";
-import KeyButtonWithSuspense from "@/components/KeyButtonWithSuspense";
 // Yatra_One
 
 const quantico = Quantico({
