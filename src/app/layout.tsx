@@ -61,9 +61,6 @@ export default function RootLayout({
             <SidebarWithSuspense showFullscreen={true} />{" "}
             {/* Triggered by button in Header */}
           </div>
-
-          {/* Key Button - appears on all pages */}
-          <KeyButtonWithSuspense />
         </Providers>
         <Analytics />
       </body>
