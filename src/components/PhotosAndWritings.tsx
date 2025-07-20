@@ -2,8 +2,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Asset } from "contentful";
-import { useSearchParams } from "next/navigation";
-import { HIDDEN_KEY } from "@/constants/hiddenKey";
 
 // Helper to add Contentful image optimization parameters
 function getOptimizedContentfulImageUrl(
@@ -72,39 +70,25 @@ const PhotoAndDescription = ({
 };
 
 type PhotosAndWritingsProps = {
-  title: string;
-  formattedDate: string;
-  opener?: string;
   photos: Asset[];
-  requireKeyForText?: boolean;
+  showText: boolean;
 };
 
 const PhotosAndWritings = (props: PhotosAndWritingsProps) => {
   const eagerLoad = props.photos.length <= 20;
 
-  const params = useSearchParams();
-  const hasKey = params.get("key") === HIDDEN_KEY;
-  const showText = hasKey || !props.requireKeyForText;
-
   return (
     <div>
-      <h1 className="text-xl md:text-2xl mb-2">{props.title}</h1>
-      <h2 className="text-sm mb-6 md:mb-8">{props.formattedDate}</h2>
-      {props.opener && showText && (
-        <p className="mb-6 md:mb-8 whitespace-pre-line">{props.opener}</p>
-      )}
-      <div>
-        {props.photos
-          ?.filter((entry) => !!entry?.fields?.file?.url)
-          ?.map((entry: Asset, index: number) => (
-            <PhotoAndDescription
-              key={index}
-              asset={entry}
-              eagerLoad={eagerLoad}
-              showText={showText}
-            />
-          ))}
-      </div>
+      {props.photos
+        ?.filter((entry) => !!entry?.fields?.file?.url)
+        ?.map((entry: Asset, index: number) => (
+          <PhotoAndDescription
+            key={index}
+            asset={entry}
+            eagerLoad={eagerLoad}
+            showText={props.showText}
+          />
+        ))}
     </div>
   );
 };

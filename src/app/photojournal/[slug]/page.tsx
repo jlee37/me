@@ -1,10 +1,11 @@
-import { notFound } from "next/navigation";
+import { notFound, useSearchParams } from "next/navigation";
 import { Metadata } from "next";
 import client from "../../../../lib/contentful";
 import { IMemoryFields } from "../../../../types/contentful";
 import PhotosAndWritings from "@/components/PhotosAndWritings";
 import ContentPageWrapper from "@/components/ContentPageWrapper";
 import { Asset } from "contentful";
+import { HIDDEN_KEY } from "@/constants/hiddenKey";
 
 async function getMemory(slug: string) {
   const res = await client.getEntries({
@@ -80,8 +81,10 @@ export async function generateMetadata({
 
 export default async function PhotojournalPage(props: {
   params: PhotojournalProps;
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const { slug } = await props.params;
+  const { key } = await props.searchParams;
 
   const memory = await getMemory(slug);
 
@@ -102,16 +105,18 @@ export default async function PhotojournalPage(props: {
     day: "numeric",
   });
 
+  const hasKey = key === HIDDEN_KEY;
+  const showText = !requireKeyForText || hasKey;
+
   return (
     <div className="md:max-w-[1200px] h-full">
       <ContentPageWrapper>
-        <PhotosAndWritings
-          title={title}
-          formattedDate={formattedDate}
-          opener={opener}
-          photos={photos}
-          requireKeyForText={!!requireKeyForText}
-        />
+        <h1 className="text-xl md:text-2xl mb-2">{title}</h1>
+        <h2 className="text-sm mb-6 md:mb-8">{formattedDate}</h2>
+        {opener && showText && (
+          <p className="mb-6 md:mb-8 whitespace-pre-line">{opener}</p>
+        )}
+        <PhotosAndWritings photos={photos} showText={hasKey} />
       </ContentPageWrapper>
     </div>
   );

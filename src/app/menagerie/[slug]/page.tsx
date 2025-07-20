@@ -49,12 +49,10 @@ export default async function PhotoEssayPage(props: {
   return (
     <div className="md:max-w-[1200px] h-full">
       <ContentPageWrapper>
-        <PhotosAndWritings
-          title={title}
-          formattedDate={formattedDate}
-          opener={opener}
-          photos={photos}
-        />
+        <h1 className="text-xl md:text-2xl mb-2">{title}</h1>
+        <h2 className="text-sm mb-6 md:mb-8">{formattedDate}</h2>
+        {opener && <p className="mb-6 md:mb-8 whitespace-pre-line">{opener}</p>}
+        <PhotosAndWritings photos={photos} showText />
       </ContentPageWrapper>
     </div>
   );
