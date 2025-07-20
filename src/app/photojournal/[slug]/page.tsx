@@ -59,7 +59,7 @@ export async function generateMetadata({
         const cleanUrl = baseUrl.startsWith("//")
           ? `https:${baseUrl}`
           : baseUrl;
-        imageUrl = `${cleanUrl}?w=800&h=420&fit=thumb&fm=jpg&q=10`;
+        imageUrl = `${cleanUrl}?w=800&h=420&fit=thumb&fm=jpg&q=30`;
       }
     }
   }
