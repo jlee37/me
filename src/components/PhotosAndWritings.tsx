@@ -36,19 +36,17 @@ const PhotoAndDescription = ({
 
   return (
     <div className="mb-10 md:mb-16">
-      <div className="relative w-full max-w-[1200px] h-[230px] md:h-[600px]">
-        {/* Skeleton */}
+      <div className="relative w-full max-w-[1200px]">
         {!loaded && (
           <div className="absolute top-0 left-0 w-full h-full bg-gray-800 rounded-md animate-pulse z-0" />
         )}
 
-        {/* Image */}
         <Image
           src={optimizedUrl}
           alt={description || ""}
           width={1200}
           height={800}
-          className={`absolute top-0 left-0 w-full h-full object-contain rounded-md transition-opacity duration-500 ${
+          className={`w-full h-auto rounded-md transition-opacity duration-500 ${
             loaded ? "opacity-100 z-10" : "opacity-0 z-0"
           }`}
           loading={eagerLoad ? "eager" : "lazy"}
@@ -58,7 +56,6 @@ const PhotoAndDescription = ({
           lazyBoundary="1000px"
         />
       </div>
-
       {/* Description */}
       {description && showText && (
         <p className="mt-3 whitespace-pre-line text-sm md:text-base">
