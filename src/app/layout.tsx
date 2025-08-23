@@ -57,7 +57,7 @@ export default function RootLayout({
           <div className="flex flex-col md:hidden h-[100dvh] overflow-hidden">
             <HeaderWithSuspense />
             <main className="flex-1 overflow-y-auto">{children}</main>
-            <SidebarWithSuspense showFullscreen={true} />
+            <SidebarWithSuspense showFullscreen={true} />{" "}
             {/* Triggered by button in Header */}
           </div>
         </Providers>

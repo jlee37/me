@@ -50,7 +50,7 @@ export async function generateMetadata({
   if (previewPhoto?.fields?.file?.url) {
     const baseUrl = previewPhoto.fields.file.url as string;
     const cleanUrl = baseUrl.startsWith("//") ? `https:${baseUrl}` : baseUrl;
-    imageUrl = `${cleanUrl}?w=800&h=420&fit=thumb&fm=jpg&q=40`;
+    imageUrl = `${cleanUrl}?w=800&h=420&fit=thumb&fm=jpg&q=50`;
   } else {
     if (memory?.fields?.photos) {
       const photos = memory.fields.photos as Asset[];
@@ -59,7 +59,7 @@ export async function generateMetadata({
         const cleanUrl = baseUrl.startsWith("//")
           ? `https:${baseUrl}`
           : baseUrl;
-        imageUrl = `${cleanUrl}?w=800&h=420&fit=thumb&fm=jpg&q=40`;
+        imageUrl = `${cleanUrl}?w=800&h=420&fit=thumb&fm=jpg&q=50`;
       }
     }
   }
