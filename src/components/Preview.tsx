@@ -50,7 +50,7 @@ type PreviewProps = {
 export const Preview = (props: PreviewProps) => {
   return (
     <div className="relative pl-4 pr-4 w-full md:mt-12 md:pr-8">
-      <h1 className="text-2xl pt-2 mb-0 bg-black">{props.title}</h1>
+      <h1 className="text-2xl pt-2 mb-0">{props.title}</h1>
       {props.includeAtlasLink && (
         <div className="mt-6 mb-6">
           <Link
