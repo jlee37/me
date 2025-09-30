@@ -22,12 +22,6 @@ const Sidebar = ({
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  const { data: writings } = useWriting();
-
-  const { data: memories } = useMemories();
-
-  const { data: photoEssays } = usePhotoEssays();
-
   useEffect(() => {
     // Handle bfcache restoration
     const handlePageShow = (e: PageTransitionEvent) => {
@@ -78,7 +72,6 @@ const Sidebar = ({
       <SidebarSection
         title="writing"
         basePath="writing"
-        realItems={writings}
         onLinkClick={onClose}
         currentPathName={currentPathName}
         isMobile={isMobile}
@@ -87,7 +80,6 @@ const Sidebar = ({
       <SidebarSection
         title="photojournal"
         basePath="photojournal"
-        realItems={memories}
         onLinkClick={onClose}
         currentPathName={currentPathName}
         isMobile={isMobile}
@@ -96,7 +88,6 @@ const Sidebar = ({
       <SidebarSection
         title="menagerie"
         basePath="menagerie"
-        realItems={photoEssays}
         onLinkClick={onClose}
         currentPathName={currentPathName}
         isMobile={isMobile}
