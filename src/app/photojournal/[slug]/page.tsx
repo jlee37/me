@@ -48,7 +48,8 @@ export async function generateMetadata({
   let imageUrl = "";
   const baseUrl = previewPhoto!.fields!.file!.url as string;
   const cleanUrl = baseUrl.startsWith("//") ? `https:${baseUrl}` : baseUrl;
-  imageUrl = `${cleanUrl}?w=1200&h=630&fit=thumb&fm=jpg&q=80`;
+  // Use smaller image for faster mobile loading while maintaining social sharing compatibility
+  imageUrl = `${cleanUrl}?w=800&h=420&fit=thumb&fm=webp&q=70`;
   return {
     title: title,
     openGraph: {
