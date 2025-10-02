@@ -4,7 +4,6 @@ import client from "../../../../lib/contentful";
 import { IMemoryFields } from "../../../../types/contentful";
 import PhotosAndWritings from "@/components/PhotosAndWritings";
 import ContentPageWrapper from "@/components/ContentPageWrapper";
-import { Asset } from "contentful";
 import { HIDDEN_KEY } from "@/constants/hiddenKey";
 import Link from "@/components/Link";
 
