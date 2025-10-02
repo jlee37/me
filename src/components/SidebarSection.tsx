@@ -1,4 +1,3 @@
-import { Memory, PhotoEssay, Writing } from "../../types/contentful";
 import Link from "./Link";
 
 export type SidebarSectionProps = {

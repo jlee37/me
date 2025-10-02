@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemories, usePhotoEssays, useWriting } from "@/utils/hooks";
 import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { Dialog, Transition } from "@headlessui/react";
