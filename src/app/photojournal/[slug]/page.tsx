@@ -47,25 +47,13 @@ export async function generateMetadata({
 
   // Use preview photo if available, otherwise use first photo
   let imageUrl = "";
-  if (previewPhoto?.fields?.file?.url) {
-    const baseUrl = previewPhoto.fields.file.url as string;
-    const cleanUrl = baseUrl.startsWith("//") ? `https:${baseUrl}` : baseUrl;
-    imageUrl = `${cleanUrl}?w=800&h=420&fit=thumb&fm=jpg&q=40`;
-  } else {
-    if (memory?.fields?.photos) {
-      const photos = memory.fields.photos as Asset[];
-      if (photos.length > 0 && photos[0]?.fields?.file?.url) {
-        const baseUrl = photos[0].fields.file.url as string;
-        const cleanUrl = baseUrl.startsWith("//")
-          ? `https:${baseUrl}`
-          : baseUrl;
-        imageUrl = `${cleanUrl}?w=800&h=420&fit=thumb&fm=jpg&q=40`;
-      }
-    }
-  }
+  const baseUrl = previewPhoto!.fields!.file!.url as string;
+  const cleanUrl = baseUrl.startsWith("//") ? `https:${baseUrl}` : baseUrl;
+  imageUrl = `${cleanUrl}?w=1200&h=630&fit=thumb&fm=jpg&q=80`;
   return {
     title: title,
     openGraph: {
+      type: "article",
       title: title || "Photojournal Entry",
       url: `https://jonnylee.net/photojournal/${slug}`,
       images: [
