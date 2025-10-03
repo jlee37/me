@@ -119,7 +119,7 @@ export default async function PhotojournalPage(props: {
         {opener && showText && (
           <p className="mb-6 md:mb-8 whitespace-pre-line">{opener}</p>
         )}
-        <PhotosAndWritings photos={photos} showText={hasKey} />
+        <PhotosAndWritings photos={photos} showText={showText} />
       </ContentPageWrapper>
     </div>
   );
