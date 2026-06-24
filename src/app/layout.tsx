@@ -6,6 +6,9 @@ import SidebarWithSuspense from "@/components/SidebarWithSuspense";
 import Providers from "@/components/Providers";
 import GlobalAdminTrigger from "@/components/GlobalAdminTrigger";
 import { Analytics } from "@vercel/analytics/react";
+import { getIronSession } from "iron-session";
+import { cookies } from "next/headers";
+import { SessionData, sessionOptions } from "../../lib/session";
 // Yatra_One
 
 const quantico = Quantico({
@@ -32,11 +35,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getIronSession<SessionData>(
+    await cookies(),
+    sessionOptions
+  );
+  const isAdmin = session.isAdmin ?? false;
+
   return (
     <html lang="en">
       <body
@@ -47,7 +56,7 @@ export default function RootLayout({
           <div className="hidden md:flex h-[100dvh]">
             <div className="mr-16">
               <HeaderWithSuspense />
-              <SidebarWithSuspense />
+              <SidebarWithSuspense isAdmin={isAdmin} />
             </div>
             <main className="flex-1 overflow-y-auto h-[100dvh] w-full">
               {children}
@@ -58,7 +67,7 @@ export default function RootLayout({
           <div className="flex flex-col md:hidden h-[100dvh] overflow-hidden">
             <HeaderWithSuspense />
             <main className="flex-1 overflow-y-auto">{children}</main>
-            <SidebarWithSuspense showFullscreen={true} />
+            <SidebarWithSuspense showFullscreen={true} isAdmin={isAdmin} />
             {/* Triggered by button in Header */}
           </div>
         </Providers>

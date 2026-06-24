@@ -4,7 +4,7 @@ import Sidebar, { SidebarProps } from "./Sidebar";
 
 export default function SidebarWithSuspense(props: SidebarProps) {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <Sidebar {...props} />
     </Suspense>
   );

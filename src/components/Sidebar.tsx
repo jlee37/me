@@ -10,12 +10,14 @@ export type SidebarProps = {
   showFullscreen?: boolean;
   isOpen?: boolean;
   onClose?: () => void;
+  isAdmin?: boolean;
 };
 
 const Sidebar = ({
   showFullscreen = false,
   isOpen = false,
   onClose,
+  isAdmin = false,
 }: SidebarProps) => {
   const currentPathName = usePathname();
   const [mounted, setMounted] = useState(false);
@@ -100,6 +102,16 @@ const Sidebar = ({
         isMobile={isMobile}
         showFullscreen={showFullscreen}
       />
+      {isAdmin && (
+        <SidebarSection
+          title="admin"
+          basePath="admin"
+          onLinkClick={onClose}
+          currentPathName={currentPathName}
+          isMobile={isMobile}
+          showFullscreen={showFullscreen}
+        />
+      )}
     </div>
   );
 
