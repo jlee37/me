@@ -1,0 +1,14 @@
+---
+description: How to run lint, build, and dev in this project
+alwaysApply: true
+---
+
+# Dev Commands
+
+This is a Next.js project. Use these commands:
+
+- **Lint**: `npm run lint` (runs `next lint`)
+- **Build**: `npm run build`
+- **Dev server**: `npm run dev`
+
+Always run `npm run lint` after editing TypeScript/TSX files to catch type and lint errors.
