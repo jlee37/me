@@ -32,7 +32,7 @@ function PhotoBlockItem({
         {shouldLoad && (
           <Image
             src={content.url}
-            alt={content.alt || ""}
+            alt={content.caption || ""}
             width={content.width || 1200}
             height={content.height || 800}
             className={`w-full h-auto rounded-md transition-opacity duration-500 ${
@@ -46,9 +46,9 @@ function PhotoBlockItem({
           />
         )}
       </div>
-      {content.alt && showText && (
+      {content.caption && showText && (
         <p className="mt-3 whitespace-pre-line text-sm md:text-base">
-          {content.alt}
+          {content.caption}
         </p>
       )}
     </div>

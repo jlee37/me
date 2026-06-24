@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import db from "../../../../lib/db";

@@ -32,7 +32,7 @@ export const photojournalBlocks = pgTable("photojournal_blocks", {
   position: integer("position").notNull(),
   // 'photo' | 'text'
   type: text("type").notNull(),
-  // photo: { url: string, alt: string, width: number, height: number }
+  // photo: { url: string, caption: string, width: number, height: number }
   // text:  { html: string }
   content: jsonb("content").notNull(),
 });

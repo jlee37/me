@@ -97,9 +97,9 @@ function SortableBlock({
           <PhotoBlock
             block={block}
             uploading={uploading}
-            onChangeAlt={(alt) => {
+            onChangeCaption={(caption) => {
               const c = block.content as PhotoBlockContent;
-              onChangeContent({ ...c, alt });
+              onChangeContent({ ...c, caption });
             }}
           />
         ) : (
@@ -124,11 +124,11 @@ function SortableBlock({
 
 function PhotoBlock({
   block,
-  onChangeAlt,
+  onChangeCaption,
   uploading,
 }: {
   block: EditorBlock;
-  onChangeAlt: (alt: string) => void;
+  onChangeCaption: (caption: string) => void;
   uploading?: boolean;
 }) {
   const content = block.content as PhotoBlockContent;
@@ -145,7 +145,7 @@ function PhotoBlock({
       <div className="relative w-full max-h-[400px] flex items-center justify-center bg-gray-900">
         <Image
           src={content.url}
-          alt={content.alt || ""}
+          alt={content.caption || ""}
           width={content.width || 1200}
           height={content.height || 800}
           className="max-h-[400px] w-auto object-contain"
@@ -154,8 +154,8 @@ function PhotoBlock({
       </div>
       <input
         type="text"
-        value={content.alt || ""}
-        onChange={(e) => onChangeAlt(e.target.value)}
+        value={content.caption || ""}
+        onChange={(e) => onChangeCaption(e.target.value)}
         placeholder="Caption (optional)"
         className="w-full px-3 py-2 text-sm bg-background border-t border-gray-700 outline-none focus:border-indigo-400 transition-colors"
       />
@@ -279,7 +279,7 @@ export function BlockEditor({ blocks, onChange }: BlockEditorProps) {
       const placeholders: EditorBlock[] = files.map((f) => ({
         clientId: nextClientId(),
         type: "photo",
-        content: { url: URL.createObjectURL(f), alt: "", width: 0, height: 0 },
+        content: { url: URL.createObjectURL(f), caption: "", width: 0, height: 0 },
       }));
 
       const uploadingSet = new Set(placeholders.map((p) => p.clientId));
@@ -315,7 +315,7 @@ export function BlockEditor({ blocks, onChange }: BlockEditorProps) {
           ...b,
           content: {
             url: result.url,
-            alt: (b.content as PhotoBlockContent).alt || "",
+            caption: (b.content as PhotoBlockContent).caption || "",
             width: result.dims.w,
             height: result.dims.h,
           } as PhotoBlockContent,

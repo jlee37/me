@@ -2,9 +2,8 @@ import { notFound } from "next/navigation";
 import { eq, asc } from "drizzle-orm";
 import db from "../../../../../../lib/db";
 import { photojournalEntries, photojournalBlocks } from "../../../../../../lib/schema";
-import MemoryEntryForm, {
-  blocksToEditorBlocks,
-} from "@/components/MemoryEntryForm";
+import MemoryEntryForm from "@/components/MemoryEntryForm";
+import { blocksToEditorBlocks } from "@/utils/journalUtils";
 
 type EditPageProps = { params: Promise<{ slug: string }> };
 

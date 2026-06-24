@@ -12,7 +12,8 @@
     "prepare": "husky install",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "migrate:contentful": "ts-node --env-file=.env.local scripts/migrate-from-contentful.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
