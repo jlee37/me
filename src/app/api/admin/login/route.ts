@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
-import { createHash } from "crypto";
 import { SessionData, sessionOptions } from "../../../../../lib/session";
-
-function hashPassword(password: string) {
-  return createHash("sha256").update(password).digest("hex");
-}
+import { hashPassword } from "../../../../../lib/hashPassword";
 
 export async function POST(req: NextRequest) {
   const { password } = await req.json();

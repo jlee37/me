@@ -1,5 +1,4 @@
 import {
-  boolean,
   integer,
   jsonb,
   pgTable,
@@ -18,7 +17,6 @@ export const photojournalEntries = pgTable("photojournal_entries", {
   opener: text("opener"),
   locationLat: real("location_lat"),
   locationLon: real("location_lon"),
-  requireKeyForText: boolean("require_key_for_text").default(false),
   previewPhotoUrl: text("preview_photo_url"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
