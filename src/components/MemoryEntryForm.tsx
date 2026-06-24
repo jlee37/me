@@ -139,7 +139,7 @@ export default function MemoryEntryForm({
               value={state.slug}
               onChange={(e) => set("slug", e.target.value)}
               placeholder="url-slug"
-              className="border border-gray-700 rounded px-3 py-2 bg-background text-foreground outline-none focus:border-indigo-400 transition-colors font-mono text-sm"
+              className="w-full h-10 border border-gray-700 rounded px-3 bg-background text-foreground outline-none focus:border-indigo-400 transition-colors font-mono text-sm"
             />
           </div>
 
@@ -151,7 +151,7 @@ export default function MemoryEntryForm({
               type="date"
               value={state.date}
               onChange={(e) => set("date", e.target.value)}
-              className="w-full border border-gray-700 rounded px-3 py-2 bg-background text-foreground text-sm outline-none focus:border-indigo-400 transition-colors [color-scheme:dark]"
+              className="w-full h-10 border border-gray-700 rounded px-3 bg-background text-foreground text-sm outline-none focus:border-indigo-400 transition-colors [color-scheme:dark]"
             />
           </div>
         </div>
