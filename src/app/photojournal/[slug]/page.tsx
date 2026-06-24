@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { eq, asc } from "drizzle-orm";
+import { getIronSession } from "iron-session";
+import { cookies } from "next/headers";
 import db from "../../../../lib/db";
 import { photojournalEntries, photojournalBlocks } from "../../../../lib/schema";
 import { LocalMemory } from "../../../../types/journal";
+import { SessionData, sessionOptions } from "../../../../lib/session";
 import BlockRenderer from "@/components/BlockRenderer";
 import ContentPageWrapper from "@/components/ContentPageWrapper";
-import { HIDDEN_KEY } from "@/constants/hiddenKey";
 import Link from "@/components/Link";
 
 async function getEntry(slug: string): Promise<LocalMemory | null> {
@@ -26,7 +28,6 @@ async function getEntry(slug: string): Promise<LocalMemory | null> {
   return {
     ...entry,
     opener: entry.opener ?? null,
-    requireKeyForText: entry.requireKeyForText ?? false,
     previewPhotoUrl: entry.previewPhotoUrl ?? null,
     createdAt: entry.createdAt?.toISOString() ?? "",
     updatedAt: entry.updatedAt?.toISOString() ?? "",
@@ -74,15 +75,18 @@ export async function generateMetadata({
 
 export default async function PhotojournalPage(props: {
   params: PhotojournalProps;
-  searchParams: Promise<{ key: string }>;
 }) {
   const { slug } = await props.params;
-  const { key } = await props.searchParams;
+
+  const session = await getIronSession<SessionData>(
+    await cookies(),
+    sessionOptions
+  );
 
   const entry = await getEntry(slug);
   if (!entry) notFound();
 
-  const showText = !entry.requireKeyForText || key === HIDDEN_KEY;
+  const showText = session.isAdmin ?? false;
   const formattedDate = new Date(entry.date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",

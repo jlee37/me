@@ -27,7 +27,6 @@ export type LocalMemory = {
   opener: string | null;
   locationLat: number | null;
   locationLon: number | null;
-  requireKeyForText: boolean;
   previewPhotoUrl: string | null;
   createdAt: string;
   updatedAt: string;
@@ -51,7 +50,6 @@ export type EditorState = {
   opener: string;
   locationLat: string;
   locationLon: string;
-  requireKeyForText: boolean;
   previewPhotoUrl: string;
   blocks: EditorBlock[];
 };

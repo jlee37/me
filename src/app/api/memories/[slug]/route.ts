@@ -57,7 +57,6 @@ export async function PUT(req: NextRequest, ctx: RouteContext) {
     opener,
     locationLat,
     locationLon,
-    requireKeyForText,
     previewPhotoUrl,
     blocks,
   }: {
@@ -66,7 +65,6 @@ export async function PUT(req: NextRequest, ctx: RouteContext) {
     opener?: string | null;
     locationLat?: number | null;
     locationLon?: number | null;
-    requireKeyForText?: boolean;
     previewPhotoUrl?: string | null;
     blocks?: EditorBlock[];
   } = body;
@@ -79,7 +77,6 @@ export async function PUT(req: NextRequest, ctx: RouteContext) {
       ...(opener !== undefined && { opener }),
       ...(locationLat !== undefined && { locationLat }),
       ...(locationLon !== undefined && { locationLon }),
-      ...(requireKeyForText !== undefined && { requireKeyForText }),
       ...(previewPhotoUrl !== undefined && { previewPhotoUrl }),
       updatedAt: new Date(),
     })

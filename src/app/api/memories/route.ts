@@ -39,7 +39,6 @@ export async function POST(req: NextRequest) {
     opener,
     locationLat,
     locationLon,
-    requireKeyForText,
     previewPhotoUrl,
     blocks,
   }: {
@@ -49,7 +48,6 @@ export async function POST(req: NextRequest) {
     opener?: string;
     locationLat?: number | null;
     locationLon?: number | null;
-    requireKeyForText?: boolean;
     previewPhotoUrl?: string;
     blocks: EditorBlock[];
   } = body;
@@ -70,7 +68,6 @@ export async function POST(req: NextRequest) {
       opener: opener ?? null,
       locationLat: locationLat ?? null,
       locationLon: locationLon ?? null,
-      requireKeyForText: requireKeyForText ?? false,
       previewPhotoUrl: previewPhotoUrl ?? null,
     })
     .returning();

@@ -17,7 +17,6 @@ const defaultState: EditorState = {
   opener: "",
   locationLat: "",
   locationLon: "",
-  requireKeyForText: false,
   previewPhotoUrl: "",
   blocks: [],
 };
@@ -83,7 +82,6 @@ export default function MemoryEntryForm({
       opener: state.opener || null,
       locationLat: state.locationLat ? parseFloat(state.locationLat) : null,
       locationLon: state.locationLon ? parseFloat(state.locationLon) : null,
-      requireKeyForText: state.requireKeyForText,
       previewPhotoUrl: previewPhotoUrl || null,
       blocks: state.blocks.map((b) => ({
         type: b.type,
@@ -209,15 +207,6 @@ export default function MemoryEntryForm({
           />
         </div>
 
-        <label className="flex items-center gap-3 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={state.requireKeyForText}
-            onChange={(e) => set("requireKeyForText", e.target.checked)}
-            className="w-4 h-4 accent-indigo-400"
-          />
-          <span className="text-sm">Require key to show text (?key=xyz)</span>
-        </label>
       </div>
 
       {/* Block editor */}
