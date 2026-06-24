@@ -1,6 +1,7 @@
 "use client";
 
 import { Preview } from "@/components/Preview";
+import AdminPlusButton from "@/components/AdminPlusButton";
 import { useLocalMemories } from "@/utils/hooks";
 import { Suspense } from "react";
 
@@ -23,5 +24,12 @@ const PhotojournalPreviewPageContent = () => {
       directToUrl: `/photojournal/${memory.slug}`,
     }));
 
-  return <Preview title="Photojournal" items={items} includeAtlasLink />;
+  return (
+    <Preview
+      title="Photojournal"
+      items={items}
+      includeAtlasLink
+      actions={<AdminPlusButton redirectTo="/admin/photojournal/new" inline />}
+    />
+  );
 };

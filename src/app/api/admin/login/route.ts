@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
+import { createHash } from "crypto";
 import { SessionData, sessionOptions } from "../../../../../lib/session";
+
+export function hashPassword(password: string) {
+  return createHash("sha256").update(password).digest("hex");
+}
 
 export async function POST(req: NextRequest) {
   const { password } = await req.json();
@@ -17,7 +22,8 @@ export async function POST(req: NextRequest) {
   session.isAdmin = true;
   await session.save();
 
-  return NextResponse.json({ success: true });
+  const deviceToken = hashPassword(password);
+  return NextResponse.json({ success: true, deviceToken });
 }
 
 export async function DELETE() {

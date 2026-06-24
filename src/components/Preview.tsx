@@ -45,20 +45,24 @@ type PreviewProps = {
     directToUrl: string;
   }[];
   includeAtlasLink?: boolean;
+  actions?: React.ReactNode;
 };
 
 export const Preview = (props: PreviewProps) => {
   return (
     <div className="relative pl-4 pr-4 w-full md:mt-12 md:pr-8">
       <h1 className="text-2xl pt-2 mb-0">{props.title}</h1>
-      {props.includeAtlasLink && (
-        <div className="mt-6 mb-6">
-          <Link
-            className="p-2 border border-foreground rounded-md md:hover:border-indigo-400 transition-colors md:hover:text-indigo-400 active:border-indigo-400 active:text-indigo-400"
-            href="/map"
-          >
-            View atlas
-          </Link>
+      {(props.includeAtlasLink || props.actions) && (
+        <div className="mt-6 mb-6 flex items-center gap-3">
+          {props.includeAtlasLink && (
+            <Link
+              className="p-2 border border-foreground rounded-md md:hover:border-indigo-400 transition-colors md:hover:text-indigo-400 active:border-indigo-400 active:text-indigo-400"
+              href="/map"
+            >
+              View atlas
+            </Link>
+          )}
+          {props.actions}
         </div>
       )}
 
