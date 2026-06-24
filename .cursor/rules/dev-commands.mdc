@@ -7,8 +7,8 @@ alwaysApply: true
 
 This is a Next.js project. Use these commands:
 
-- **Lint**: `npm run lint` (runs `next lint`)
-- **Build**: `npm run build`
+- **Lint** (ESLint only): `npm run lint`
+- **Type check** (TypeScript errors): `npm run typecheck`
 - **Dev server**: `npm run dev`
 
-Always run `npm run lint` after editing TypeScript/TSX files to catch type and lint errors.
+`npm run lint` only catches ESLint issues — it does NOT catch TypeScript type errors. After edits, run `npx tsc --noEmit` to catch type errors and `npm run lint` for lint errors.
