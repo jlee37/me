@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import client from "../../lib/contentful";
 import { Memory, PhotoEssay, Writing } from "../../types/contentful";
+import { LocalMemorySummary } from "../../types/journal";
 
 async function fetchWriting() {
   const response = await client.getEntries({
@@ -55,6 +56,27 @@ export function useMemories() {
   const { data, error, isLoading } = useQuery({
     queryKey: ["memory"],
     queryFn: fetchMemory,
+  });
+
+  return {
+    data: data ?? [],
+    error: error ? String(error) : null,
+    loading: isLoading,
+  };
+}
+
+async function fetchLocalMemories(): Promise<LocalMemorySummary[]> {
+  const res = await fetch("/api/memories");
+  if (!res.ok) return [];
+  return res.json();
+}
+
+export function useLocalMemories() {
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["localMemories"],
+    queryFn: fetchLocalMemories,
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 
   return {
