@@ -5,13 +5,7 @@ import { useRouter } from "next/navigation";
 
 const DEVICE_TOKEN_KEY = "adminDeviceToken";
 
-export default function AdminPlusButton({
-  redirectTo,
-  inline = false,
-}: {
-  redirectTo: string;
-  inline?: boolean;
-}) {
+export default function GlobalAdminTrigger() {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState("");
@@ -29,19 +23,17 @@ export default function AdminPlusButton({
     });
 
     if (res.ok) return true;
-
-    // Token is invalid (password changed) — clear it
     localStorage.removeItem(DEVICE_TOKEN_KEY);
     return false;
   }
 
-  async function handlePlusClick() {
+  async function handleClick() {
     setLoading(true);
     const valid = await tryDeviceToken();
     setLoading(false);
 
     if (valid) {
-      router.push(redirectTo);
+      router.push("/admin");
     } else {
       setShowModal(true);
     }
@@ -62,37 +54,34 @@ export default function AdminPlusButton({
       const { deviceToken } = await res.json();
       localStorage.setItem(DEVICE_TOKEN_KEY, deviceToken);
       setShowModal(false);
-      router.push(redirectTo);
+      router.push("/admin");
     } else {
       setError("Incorrect password.");
       setLoading(false);
     }
   }
 
+  function closeModal() {
+    setShowModal(false);
+    setPassword("");
+    setError("");
+  }
+
   return (
     <>
+      {/* Invisible trigger: bottom-left corner, desktop only */}
       <button
-        onClick={handlePlusClick}
+        onClick={handleClick}
         disabled={loading}
-        aria-label="New entry"
-        className={
-          inline
-            ? "p-2 border border-foreground rounded-md md:hover:border-indigo-400 transition-colors md:hover:text-indigo-400 active:border-indigo-400 active:text-indigo-400 disabled:opacity-40"
-            : "fixed bottom-8 right-8 w-12 h-12 rounded-full border border-gray-600 bg-background text-2xl flex items-center justify-center hover:border-indigo-400 hover:text-indigo-400 transition-colors disabled:opacity-40 shadow-lg z-50"
-        }
-      >
-        {loading ? "…" : "Add entry"}
-      </button>
+        aria-label="Admin"
+        className="hidden md:block fixed bottom-0 left-0 w-8 h-8 opacity-0 z-50 cursor-default"
+      />
 
       {showModal && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
           onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setShowModal(false);
-              setPassword("");
-              setError("");
-            }
+            if (e.target === e.currentTarget) closeModal();
           }}
         >
           <form

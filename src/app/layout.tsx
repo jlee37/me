@@ -4,6 +4,7 @@ import "./globals.css";
 import HeaderWithSuspense from "@/components/HeaderWithSuspense";
 import SidebarWithSuspense from "@/components/SidebarWithSuspense";
 import Providers from "@/components/Providers";
+import GlobalAdminTrigger from "@/components/GlobalAdminTrigger";
 import { Analytics } from "@vercel/analytics/react";
 // Yatra_One
 
@@ -61,6 +62,7 @@ export default function RootLayout({
             {/* Triggered by button in Header */}
           </div>
         </Providers>
+        <GlobalAdminTrigger />
         <Analytics />
       </body>
     </html>

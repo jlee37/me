@@ -8,6 +8,8 @@ import { EditorState, PhotoBlockContent } from "../../types/journal";
 type MemoryEntryFormProps = {
   initialState?: Partial<EditorState>;
   slug?: string; // if set, we're editing an existing entry (PUT); if not, POST
+  apiBase?: string; // defaults to "/api/memories"
+  backUrl?: string; // defaults to "/admin/photojournal"
 };
 
 const defaultState: EditorState = {
@@ -33,6 +35,8 @@ function slugify(str: string) {
 export default function MemoryEntryForm({
   initialState,
   slug,
+  apiBase = "/api/memories",
+  backUrl = "/admin/photojournal",
 }: MemoryEntryFormProps) {
   const router = useRouter();
   const [state, setState] = useState<EditorState>({
@@ -89,7 +93,7 @@ export default function MemoryEntryForm({
       })),
     };
 
-    const url = isEditing ? `/api/memories/${slug}` : "/api/memories";
+    const url = isEditing ? `${apiBase}/${slug}` : apiBase;
     const method = isEditing ? "PUT" : "POST";
 
     const res = await fetch(url, {
@@ -99,7 +103,7 @@ export default function MemoryEntryForm({
     });
 
     if (res.ok) {
-      router.push("/admin/photojournal");
+      router.push(backUrl);
       router.refresh();
     } else {
       const data = await res.json().catch(() => ({}));
@@ -147,7 +151,7 @@ export default function MemoryEntryForm({
               type="date"
               value={state.date}
               onChange={(e) => set("date", e.target.value)}
-              className="border border-gray-700 rounded px-3 py-2 bg-background text-foreground outline-none focus:border-indigo-400 transition-colors"
+              className="w-full border border-gray-700 rounded px-3 py-2 bg-background text-foreground text-sm outline-none focus:border-indigo-400 transition-colors [color-scheme:dark]"
             />
           </div>
         </div>
@@ -231,7 +235,7 @@ export default function MemoryEntryForm({
           {saving ? "Saving..." : isEditing ? "Save changes" : "Publish"}
         </button>
         <button
-          onClick={() => router.push("/admin/photojournal")}
+          onClick={() => router.push(backUrl)}
           className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
         >
           Cancel

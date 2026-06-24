@@ -21,7 +21,7 @@ export default function AdminLoginPage() {
     });
 
     if (res.ok) {
-      router.push("/admin/photojournal");
+      router.push("/admin");
       router.refresh();
     } else {
       setError("Incorrect password.");
