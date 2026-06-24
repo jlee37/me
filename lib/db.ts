@@ -9,6 +9,7 @@ function createDb() {
   return drizzle(sql, { schema });
 }
 
+
 let _db: ReturnType<typeof createDb> | null = null;
 
 const db = new Proxy({} as ReturnType<typeof createDb>, {
