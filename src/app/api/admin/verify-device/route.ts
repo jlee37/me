@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { SessionData, sessionOptions } from "../../../../../lib/session";
-import { hashPassword } from "../login/route";
+import { hashPassword } from "../../../../../lib/hashPassword";
 
 export async function POST(req: NextRequest) {
   const { deviceToken } = await req.json();
