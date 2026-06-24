@@ -1,46 +1,39 @@
 import { notFound } from "next/navigation";
-import client from "../../../../lib/contentful";
-import { IPhotoEssayFields } from "../../../../types/contentful";
-import PhotosAndWritings from "@/components/PhotosAndWritings";
+import { eq, asc } from "drizzle-orm";
+import db from "../../../../lib/db";
+import { menagerieEntries, menagerieBlocks } from "../../../../lib/schema";
+import { MemoryBlock } from "../../../../types/journal";
+import BlockRenderer from "@/components/BlockRenderer";
 import ContentPageWrapper from "@/components/ContentPageWrapper";
 
-async function getPhotoEssay(slug: string) {
-  const res = await client.getEntries({
-    content_type: "photoEssay",
-    "fields.slug": slug,
-    include: 2,
-  });
+async function getEssay(slug: string) {
+  const [entry] = await db
+    .select()
+    .from(menagerieEntries)
+    .where(eq(menagerieEntries.slug, slug));
 
-  if (!res.items.length) {
-    return null;
-  }
+  if (!entry) return null;
 
-  return res.items[0];
+  const blocks = await db
+    .select()
+    .from(menagerieBlocks)
+    .where(eq(menagerieBlocks.entryId, entry.id))
+    .orderBy(asc(menagerieBlocks.position));
+
+  return { ...entry, blocks: blocks as unknown as MemoryBlock[] };
 }
 
-type PhotoEssayPageProps = Promise<{
-  slug: string;
-}>;
+type MenageriePageProps = Promise<{ slug: string }>;
 
-export default async function PhotoEssayPage(props: {
-  params: PhotoEssayPageProps;
+export default async function MenagerieEssayPage(props: {
+  params: MenageriePageProps;
 }) {
   const { slug } = await props.params;
+  const essay = await getEssay(slug);
 
-  const essay = await getPhotoEssay(slug);
+  if (!essay) notFound();
 
-  if (!essay || !essay.fields) {
-    notFound();
-  }
-
-  const fields = essay.fields as IPhotoEssayFields;
-  const { title, photos, date, opener } = fields;
-
-  if (!title || !photos || !date) {
-    return null;
-  }
-
-  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+  const formattedDate = new Date(essay.date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -49,10 +42,12 @@ export default async function PhotoEssayPage(props: {
   return (
     <div className="md:max-w-[1200px] h-full">
       <ContentPageWrapper>
-        <h1 className="text-xl md:text-2xl mb-2">{title}</h1>
+        <h1 className="text-xl md:text-2xl mb-2">{essay.title}</h1>
         <h2 className="text-sm mb-6 md:mb-8">{formattedDate}</h2>
-        {opener && <p className="mb-6 md:mb-8 whitespace-pre-line">{opener}</p>}
-        <PhotosAndWritings photos={photos} showText />
+        {essay.opener && (
+          <p className="mb-6 md:mb-8 whitespace-pre-line">{essay.opener}</p>
+        )}
+        <BlockRenderer blocks={essay.blocks} showText />
       </ContentPageWrapper>
     </div>
   );

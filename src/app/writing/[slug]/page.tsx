@@ -1,41 +1,28 @@
 import { notFound } from "next/navigation";
-import client from "../../../../lib/contentful";
-import { IWritingFields } from "../../../../types/contentful";
+import { eq } from "drizzle-orm";
+import db from "../../../../lib/db";
+import { writingEntries } from "../../../../lib/schema";
 import ContentPageWrapper from "@/components/ContentPageWrapper";
 
 async function getWriting(slug: string) {
-  const res = await client.getEntries({
-    content_type: "writing",
-    "fields.slug": slug,
-    include: 2,
-  });
-
-  if (!res.items.length) {
-    return null;
-  }
-
-  return res.items[0];
+  const [entry] = await db
+    .select()
+    .from(writingEntries)
+    .where(eq(writingEntries.slug, slug));
+  return entry ?? null;
 }
 
-type WritingPageProps = Promise<{
-  slug: string;
-}>;
+type WritingPageProps = Promise<{ slug: string }>;
 
 export default async function WritingPage(props: { params: WritingPageProps }) {
   const { slug } = await props.params;
-
   const writing = await getWriting(slug);
 
-  if (!writing || !writing.fields) {
-    notFound();
-  }
+  if (!writing) notFound();
 
-  const fields = writing.fields as IWritingFields;
-  const { title, heroUrl, content, date } = fields;
+  const { title, heroUrl, content, date } = writing;
 
-  if (!title || !heroUrl || !content || !date) {
-    return null;
-  }
+  if (!title || !content || !date) return null;
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -45,11 +32,13 @@ export default async function WritingPage(props: { params: WritingPageProps }) {
   return (
     <div className="md:max-w-[1200px] h-full">
       <ContentPageWrapper>
-        <img
-          src={heroUrl}
-          alt={title}
-          className="w-full h-[40%] object-cover rounded-md"
-        />
+        {heroUrl && (
+          <img
+            src={heroUrl}
+            alt={title}
+            className="w-full h-[40%] object-cover rounded-md"
+          />
+        )}
         <h1 className="text-xl md:text-2xl mt-12">{title}</h1>
         <p className="text-sm mb-6">{formattedDate}</p>
         <div>

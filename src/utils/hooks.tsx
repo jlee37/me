@@ -2,21 +2,21 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import client from "../../lib/contentful";
-import { PhotoEssay, Writing } from "../../types/contentful";
 import { LocalMemorySummary } from "../../types/journal";
+import { WritingEntryRow, MenagerieEntryRow } from "../../lib/schema";
 
-async function fetchWriting() {
-  const response = await client.getEntries({
-    content_type: "writing",
-  });
-  return response.items as Writing[];
+async function fetchWriting(): Promise<WritingEntryRow[]> {
+  const res = await fetch("/api/writing");
+  if (!res.ok) return [];
+  return res.json();
 }
 
 export function useWriting() {
   const { data, error, isLoading } = useQuery({
     queryKey: ["writing"],
     queryFn: fetchWriting,
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
   return {
     data: data ?? [],
@@ -25,17 +25,18 @@ export function useWriting() {
   };
 }
 
-async function fetchPhotoEssays() {
-  const response = await client.getEntries({
-    content_type: "photoEssay",
-  });
-  return response.items as PhotoEssay[];
+async function fetchMenagerie(): Promise<MenagerieEntryRow[]> {
+  const res = await fetch("/api/menagerie");
+  if (!res.ok) return [];
+  return res.json();
 }
 
-export function usePhotoEssays() {
+export function useMenagerie() {
   const { data, error, isLoading } = useQuery({
-    queryKey: ["photoEssays"],
-    queryFn: fetchPhotoEssays,
+    queryKey: ["menagerie"],
+    queryFn: fetchMenagerie,
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 
   return {
