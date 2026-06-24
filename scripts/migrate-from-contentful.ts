@@ -16,12 +16,12 @@ import * as dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
 import { createClient } from "contentful";
-import { put } from "@vercel/blob";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { eq } from "drizzle-orm";
 import { Asset } from "contentful";
 import * as schema from "../lib/schema";
+import { uploadToCloudinary } from "../lib/cloudinary";
 
 // ── Clients ──────────────────────────────────────────────────────────────────
 
@@ -43,7 +43,7 @@ function prefixUrl(url: string): string {
 async function downloadAndUpload(
   contentfulUrl: string,
   filename: string
-): Promise<string> {
+): Promise<{ url: string; width: number; height: number }> {
   const url = prefixUrl(contentfulUrl);
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
@@ -51,24 +51,7 @@ async function downloadAndUpload(
   const arrayBuffer = await res.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
-  // Detect content type from the URL extension
-  const ext = url.split("?")[0].split(".").pop()?.toLowerCase() ?? "jpg";
-  const contentTypeMap: Record<string, string> = {
-    jpg: "image/jpeg",
-    jpeg: "image/jpeg",
-    png: "image/png",
-    webp: "image/webp",
-    gif: "image/gif",
-    avif: "image/avif",
-  };
-  const contentType = contentTypeMap[ext] ?? "image/jpeg";
-
-  const blob = await put(`photojournal/${filename}`, buffer, {
-    access: "public",
-    contentType,
-  });
-
-  return blob.url;
+  return uploadToCloudinary(buffer, filename);
 }
 
 function getDimensions(asset: Asset): { width: number; height: number } {
@@ -152,7 +135,8 @@ async function main() {
           `${slug}-preview-${Date.now()}.${previewUrl.split("?")[0].split(".").pop() ?? "jpg"}`
         );
         console.log(`    Uploading preview photo...`);
-        previewPhotoUrl = await downloadAndUpload(previewUrl, previewFilename);
+        const { url } = await downloadAndUpload(previewUrl, previewFilename);
+        previewPhotoUrl = url;
       }
 
       // 2. Insert entry row
@@ -186,8 +170,9 @@ async function main() {
           `${slug}-${String(i + 1).padStart(3, "0")}-${Date.now()}.${ext}`
         );
 
-        const blobUrl = await downloadAndUpload(rawUrl, filename);
-        const dims = getDimensions(asset);
+        const { url: uploadedUrl, width, height } = await downloadAndUpload(rawUrl, filename);
+        // Use Cloudinary dimensions if available, fall back to Contentful metadata
+        const contentfulDims = getDimensions(asset);
         const caption = (asset.fields.description as string | undefined) ?? "";
 
         blockValues.push({
@@ -195,10 +180,10 @@ async function main() {
           position: i,
           type: "photo" as const,
           content: {
-            url: blobUrl,
+            url: uploadedUrl,
             caption,
-            width: dims.width,
-            height: dims.height,
+            width: width || contentfulDims.width,
+            height: height || contentfulDims.height,
           },
         });
 

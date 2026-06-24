@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { BlockEditor } from "./BlockEditor";
 import { EditorState, PhotoBlockContent } from "../../types/journal";
-import { makeClientId } from "../utils/journalUtils";
 
 type MemoryEntryFormProps = {
   initialState?: Partial<EditorState>;

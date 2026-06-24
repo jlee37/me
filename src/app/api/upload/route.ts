@@ -1,8 +1,8 @@
-import { put } from "@vercel/blob";
 import { NextRequest, NextResponse } from "next/server";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { SessionData, sessionOptions } from "../../../../lib/session";
+import { uploadToCloudinary } from "../../../../lib/cloudinary";
 
 export async function POST(req: NextRequest) {
   const session = await getIronSession<SessionData>(
@@ -20,9 +20,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
   }
 
-  const blob = await put(`photojournal/${Date.now()}-${file.name}`, file, {
-    access: "public",
-  });
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  const filename = `${Date.now()}-${file.name}`;
 
-  return NextResponse.json({ url: blob.url });
+  const { url, width, height } = await uploadToCloudinary(buffer, filename);
+
+  return NextResponse.json({ url, width, height });
 }

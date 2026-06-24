@@ -295,16 +295,9 @@ export function BlockEditor({ blocks, onChange }: BlockEditorProps) {
           const fd = new FormData();
           fd.append("file", file);
           const res = await fetch("/api/upload", { method: "POST", body: fd });
-          const { url } = await res.json();
+          const { url, width, height } = await res.json();
 
-          // Get image dimensions
-          const dims = await new Promise<{ w: number; h: number }>((resolve) => {
-            const img = new window.Image();
-            img.onload = () => resolve({ w: img.naturalWidth, h: img.naturalHeight });
-            img.src = URL.createObjectURL(file);
-          });
-
-          return { id: placeholders[i].clientId, url, dims };
+          return { id: placeholders[i].clientId, url, dims: { w: width, h: height } };
         })
       );
 

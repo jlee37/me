@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import client from "../../lib/contentful";
-import { Memory, PhotoEssay, Writing } from "../../types/contentful";
+import { PhotoEssay, Writing } from "../../types/contentful";
 import { LocalMemorySummary } from "../../types/journal";
 
 async function fetchWriting() {
@@ -45,25 +45,6 @@ export function usePhotoEssays() {
   };
 }
 
-async function fetchMemory() {
-  const response = await client.getEntries({
-    content_type: "memory",
-  });
-  return response.items as Memory[];
-}
-
-export function useMemories() {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["memory"],
-    queryFn: fetchMemory,
-  });
-
-  return {
-    data: data ?? [],
-    error: error ? String(error) : null,
-    loading: isLoading,
-  };
-}
 
 async function fetchLocalMemories(): Promise<LocalMemorySummary[]> {
   const res = await fetch("/api/memories");
