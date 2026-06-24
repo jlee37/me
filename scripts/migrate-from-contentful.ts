@@ -99,10 +99,9 @@ async function main() {
       location?: { lat: number; lon: number };
       photos?: Asset[];
       previewPhoto?: Asset;
-      requireKeyForText?: boolean;
     };
 
-    const { title, slug, date, opener, location, photos, previewPhoto, requireKeyForText } =
+    const { title, slug, date, opener, location, photos, previewPhoto } =
       fields;
 
     if (!slug || !title || !date) {
@@ -149,7 +148,6 @@ async function main() {
           opener: opener ?? null,
           locationLat: location?.lat ?? null,
           locationLon: location?.lon ?? null,
-          requireKeyForText: requireKeyForText ?? false,
           previewPhotoUrl,
         })
         .returning();
