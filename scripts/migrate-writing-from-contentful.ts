@@ -20,7 +20,6 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { eq } from "drizzle-orm";
 import * as schema from "../lib/schema";
-import { uploadToCloudinary } from "../lib/cloudinary";
 
 const contentful = createClient({
   space: process.env.CONTENTFUL_SPACE_ID!,
@@ -31,34 +30,6 @@ const contentful = createClient({
 const sql = neon(process.env.DATABASE_URL!);
 const db = drizzle(sql, { schema });
 
-function prefixUrl(url: string): string {
-  return url.startsWith("//") ? `https:${url}` : url;
-}
-
-function sanitizeFilename(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9.]+/g, "-")
-    .replace(/-+/g, "-")
-    .slice(0, 80);
-}
-
-async function downloadAndUploadHero(
-  contentfulUrl: string,
-  slug: string
-): Promise<string> {
-  const url = prefixUrl(contentfulUrl);
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
-
-  const arrayBuffer = await res.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-  const ext = url.split("?")[0].split(".").pop() ?? "jpg";
-  const filename = sanitizeFilename(`writing-${slug}-hero-${Date.now()}.${ext}`);
-
-  const { url: uploadedUrl } = await uploadToCloudinary(buffer, filename);
-  return uploadedUrl;
-}
 
 async function main() {
   console.log("Fetching all writing entries from Contentful...");
@@ -107,17 +78,12 @@ async function main() {
     console.log(`  Migrating "${title}" (${slug})...`);
 
     try {
-      let uploadedHeroUrl: string | null = null;
-      if (heroUrl) {
-        console.log(`    Uploading hero image...`);
-        uploadedHeroUrl = await downloadAndUploadHero(heroUrl, slug);
-      }
-
+      // heroUrl is a plain text field (typically a Giphy URL) — store as-is, no Cloudinary upload
       await db.insert(schema.writingEntries).values({
         title,
         slug,
         date,
-        heroUrl: uploadedHeroUrl,
+        heroUrl: heroUrl ?? null,
         content,
       });
 
