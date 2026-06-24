@@ -32,7 +32,6 @@ export default async function EditMemoryPage({ params }: EditPageProps) {
     opener: entry.opener ?? "",
     locationLat: entry.locationLat?.toString() ?? "",
     locationLon: entry.locationLon?.toString() ?? "",
-    requireKeyForText: entry.requireKeyForText ?? false,
     previewPhotoUrl: entry.previewPhotoUrl ?? "",
     blocks: blocksToEditorBlocks(blocks),
   };

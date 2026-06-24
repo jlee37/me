@@ -58,8 +58,6 @@ export interface IMemoryFields {
   photos?: Asset[] | undefined;
 
   previewPhoto?: Asset
-
-  requireKeyForText?: boolean
 }
 
 export type Memory = {
