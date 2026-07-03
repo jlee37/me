@@ -13,11 +13,11 @@ export default function WritingPage() {
 }
 
 const WritingPageContent = () => {
-  const { data: writings } = useWriting();
+  const { data: writings, loading } = useWriting();
   const items = writings.map((writing) => ({
     imageUrl: writing.heroUrl || "/placeholder.png",
     title: writing.title,
     directToUrl: `/writing/${writing.slug}`,
   }));
-  return <Preview title="Writing" items={items} />;
+  return <Preview title="Writing" items={items} loading={loading} />;
 };

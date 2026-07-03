@@ -198,18 +198,6 @@ export default function MemoryEntryForm({
           </div>
         </div>
 
-        <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-400 uppercase tracking-wide">
-            Preview photo URL
-          </label>
-          <input
-            type="text"
-            value={state.previewPhotoUrl}
-            onChange={(e) => set("previewPhotoUrl", e.target.value)}
-            placeholder="Leave blank to auto-use first photo"
-            className="border border-gray-700 rounded px-3 py-2 bg-background text-foreground outline-none focus:border-indigo-400 transition-colors text-sm"
-          />
-        </div>
 
       </div>
 
@@ -221,6 +209,8 @@ export default function MemoryEntryForm({
         <BlockEditor
           blocks={state.blocks}
           onChange={(blocks) => set("blocks", blocks)}
+          coverUrl={state.previewPhotoUrl}
+          onSetCover={(url) => set("previewPhotoUrl", url)}
         />
       </div>
 

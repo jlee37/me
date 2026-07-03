@@ -13,7 +13,7 @@ export default function PhotojournalPreviewPage() {
 }
 
 const PhotojournalPreviewPageContent = () => {
-  const { data: memories } = useLocalMemories();
+  const { data: memories, loading } = useLocalMemories();
 
   const items = [...memories]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -23,5 +23,5 @@ const PhotojournalPreviewPageContent = () => {
       directToUrl: `/photojournal/${memory.slug}`,
     }));
 
-  return <Preview title="Photojournal" items={items} includeAtlasLink />;
+  return <Preview title="Photojournal" items={items} includeAtlasLink loading={loading} />;
 };

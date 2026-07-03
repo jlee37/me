@@ -13,11 +13,11 @@ export default function MenageriePage() {
 }
 
 const MenageriePageContent = () => {
-  const { data: essays } = useMenagerie();
+  const { data: essays, loading } = useMenagerie();
   const items = essays.map((essay) => ({
     imageUrl: essay.previewPhotoUrl || "/placeholder.png",
     title: essay.title,
     directToUrl: `/menagerie/${essay.slug}`,
   }));
-  return <Preview title="Menagerie" items={items} />;
+  return <Preview title="Menagerie" items={items} loading={loading} />;
 };

@@ -37,6 +37,15 @@ function PreviewBox(props: PreviewBoxProps) {
   );
 }
 
+function SkeletonBox() {
+  return (
+    <div className="w-full border border-gray-800 rounded-lg p-2 flex flex-col items-center">
+      <div className="w-full h-40 mb-2 rounded-md bg-gray-800 animate-pulse" />
+      <div className="h-4 w-3/4 rounded bg-gray-800 animate-pulse mt-1 mb-2" />
+    </div>
+  );
+}
+
 type PreviewProps = {
   title: string;
   items: {
@@ -46,6 +55,7 @@ type PreviewProps = {
   }[];
   includeAtlasLink?: boolean;
   actions?: React.ReactNode;
+  loading?: boolean;
 };
 
 export const Preview = (props: PreviewProps) => {
@@ -67,14 +77,16 @@ export const Preview = (props: PreviewProps) => {
       )}
 
       <div className="grid md:grid-cols-4 grid-cols-1 overflow-auto gap-6 mt-4 pb-[200px] md:gap-3">
-        {props.items.map((item, i) => (
-          <PreviewBox
-            imageUrl={item.imageUrl}
-            title={item.title}
-            directToUrl={item.directToUrl}
-            key={i}
-          />
-        ))}
+        {props.loading
+          ? Array.from({ length: 8 }).map((_, i) => <SkeletonBox key={i} />)
+          : props.items.map((item, i) => (
+              <PreviewBox
+                imageUrl={item.imageUrl}
+                title={item.title}
+                directToUrl={item.directToUrl}
+                key={i}
+              />
+            ))}
       </div>
     </div>
   );

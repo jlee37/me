@@ -26,7 +26,7 @@ import {
   PhotoBlockContent,
   TextBlockContent,
 } from "../../types/journal";
-import { GripVertical, Trash2, ImagePlus, Type } from "lucide-react";
+import { GripVertical, Trash2, ImagePlus, Type, Star } from "lucide-react";
 
 // ─── Tiptap text block ────────────────────────────────────────────────────────
 
@@ -65,11 +65,15 @@ function SortableBlock({
   block,
   onDelete,
   onChangeContent,
+  onSetCover,
+  isCover,
   uploading,
 }: {
   block: EditorBlock;
   onDelete: () => void;
   onChangeContent: (content: EditorBlock["content"]) => void;
+  onSetCover?: () => void;
+  isCover?: boolean;
   uploading?: boolean;
 }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -110,14 +114,26 @@ function SortableBlock({
         )}
       </div>
 
-      {/* Delete */}
-      <button
-        onClick={onDelete}
-        className="flex-shrink-0 mt-1 text-gray-600 hover:text-red-400 transition-colors"
-        aria-label="Delete block"
-      >
-        <Trash2 size={16} />
-      </button>
+      {/* Actions */}
+      <div className="flex-shrink-0 mt-1 flex flex-col gap-1.5">
+        {block.type === "photo" && onSetCover && !uploading && (
+          <button
+            onClick={onSetCover}
+            className={`transition-colors ${isCover ? "text-amber-400" : "text-gray-600 hover:text-amber-400"}`}
+            aria-label={isCover ? "Cover photo" : "Set as cover photo"}
+            title={isCover ? "Cover photo" : "Set as cover photo"}
+          >
+            <Star size={16} fill={isCover ? "currentColor" : "none"} />
+          </button>
+        )}
+        <button
+          onClick={onDelete}
+          className="text-gray-600 hover:text-red-400 transition-colors"
+          aria-label="Delete block"
+        >
+          <Trash2 size={16} />
+        </button>
+      </div>
     </div>
   );
 }
@@ -215,6 +231,8 @@ function AddBlockRow({
 export type BlockEditorProps = {
   blocks: EditorBlock[];
   onChange: (blocks: EditorBlock[]) => void;
+  coverUrl?: string;
+  onSetCover?: (url: string) => void;
 };
 
 let clientIdCounter = 0;
@@ -222,7 +240,7 @@ function nextClientId() {
   return `block-${++clientIdCounter}-${Math.random().toString(36).slice(2)}`;
 }
 
-export function BlockEditor({ blocks, onChange }: BlockEditorProps) {
+export function BlockEditor({ blocks, onChange, coverUrl, onSetCover }: BlockEditorProps) {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -374,6 +392,19 @@ export function BlockEditor({ blocks, onChange }: BlockEditorProps) {
                 onDelete={() => deleteBlock(block.clientId)}
                 onChangeContent={(content) =>
                   updateBlockContent(block.clientId, content)
+                }
+                onSetCover={
+                  onSetCover
+                    ? () =>
+                        onSetCover(
+                          (block.content as PhotoBlockContent).url
+                        )
+                    : undefined
+                }
+                isCover={
+                  block.type === "photo" &&
+                  !!(block.content as PhotoBlockContent).url &&
+                  (block.content as PhotoBlockContent).url === coverUrl
                 }
               />
               <AddBlockRow
