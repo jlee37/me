@@ -100,14 +100,24 @@ export default async function PhotojournalPage(props: {
         <div className="mb-6 md:mb-8">
           <h1 className="text-xl md:text-2xl mb-2">{entry.title}</h1>
           <h2 className="text-sm">{formattedDate}</h2>
-          {showAtlasLink && (
-            <Link
-              className="text-sm underline"
-              href={`/map?lat=${entry.locationLat}&lng=${entry.locationLon}&zoom=10`}
-            >
-              View in Atlas
-            </Link>
-          )}
+          <div className="flex items-center gap-4 mt-1">
+            {showAtlasLink && (
+              <Link
+                className="text-sm underline"
+                href={`/map?lat=${entry.locationLat}&lng=${entry.locationLon}&zoom=10`}
+              >
+                View in Atlas
+              </Link>
+            )}
+            {showText && (
+              <Link
+                className="text-sm underline"
+                href={`/admin/photojournal/${slug}`}
+              >
+                Edit
+              </Link>
+            )}
+          </div>
         </div>
         {entry.opener && showText && (
           <p className="mb-6 md:mb-8 whitespace-pre-line">{entry.opener}</p>
